@@ -18,17 +18,15 @@ reserved     "int"|"boolean"|"void"|"if"|"else"|"while"|"return"|"break"|"true"|
 operator     "+"|"-"|"*"|"/"|"%"|"<"|">"|"<="|">="|"="|"=="|"!="|"!"|"||"|"&&"
 special      ";"|","|"."|"("|")"|"{"|"}"|"["|"]"
 
-comment      "//"([^("\r"|\n"|EOF)]*)?
+comment      "//"([^("\r"|\n")]*)?
 
 %x  STRING
 %%
 
-[ \t\r\b\f\']+ ;
+[ \t\r\b\f]+ ;
 \n line++;
 
-<<EOF>>      {exit(1);}
-
-{comment}    ;
+{comment}    {printf("Debug comment %s found at line %d\n", yytext, line);}
 
 {reserved}   {printf("Reserved %s found at line %d\n", yytext, line);}
 {operator}   {printf("Operator %s found at line %d\n", yytext, line);}
@@ -39,21 +37,27 @@ comment      "//"([^("\r"|\n"|EOF)]*)?
 
 
 \"  {yymore(); BEGIN STRING;}
+<STRING>\\\" {yymore();}
+<STRING>\\\n {yymore();}
+<STRING>\0 {;}
 <STRING>\" {BEGIN 0; return STRING;}
+<STRING><<EOF>> {printf("Error, EOF line in string\n"); exit(1);}
+<STRING>\n {line++; printf("Error, new line in string\n"); exit(1);}
 <STRING>. {yymore();}
-<STRING>\n {printf("Error, new line in string\n");}
+
+<<EOF>>    {printf("Debug EOF found at line %d\n", line); exit(1);}
 
 .            {printf("Bad Char %s at line %d\n", yytext, line);}
 
 %%
 
-int main() {
-    yyin = fopen("TestFiles/comment-term-eof.t11", "r");
+int main(int argc, char *argv[]) {
+    yyin = fopen(argv[1], "r");
 
     int t;
     while((t=yylex()) != 0)
     {
-        printf("Found %s at line %d\n", yytext, line);
+        printf("%s %d\n", yytext, line);
     }
     return 0;
 }
