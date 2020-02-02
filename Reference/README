@@ -1,0 +1,12 @@
+To run the J-- reference compiler:
+
+% cd reference
+% ./main -h				(for options)
+
+% ./main -ptokenize testfile		(for scanner output)
+
+The scanner output is a list of tokens.  Each token is a triple
+(token type as string, line number as integer, token lexeme as string).
+Note that the EOF is implicit in the list ending, so there's no
+explicit EOF token being produced here.
+

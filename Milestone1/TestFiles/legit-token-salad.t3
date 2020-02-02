@@ -1,0 +1,59 @@
+// singletons
+
++
+-
+*
+/
+%
+(
+)
+{
+}
+;
+,
+
+// may be pairs
+
+! !=
+= ==
+< <=
+> >=
+
+> = // should be recognised separately
+
+// must be pairs
+
+&&
+||
+
+// reserved words
+
+true
+false
+boolean
+int
+void
+if
+else
+while
+break
+return
+
+// identifiers
+
+for
+String
+Break
+switch
+class
+abcdef
+abc123
+_
+_abc_0
+
+// numbers
+
+0
+12345678901234567890
+
+0123 // not octal in j--

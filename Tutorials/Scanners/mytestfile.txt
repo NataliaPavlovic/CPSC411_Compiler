@@ -1,0 +1,71 @@
+true
+
+false
+
+*
+
+int hi = 8
+
+"hello"
+
+"hi"
+
+// Commentjaksjgkfg /// rkjgfdk
+
+_kfjgk_fg
+
+"\b"
+"\f"
+"\t"
+"\r"
+"\n"
+"\'"
+
+"\""
+"\\" 
+
+public class outer {
+        //
+        //  Run-time library routines.
+        //
+        void prints(String s) {
+                System.out.print(s);
+        }
+
+        class howdy {
+                //
+                //  The J-- program.
+                //
+                howdy() {
+                        prints("Hello, world!\n");
+                }
+        }
+
+        outer() { new howdy(); }
+
+        public static void main(String[] args) {
+                new outer();
+        }
+}
+
+main() {
+        int i;
+        i = 0;
+
+        //  Anything larger than 47 overflows an int..
+        //
+        while (i <= 47) {
+                prints("fib(");
+                printi(i);
+                prints(") = ");
+                printi(fib(i));
+                prints("\n");
+                i = i + 1;
+        }
+}
+
+int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return fib(n-1) + fib(n-2);
+}
