@@ -18,7 +18,7 @@ reserved     "int"|"boolean"|"void"|"if"|"else"|"while"|"return"|"break"|"true"|
 operator     "+"|"-"|"*"|"/"|"%"|"<"|">"|"<="|">="|"="|"=="|"!="|"!"|"||"|"&&"
 special      ";"|","|"."|"("|")"|"{"|"}"|"["|"]"
 
-comment      "//"([^("\r"|\n")]*)?
+comment      "//"([^("\r"|"\n")]*)?
 
 %x  STRING
 %%
@@ -39,11 +39,10 @@ comment      "//"([^("\r"|\n")]*)?
 \"  {yymore(); BEGIN STRING;}
 <STRING>\\\" {yymore();}
 <STRING>\\\n {yymore();}
-<STRING>\0 {;}
 <STRING>\" {BEGIN 0; return STRING;}
 <STRING><<EOF>> {printf("Error, EOF line in string\n"); exit(1);}
 <STRING>\n {line++; printf("Error, new line in string\n"); exit(1);}
-<STRING>. {yymore();}
+<STRING>.^(NULL) {yymore();}
 
 <<EOF>>    {printf("Debug EOF found at line %d\n", line); exit(1);}
 
