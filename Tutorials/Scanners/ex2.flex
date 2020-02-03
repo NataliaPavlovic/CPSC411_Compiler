@@ -1,8 +1,6 @@
 %{
 #include <stdio.h>
 int line = 1;	
-int string_index = 0;
-int flag = 0;
 %}
 
 %x	STRING
@@ -14,11 +12,10 @@ int flag = 0;
 "//".*		ECHO;
 "//".*\n	ECHO;
 
-\"	{BEGIN STRING;}
-<STRING>\" {yytext[string_index] = '\0'; BEGIN 0; string_index=0; return STRING;}
-<STRING>e {}
+\"	{yymore(); BEGIN STRING;}
+<STRING>\" {BEGIN 0; return STRING;}
 <STRING>\n {printf("Error, new line in string\n");}
-<STRING>. {yymore(); string_index++;}
+<STRING>. {yymore();}
 
 .	{printf("Bad Char\n");}
 
