@@ -9,7 +9,7 @@ int token = 0;
 int warnings = 0;
 
 enum types{
-    integer = 1,
+    number = 1,
     id = 2,
     string = 3,
     reserved = 4,
@@ -19,18 +19,15 @@ enum types{
 %}
 
 letter       [a-zA-Z_]
-nonzerodigit [1-9]
-zero         [0]
-digit        {nonzerodigit}|{zero}
+digit        [0-9]
 
 id           ({letter})({letter}|{digit})*
 
-decinteger   {digit}("_"?{digit})*
-integer      ({decinteger}|{zero})
+number       ({digit})*
 
 reserved     "int"|"boolean"|"void"|"if"|"else"|"while"|"return"|"break"|"true"|"false"
 operator     "+"|"-"|"*"|"/"|"%"|"<"|">"|"<="|">="|"="|"=="|"!="|"!"|"||"|"&&"
-special      ";"|","|"."|"("|")"|"{"|"}"|"["|"]"
+special      ";"|","|"("|")"|"{"|"}"
 
 comment      "//"([^("\r"|"\n")]*)?
 
@@ -38,26 +35,26 @@ comment      "//"([^("\r"|"\n")]*)?
 %x  NULL_CHARACTER
 %%
 
-[ \t\r\b\f]+        ;
+[ \t\r\b\f\']+      ;
 \n                  line++; warnings = 0;
 
-{comment}           {;}
+{comment}           {printf("Comment %s found at line %d\n", yytext, line);}
 
 {reserved}          {token=reserved; return yytext[0];}
 {operator}          {token=operator; return yytext[0];}
 {special}           {token=special; return yytext[0];}
 
-{integer}           {token=integer; return yytext[0];}
+{number}            {token=number; return yytext[0];}
 {id}                {token=id; return yytext[0];}
 
-\"  {BEGIN STRING;}
-<STRING>\\(\"|\n)   {string_index+=2; yymore();}
+\"                  {BEGIN STRING;}
+<STRING>\\(\"|\\)   {string_index+=2; yymore();}
 <STRING>\"          {yytext[string_index]='\0'; BEGIN 0; token = string; return STRING;}
 <STRING><<EOF>>     {printf("error: string missing closing quote at or near line %d\n", line); exit(1);}
 <STRING>\n          {printf("error: string missing closing quote at or near line %d\n", line); exit(1);}
 <STRING>.           {string_index++; yymore();}
 
-<<EOF>>             {exit(1);}
+<<EOF>>             {printf("EOF found at line %d\n", line); exit(1);}
 
 .                   {
                         warnings++; 
@@ -81,9 +78,9 @@ int main(int argc, char *argv[]) {
     while((t=yylex()) != 0)
     {
         switch(token){
-            case integer:
+            case number:
             {
-                printf("Token(integer, %d, %s)\n", line, yytext);
+                printf("Token(number, %d, %s)\n", line, yytext);
                 token = 0;
                 break;
             }
@@ -113,17 +110,9 @@ int main(int argc, char *argv[]) {
                 break;
             }
             case reserved:
-            {
-                printf("Token(%s, %d, None)\n", yytext, line);
-                token = 0;
-                break;          
-            }
+                // Fallthrough
             case operator:
-            {
-                printf("Token(%s, %d, None)\n", yytext, line);
-                token = 0;
-                break;          
-            }
+                // Fallthrough
             case special:
             {
                 printf("Token(%s, %d, None)\n", yytext, line);
@@ -131,7 +120,8 @@ int main(int argc, char *argv[]) {
                 break;          
             }
             default:
-                printf("I dunno\n");
+                // Should never reach this case
+                printf("Error unkown token type\n");
                 break;
         }
     }
