@@ -1,14 +1,20 @@
 %{
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 1
+// Feb. 2020
+
 #include <stdio.h>
-int line = 1;  
-int character = 1;
 
-int string_index = 0;
+int line = 1; // Source file line number 
 
-int token = 0;
-int warnings = 0;
+int string_index = 0; // String indexes used to determine the length of string
 
-enum types{
+int warnings = 0; // Number of warnings per source file line
+
+int tokenType = 0; // Type of token
+
+enum tokentypes{
     number = 1,
     id = 2,
     string = 3,
@@ -32,7 +38,6 @@ special      ";"|","|"("|")"|"{"|"}"
 comment      "//"([^("\r"|"\n")]*)?
 
 %x  STRING
-%x  NULL_CHARACTER
 %%
 
 [ \t\r\b\f\']+      ;
@@ -40,61 +45,84 @@ comment      "//"([^("\r"|"\n")]*)?
 
 {comment}           {printf("Comment %s found at line %d\n", yytext, line);}
 
-{reserved}          {token=reserved; return yytext[0];}
-{operator}          {token=operator; return yytext[0];}
-{special}           {token=special; return yytext[0];}
+{reserved}          {tokenType=reserved; return yytext[0];}
+{operator}          {tokenType=operator; return yytext[0];}
+{special}           {tokenType=special; return yytext[0];}
 
-{number}            {token=number; return yytext[0];}
-{id}                {token=id; return yytext[0];}
+{number}            {tokenType=number; return yytext[0];}
+{id}                {tokenType=id; return yytext[0];}
 
 \"                  {BEGIN STRING;}
-<STRING>\\(\"|\\)   {string_index+=2; yymore();}
-<STRING>\"          {yytext[string_index]='\0'; BEGIN 0; token = string; return STRING;}
-<STRING><<EOF>>     {printf("error: string missing closing quote at or near line %d\n", line); exit(1);}
-<STRING>\n          {printf("error: string missing closing quote at or near line %d\n", line); exit(1);}
+<STRING>\\(\"|\\)   {
+                        string_index+=2; // Add 2 because these string literals show up as 2 separate characters in a string
+                        yymore();
+                    }
+<STRING>\"          {   
+                        yytext[string_index]='\0'; // Place terminating character at end of string
+                        BEGIN 0; 
+                        tokenType = string; 
+                        return STRING;
+                    }
+<STRING><<EOF>>     {fprintf(stderr, "Error: string missing closing quote at or near line %d\n", line); exit(1);}
+<STRING>\n          {fprintf(stderr, "Error: string missing closing quote at or near line %d\n", line); exit(1);}
 <STRING>.           {string_index++; yymore();}
 
-<<EOF>>             {printf("EOF found at line %d\n", line); exit(1);}
+<<EOF>>             {printf("EOF found at line %d\n", line); exit(0);}
 
 .                   {
                         warnings++; 
                         if(warnings >= 12)
                         {
-                            printf("error: too many warnings at or near line %d\n", line);
+                            fprintf(stderr, "Error: too many warnings at or near line %d\n", line);
                             exit(1);
                         }
                         else
                         {
-                            printf("warning: ignoring bad character at or near line %d\n", line);
+                            fprintf(stderr, "Warning: ignoring bad character at or near line %d\n", line);
                         }
                     }
 
 %%
 
 int main(int argc, char *argv[]) {
+    if(argc!=2)
+    {
+        fprintf(stderr, "Error: Wrong number of arguments. Format should be ./scanner <testfile>\n");
+        exit(1);
+    }
+
     yyin = fopen(argv[1], "r");
+
+    if (yyin==NULL)
+    {
+        fprintf(stderr, "Error: Cannot open file for reading\n");
+        exit(1);
+    }
 
     int t;
     while((t=yylex()) != 0)
     {
-        switch(token){
+        // Format tokens for printing
+        switch(tokenType){
             case number:
             {
                 printf("Token(number, %d, %s)\n", line, yytext);
-                token = 0;
+                tokenType = 0;
                 break;
             }
             case id:
             {
                 printf("Token(id, %d, %s)\n", line, yytext);
-                token = 0;
+                tokenType = 0;
                 break;
             }
             case string:
             {
+                // Copy contents of yytext to a new string in order to remove NUL characters
+
                 char string[string_index];
                 // Only for string
-                int i = 0, j = 0;
+                int j = 0;
                 for(int i = 0; i < string_index; i++)
                 {
                     if(yytext[i]!='\0')
@@ -102,28 +130,36 @@ int main(int argc, char *argv[]) {
                         string[j] = yytext[i];
                         j++;
                     }
+                    else
+                    {
+                        printf("Removed NUL character at character position %d in line %d\n", i, line);
+                    }
                 }
-                string[j] = '\0';
+                string[j] = '\0'; // Place terminating character as end of string
                 printf("Token(string, %d, %s)\n", line, string);
+
                 string_index = 0;
-                token = 0;
+                tokenType = 0;
                 break;
             }
             case reserved:
-                // Fallthrough
+                // Fallthrough because reserved print in same format as special
             case operator:
-                // Fallthrough
+                // Fallthrough because operator print in same format as special
             case special:
             {
                 printf("Token(%s, %d, None)\n", yytext, line);
-                token = 0;
+                tokenType = 0;
                 break;          
             }
             default:
                 // Should never reach this case
-                printf("Error unkown token type\n");
+                fprintf(stderr, "Error: unkown token type\n");
+                exit(1);
                 break;
         }
     }
+    fclose(yyin);
+
     return 0;
 }
