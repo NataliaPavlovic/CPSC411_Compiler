@@ -1,4 +1,9 @@
 #! /bin/bash
+# Natalia Pavlovic
+# CPSC 411
+# Milestone 1
+# Feb. 2020
+
 printf "Build ***************************************************\n"
 
 flex scanner.flex
