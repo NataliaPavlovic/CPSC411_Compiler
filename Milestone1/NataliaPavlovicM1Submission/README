@@ -1,0 +1,12 @@
+How to build and run scanner.flex:
+
+Build:
+flex scanner.flex
+gcc lex.yy.c -lfl -o scanner -Wall
+
+Run:
+./scanner <testfile>
+
+
+How to run script.sh:
+./script.sh

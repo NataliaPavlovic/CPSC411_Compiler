@@ -1,0 +1,141 @@
+natalia.pavlovic@zone18-wc:~/Desktop/CPSC411/Scanner$ ./script.sh
+Build ***************************************************
+lex.yy.c:1285:16: warning: ‘input’ defined but not used [-Wunused-function]
+ 1285 | #else
+      |                ^    
+lex.yy.c:1242:17: warning: ‘yyunput’ defined but not used [-Wunused-function]
+ 1242 | 
+      |                 ^      
+
+Enter relative path to folder containing test files:
+ms1
+
+Test File Outputs ***************************************
+
+eof-only.t1 *********************************************
+EOF found at line 1
+
+comments-only.t2 ****************************************
+Comment // found at line 1
+Comment //  just comments here.. found at line 2
+Comment // found at line 3
+EOF found at line 4
+
+legit-token-salad.t3 ************************************
+Comment // singletons found at line 1
+Token(+, 3, None)
+Token(-, 4, None)
+Token(*, 5, None)
+Token(/, 6, None)
+Token(%, 7, None)
+Token((, 8, None)
+Token(), 9, None)
+Token({, 10, None)
+Token(}, 11, None)
+Token(;, 12, None)
+Token(,, 13, None)
+Comment // may be pairs found at line 15
+Token(!, 17, None)
+Token(!=, 17, None)
+Token(=, 18, None)
+Token(==, 18, None)
+Token(<, 19, None)
+Token(<=, 19, None)
+Token(>, 20, None)
+Token(>=, 20, None)
+Token(>, 22, None)
+Token(=, 22, None)
+Comment // should be recognised separately found at line 22
+Comment // must be pairs found at line 24
+Token(&&, 26, None)
+Token(||, 27, None)
+Comment // reserved words found at line 29
+Token(true, 31, None)
+Token(false, 32, None)
+Token(boolean, 33, None)
+Token(int, 34, None)
+Token(void, 35, None)
+Token(if, 36, None)
+Token(else, 37, None)
+Token(while, 38, None)
+Token(break, 39, None)
+Token(return, 40, None)
+Comment // identifiers found at line 42
+Token(id, 44, for)
+Token(id, 45, String)
+Token(id, 46, Break)
+Token(id, 47, switch)
+Token(id, 48, class)
+Token(id, 49, abcdef)
+Token(id, 50, abc123)
+Token(id, 51, _)
+Token(id, 52, _abc_0)
+Comment // numbers found at line 54
+Token(number, 56, 0)
+Token(number, 57, 12345678901234567890)
+Token(number, 59, 0123)
+Comment // not octal in j-- found at line 59
+EOF found at line 60
+
+space-in-operator.t4 ************************************
+Comment // error found at line 1
+Warning: ignoring bad character at or near line 2
+Warning: ignoring bad character at or near line 2
+EOF found at line 3
+
+comment-in-op.t5 ****************************************
+Comment // error found at line 1
+Warning: ignoring bad character at or near line 3
+Comment //comment found at line 3
+Warning: ignoring bad character at or near line 4
+EOF found at line 5
+
+illegal-chars.t6 ****************************************
+Comment // sample of illegal characters found at line 1
+Warning: ignoring bad character at or near line 3
+Warning: ignoring bad character at or near line 3
+Warning: ignoring bad character at or near line 3
+Warning: ignoring bad character at or near line 3
+EOF found at line 4
+
+unterm-str.t7 *******************************************
+Comment // error found at line 1
+Error: string missing closing quote at or near line 3
+
+str-term-eof.t8 *****************************************
+Comment // error found at line 1
+Error: string missing closing quote at or near line 3
+
+strings.t9 **********************************************
+Comment // strings found at line 1
+Token(string, 3, abc)
+Token(string, 4, ab\t\ndef)
+Token(string, 5, ab\"cd)
+Token(string, 6, ab\\\"cd)
+EOF found at line 7
+
+nul-in-str.t10 ******************************************
+Comment // yes, this *is* legal.. found at line 1
+Removed NUL character at character position 2 in line 3
+Token(string, 3, abcd)
+EOF found at line 4
+
+comment-term-eof.t11 ************************************
+Comment // comment terminated by eof found at line 1
+EOF found at line 1
+
+wtf.t12 *************************************************
+Warning: ignoring bad character at or near line 1
+Token(id, 1, ELF)
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Warning: ignoring bad character at or near line 1
+Error: too many warnings at or near line 1
+
