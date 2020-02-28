@@ -1,0 +1,7 @@
+main() {
+	if (true)	
+		if (true)
+			;
+		else
+			;
+}

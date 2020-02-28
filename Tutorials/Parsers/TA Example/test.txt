@@ -1,0 +1,6 @@
+int x;
+void y;
+int list[2];
+int new[6];
+bool yeeeeboi[1];
+char no[1];

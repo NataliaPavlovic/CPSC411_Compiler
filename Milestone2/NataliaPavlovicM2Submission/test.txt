@@ -1,0 +1,29 @@
+int b;
+int scanner(int a, int b)
+{	
+	int a;
+	a = 3;
+
+	if(a < 4)
+	{if(true){
+		while(1)
+	{
+		a = 1;
+	}
+		}
+	}
+
+	FnctCall(a, b, c);
+	FnctCall2(b, 2, 4, "Expected()");
+
+	a = 2 * 3;
+
+	if (peek() != expect) 
+	{
+
+		prints("n");
+		halt();
+	}
+
+
+}

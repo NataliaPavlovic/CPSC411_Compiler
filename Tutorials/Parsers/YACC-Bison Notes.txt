@@ -1,0 +1,63 @@
+sudo apt install bison
+
+bison -y filename.y
+gcc y.tab.c -o parser
+./parser
+
+Likely make a makefile for this one
+
+We will use context free grammars
+C code handles matching for CFG
+
+%{
+C Declarations
+%}
+Bison Definitions
+%%
+Grammar Rules
+%%
+Subroutines
+
+Rules in BNF
+
+Need to define 2 functions in subroutines and use 1
+Call yyparse()
+Can overload and redefine:
+- yylex()
+- yyerror()
+
+Don't use right recursion
+
+Don't use any ambiguous grammar
+
+Slide 10 - method 2 is preffered
+Currently missing an empty
+
+Actions do not have to be at end of rule statement, but we should put them on the end for the milestone
+
+E '+' T {$$ = $1 + $3}
+$1 is E
+$3 is T
+$$ is return to rule that matched
+
+Define stuff in token/type in %union
+
+Better way: Tree Node type in order to build AST (Uses recursive Descent Parsing - covered later in lecture)
+
+YYSTYPE is int by default
+
+LALR(1) Conflicts - might see in project
+
+Will need to print tree 
+
+Put
+%define YYPARSER 
+At start of parser so it knows this file is parser
+
+#define YYTYPE *TreeNode
+-> Override default int value
+
+Need to store tokens as they go to the parser in the scanner. Because no actions within rules.
+
+Add scope into parser for the future -> symbol table for next milestone
+
