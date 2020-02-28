@@ -3,7 +3,6 @@
 // CPSC 411
 // Milestone 2
 // March 2020
-
 #include "globals.h"
 #include "util.h"
 #include "scan.h"
@@ -16,6 +15,8 @@ int characterNumber = 0;
 int currentIndex = 0;
 
 %}
+
+%option noyywrap
 
 letter       [a-zA-Z_]
 digit        [0-9]
