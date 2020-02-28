@@ -1,0 +1,5 @@
+// Multiple Statements Line
+
+int c; main(){int a; int b;
+if(a<b){return;}a = 2*3;
+while(a<b){break;}if(a){;}else{;}}

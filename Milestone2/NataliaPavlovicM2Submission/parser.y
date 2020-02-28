@@ -1,12 +1,8 @@
-/****************************************************/
-/* File: parser_incomplete.y                        */
-/* Parser Specification for EX Compiler             */
-/* Note: This parser is missing some functionality  */
-/* that would let it get values of previously read  */
-/* token lexemes.                                   */
-/* Actual parser.y will be uploaded later           */
-/****************************************************/
 %{
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 2
+// March 2020
 #define YYPARSER
 
 #include "globals.h"
@@ -30,8 +26,8 @@ static int yylex();
 int yyerror(char * s);
 
 static int firstTime = 1;
-
-int numberParams = 0;
+//Stores number of arguments for a function call
+int numberArgs = 0;
 
 %}
 
@@ -59,7 +55,6 @@ globaldeclarations      : globaldeclaration {$$ = $1;}
                               $$ = $1;
                             }
                             else $$ = $2;
-                            $$ -> lineno = lineno;
                         }
                         ;
 
@@ -75,7 +70,7 @@ variabledeclaration     : BOOLEAN ID ';'
                             $$ = newDecNode(VarK);
                             $$ -> type = Boolean;
                             $$ -> attr.name = str;
-                            $$ -> lineno;
+                            $$ -> lineno = lineno;
                         }
                         | INT ID ';'
                         {
@@ -84,7 +79,7 @@ variabledeclaration     : BOOLEAN ID ';'
                             $$ = newDecNode(VarK);
                             $$ -> type = Integer;
                             $$ -> attr.name = str;
-                            $$ -> lineno;
+                            $$ -> lineno = lineno;
                         }
                         ;
 
@@ -93,19 +88,16 @@ functiondeclaration     : BOOLEAN functiondeclarator block
                         {
                             $$ = $2;
                             $$ -> child[1] = $3;
-                            $$ -> lineno = lineno;
                         }
                         | INT functiondeclarator block
                         {
                             $$ = $2;
                             $$ -> child[1] = $3;
-                            $$ -> lineno = lineno;
                         }
                         | VOID functiondeclarator block
                         {
                             $$ = $2;
                             $$ -> child[1] = $3;
-                            $$ -> lineno = lineno; 
                         }
                         ;
 
@@ -142,7 +134,7 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                             $$ -> attr.name = str;
                             $$ -> child[0] = newLabelNode(FctnParamsK);
                             $$ -> child[0] -> child[0] = $3;
-                            $$ -> lineno;    
+                            $$ -> lineno = lineno;    
                         }
                         | ID '(' ')'
                         {
@@ -175,7 +167,7 @@ functiondeclarator      : ID '(' formalparameterlist ')'
 
                             strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
-                            $$ -> lineno;
+                            $$ -> lineno = lineno;
                         }
 
 formalparameterlist     : BOOLEAN ID
@@ -185,7 +177,7 @@ formalparameterlist     : BOOLEAN ID
                             $$ = newDecNode(ParameterK);
                             $$ -> type = Boolean;
                             $$ -> attr.name = str;
-                            $$ -> lineno;  
+                            $$ -> lineno = lineno;  
                         }
                         | INT ID
                         {
@@ -194,7 +186,7 @@ formalparameterlist     : BOOLEAN ID
                             $$ = newDecNode(ParameterK);
                             $$ -> type = Integer;
                             $$ -> attr.name = str;
-                            $$ -> lineno;   
+                            $$ -> lineno = lineno;   
                         }
                         | formalparameterlist ',' BOOLEAN ID
                         {
@@ -208,7 +200,7 @@ formalparameterlist     : BOOLEAN ID
                               t -> sibling = newDecNode(ParameterK);
                               t -> sibling -> type = Boolean;
                               t -> sibling -> attr.name = str;
-                              t -> sibling -> lineno;
+                              t -> sibling -> lineno = lineno;
 
                               $$ = $1;
                             }
@@ -219,7 +211,7 @@ formalparameterlist     : BOOLEAN ID
                                 $$ = newDecNode(ParameterK);
                                 $$ -> type = Boolean;
                                 $$ -> attr.name = str;
-                                $$ -> lineno; 
+                                $$ -> lineno = lineno; 
                             }                       
                         }
                         | formalparameterlist ',' INT ID
@@ -234,7 +226,7 @@ formalparameterlist     : BOOLEAN ID
                               t -> sibling = newDecNode(ParameterK);
                               t -> sibling -> type = Integer;
                               t -> sibling -> attr.name = str;
-                              t -> sibling -> lineno;
+                              t -> sibling -> lineno = lineno;
 
                               $$ = $1;
                             }
@@ -245,7 +237,6 @@ formalparameterlist     : BOOLEAN ID
                                 $$ = newDecNode(ParameterK);
                                 $$ -> type = Integer;
                                 $$ -> attr.name = str;
-                                $$ -> lineno; 
                             }                       
                         }
                         ;
@@ -255,7 +246,6 @@ mainfunctiondeclaration : mainfunctiondeclarator block
                         {
                             $$ = $1;
                             $$ -> child[0] = $2;
-                            $$ -> lineno = lineno;
                         }
                         ;
 
@@ -276,7 +266,6 @@ mainfunctiondeclarator  : ID '(' ')'
 
                             strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
-                            $$ -> lineno;
                         }
                         ;
 
@@ -284,12 +273,10 @@ block                   : '{' blockstatements '}'
                         {
                             $$ = newLabelNode(BlockK);
                             $$ -> child[0] = $2;
-                            $$ -> lineno = lineno;
                         }
                         | '{' '}'
                         {
                             $$ = newStmtNode(EmptyK);
-                            $$ -> lineno = lineno;
                         }
                         ;
 
@@ -305,7 +292,6 @@ blockstatements         : blockstatement {$$ = $1;}
                               $$ = $1;
                             }
                             else $$ = $2;   
-                            $$ -> lineno = lineno;                        
                         }
                         ;
 
@@ -317,10 +303,12 @@ statement               : '{' blockstatements '}' {$$ = $2;}
                         | '{' '}'
                         {
                             $$ = newStmtNode(EmptyK);
+                            $$ -> lineno = lineno;
                         }
                         | ';'
                         {
                             $$ = newStmtNode(SemicolonK);
+                            $$ -> lineno = lineno;
                         }
                         | statementexpression ';' {$$ = $1;}
                         | BREAK ';'
@@ -344,7 +332,6 @@ statement               : '{' blockstatements '}' {$$ = $2;}
                             $$ = newStmtNode(IfK);
                             $$ -> child[0] = $3;
                             $$ -> child[1] = $5;
-                            $$ -> lineno = lineno;
                         }
                         | IF '(' expression ')' statement ELSE statement
                         {
@@ -352,7 +339,6 @@ statement               : '{' blockstatements '}' {$$ = $2;}
                             $$ -> child[0] = $3;
                             $$ -> child[1] = $5;
                             $$ -> child[2] = $7;
-                            $$ -> lineno = lineno;
                         }
                         | WHILE '(' expression ')' statement
                         {
@@ -406,7 +392,7 @@ primary                 : NUMBER
                         | functioninvocation {$$ = $1;}
                         ;
 
-argumentlist            : expression {$$ = $1; numberParams++;}
+argumentlist            : expression {$$ = $1; numberArgs++;}
                         | argumentlist ',' expression
                         {
                             YYSTYPE t = $1;
@@ -421,7 +407,7 @@ argumentlist            : expression {$$ = $1; numberParams++;}
                             }
                             else $$ = $3;
                             {
-                                numberParams++;
+                                numberArgs++;
                             }
                             $$ -> lineno = lineno;
                         }
@@ -445,8 +431,8 @@ functioninvocation      : ID '(' argumentlist ')'
                             $$->attr.name = str;
                             $$ -> child[0] = newLabelNode(FctnArgsK);
                             $$ -> child[0] -> child[0] = $3;
-                            $$ -> child[0] -> param_size = numberParams;
-                            numberParams = 0;
+                            $$ -> child[0] -> param_size = numberArgs;
+                            numberArgs = 0;
                             $$ -> lineno = lineno;
                         }
                         | ID '(' ')'
@@ -637,7 +623,7 @@ assignment              : ID '=' assignmentexpression
                             strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
                             $$ -> child[0] = $3;
-                            $$ -> lineno;
+                            $$ -> lineno = lineno;
                         }
                         ;
 

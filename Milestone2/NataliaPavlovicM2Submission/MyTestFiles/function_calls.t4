@@ -1,0 +1,28 @@
+// Function Calls
+
+main()
+{
+	if(function(2) < 3)
+	{
+		;
+	}
+	while(func("test")!=0)
+	{
+		a = a + 1;
+	}
+}
+
+int g;
+
+boolean function(int a)
+{	
+	if(func(2) && func(3))
+	{
+		return;
+	}
+}
+
+void foo(boolean b, int c, int d)
+{
+	
+}

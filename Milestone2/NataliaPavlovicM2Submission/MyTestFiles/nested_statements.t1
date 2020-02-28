@@ -1,0 +1,25 @@
+// Nested statements
+
+int b;
+
+main()
+{	
+	int a;
+	a = 0;
+
+	if(true)
+	{
+		if(a != b) 
+		{
+			;
+		}
+		while(a < 4)
+		{
+			break;
+		}
+	}
+	else
+	{
+		return 2;
+	}
+}

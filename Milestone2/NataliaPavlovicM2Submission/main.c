@@ -1,7 +1,8 @@
-/****************************************************/
-/* File: main.c                                     */
-/* Main program for EX Compiler                     */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 2
+// March 2020
+// Code modified from EX Compiler from tutorial
 
 #include "globals.h"
 #include "util.h"
@@ -14,7 +15,7 @@ FILE * source;
 FILE * output;
 
 /* allocate and set tracing flags */
-int TraceScan = TRUE;
+int TraceScan = 0;
 int TraceParse = TRUE;
 int Error = FALSE;
 

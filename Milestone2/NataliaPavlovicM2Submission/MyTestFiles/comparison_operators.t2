@@ -1,0 +1,24 @@
+// Comparison Operators
+
+int main(int a, int b)
+{
+	if ( a < 4 && b > 5)
+	{
+		;
+	}
+
+	if(a <= 4 || b >= 3)
+	{
+		;
+	}
+
+	if(a == b)
+	{
+		;
+	}
+
+	if(a!=b)
+	{
+		;
+	}
+}

@@ -1,7 +1,8 @@
-/****************************************************/
-/* File: scan.h                                     */
-/* The scanner interface for EX Compiler            */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 2
+// March 2020
+// Code modified from EX Compiler from tutorial
 
 #ifndef _SCAN_H_
 #define _SCAN_H_
@@ -20,9 +21,7 @@ extern char tokenString[MAXTOKENLEN+1];
 extern char previousTokenString[MAXTOKENLEN+1];
 //Store entire current line of tokens
 extern char fullLine[10][MAXTOKENLEN+1];
-
-extern int characterNumber;
-
+//Stroe the fullLine index for the current tokenString
 extern int currentIndex;
 
 //Return next token in source file

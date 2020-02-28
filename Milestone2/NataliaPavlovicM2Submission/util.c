@@ -1,8 +1,9 @@
-/****************************************************/
-/* File: util.c                                     */
-/* Utility Functions for EX Compile                 */
-/* Code Extracts From: Kenneth C. Louden            */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 2
+// March 2020
+// Code modified from EX Compiler from tutorial
+// Code Extracts From: Kenneth C. Louden
 
 #include "globals.h"
 #include "util.h"
@@ -43,7 +44,7 @@ void printToken( TokenType token, const char* tokenString ) {
     case '-': fprintf(output,"%d: Special Symbol: -\n", lineno); break;
     case '*': fprintf(output,"%d: Special Symbol: *\n", lineno); break;
     case '/': fprintf(output,"%d: Special Symbol: /\n", lineno); break;
-    case '%': fprintf(output,"%d: Special Symbol: /\n", lineno); break;
+    case '%': fprintf(output,"%d: Special Symbol: %%\n", lineno); break;
     case '<': fprintf(output,"%d: Special Symbol: <\n", lineno); break;
     case '>': fprintf(output,"%d: Special Symbol: >\n", lineno); break;
     case '=': fprintf(output,"%d: Special Symbol: =\n", lineno); break;
@@ -74,7 +75,7 @@ void printToken( TokenType token, const char* tokenString ) {
   }
 }
 
-//Prints tokens and lexeme to output
+//Prints tokens, lexeme and line numbers to for operators
 void printOperators( TokenType token, const char* tokenString, TreeNode *tree ) {
   switch (token) {
     //Reserved Words
@@ -110,7 +111,7 @@ void printOperators( TokenType token, const char* tokenString, TreeNode *tree ) 
     case '-': fprintf(output,"- at line %d", tree->lineno); break;
     case '*': fprintf(output,"* at line %d", tree->lineno); break;
     case '/': fprintf(output,"/ at line %d", tree->lineno); break;
-    case '%': fprintf(output,"/ at line %d", tree->lineno); break;
+    case '%': fprintf(output,"%% at line %d", tree->lineno); break;
     case '<': fprintf(output,"< at line %d", tree->lineno); break;
     case '>': fprintf(output,"> at line %d", tree->lineno); break;
     case '=': fprintf(output,"= at line %d", tree->lineno); break;
@@ -203,7 +204,7 @@ TreeNode * newDecNode(DecKind kind) {
   return t;
 }
 
-//Creates a new Declaration Node for AST
+//Creates a new Label Node for AST
 TreeNode * newLabelNode(LabelKind kind) {
   TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
   
@@ -304,7 +305,7 @@ void printTree(TreeNode *tree)
           case OpK:
             fprintf(output, "[Operator ");
             printOperators(tree->attr.op, "", tree);
-            fprintf(output, " at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "]\n");
             break;
                 
           case IdK:
@@ -333,15 +334,15 @@ void printTree(TreeNode *tree)
 
         switch(tree->kind.stmt) {
           case CompoundK:
-            fprintf(output, "[Compound statement \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Compound statement at line \"%d\"]\n", tree->lineno);
             break;
       
           case IfK:
-            fprintf(output, "[IF statement \"%d\"]\n", tree->lineno);
+            fprintf(output, "[IF statement]\n");
             break;
 
           case IfElseK:
-            fprintf(output, "[IFELSE statement \"%d\"]\n", tree->lineno);
+            fprintf(output, "[IFELSE statement]\n");
             break;
 
           case BreakK:
@@ -349,7 +350,7 @@ void printTree(TreeNode *tree)
             break;
                 
           case WhileK:
-            fprintf(output, "[WHILE statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[WHILE statement]\n");
             break;
                 
           case ReturnK:
@@ -377,14 +378,20 @@ void printTree(TreeNode *tree)
       else if (tree->nodekind == LabelK) {
         switch(tree->kind.stmt) {
           case FctnParamsK:
-            fprintf(output, "[Function Declaration List at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Function Parameters List at line \"%d\"]\n", tree->lineno);
             break;  
+          
           case FctnArgsK:
             fprintf(output, "[Function Declaration List at line \"%d\"]\n", tree->lineno);
             break;      
+          
           case BlockK:
-            fprintf(output, "[Block at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Block ending at line \"%d\"]\n", tree->lineno);
             break;
+
+        default:
+          fprintf(output, "<<<unknown label type>>>\n");
+          break;
         }
       }
 

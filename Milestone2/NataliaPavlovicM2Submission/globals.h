@@ -1,7 +1,8 @@
-/****************************************************/
-/* File: globals.h                                  */
-/* Global types and variables for EX compiler       */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 2
+// March 2020
+// Code modified from EX Compiler from tutorial
 
 #ifndef _GLOBALS_H_
 #define _GLOBALS_H_
@@ -36,7 +37,7 @@ typedef enum {IfK,IfElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,Semicolon
 typedef enum {OpK,ConstK,IdK,AssignK} ExpKind;
 //Types of Declarations
 typedef enum {VarK,ArrayK,FunK,ParameterK} DecKind;
-
+//Types of Labels that provide additional information
 typedef enum {FctnParamsK,FctnArgsK,BlockK} LabelKind;
 //Type Checking
 typedef enum {Void,Integer,Boolean} ExpType;

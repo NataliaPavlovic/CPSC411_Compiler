@@ -1,8 +1,8 @@
 %{
 // Natalia Pavlovic
 // CPSC 411
-// Milestone 1
-// Feb. 2020
+// Milestone 2
+// March 2020
 
 #include "globals.h"
 #include "util.h"
@@ -13,8 +13,6 @@ int string_index = 0;
 char previousTokenString[MAXTOKENLEN+1];
 char fullLine[10][MAXTOKENLEN+1];
 int characterNumber = 0;
-int tokenNumber = 0;
-
 int currentIndex = 0;
 
 %}
@@ -28,7 +26,7 @@ id           ({letter})({letter}|{digit})*
 number       ({digit})*
 
 operator     "+"|"-"|"*"|"/"|"%"|"="|"!"
-special      ","|"("|")"|"{"|"}"
+special      ";"|","|"("|")"|"{"|"}"
 
 comment      "//"([^("\r"|"\n")]*)?
 
@@ -40,7 +38,7 @@ comment      "//"([^("\r"|"\n")]*)?
                                 lineno++; characterNumber=0;string_index=0;
                             }
 
-{comment}                   {printf("Comment %s found at line %d\n", yytext, lineno);}
+{comment}                   {;}
 
 "int"                       {return INT;}
 "boolean"                   {return BOOLEAN;}
@@ -62,8 +60,6 @@ comment      "//"([^("\r"|"\n")]*)?
 "&&"                        {return AND;}
 "||"                        {return OR;}
 
-";"                         {return yytext[0];}
-
 {operator}                  {return yytext[0];}
 {special}                   {return yytext[0];}
 
@@ -84,7 +80,7 @@ comment      "//"([^("\r"|"\n")]*)?
 <STRING_TOKEN>\n            {fprintf(stderr, "Error: string missing closing quote at or near line %d\n", lineno); return ERROR;}
 <STRING_TOKEN>.             {string_index++; yymore();}
 
-<<EOF>>                     {printf("EOF found at line %d\n", lineno); return ENDFILE;}
+<<EOF>>                     {return ENDFILE;}
 
 .                           {return ERROR;}
 
@@ -117,17 +113,21 @@ TokenType getToken(int firstTime)
 
     currentToken = yylex();  
     strncpy(tokenString, yytext, MAXTOKENLEN+1);
-    
-    if (TraceScan)
-    printToken(currentToken,tokenString);
 
     strcpy(fullLine[characterNumber], tokenString);
+    //Set currentIndex to its index in fullLine
     currentIndex = characterNumber;
     characterNumber++;
 
     if(currentToken == ';') 
     {
         characterNumber=0;
+    }
+
+
+    if (TraceScan)
+    {
+        printToken(currentToken,tokenString);
     }
 
     return currentToken;
