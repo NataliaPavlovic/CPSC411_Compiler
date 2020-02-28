@@ -1,5 +1,5 @@
 
-#line 3 "lex.yy.c"
+#line 2 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -516,9 +516,9 @@ char fullLine[10][MAXTOKENLEN+1];
 int characterNumber = 0;
 int currentIndex = 0;
 
-#line 520 "lex.yy.c"
+#line 519 "lex.yy.c"
 
-#line 522 "lex.yy.c"
+#line 521 "lex.yy.c"
 
 #define INITIAL 0
 #define STRING_TOKEN 1
@@ -739,7 +739,7 @@ YY_DECL
 #line 35 "scanner.flex"
 
 
-#line 743 "lex.yy.c"
+#line 742 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -981,7 +981,7 @@ YY_RULE_SETUP
 #line 88 "scanner.flex"
 ECHO;
 	YY_BREAK
-#line 985 "lex.yy.c"
+#line 984 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
