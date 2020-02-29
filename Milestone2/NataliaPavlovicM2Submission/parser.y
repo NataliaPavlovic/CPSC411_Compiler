@@ -327,25 +327,32 @@ statement               : '{' blockstatements '}' {$$ = $2;}
                             $$ = newStmtNode(ReturnK);
                             $$ -> lineno = lineno;
                         }
-                        | IF '(' expression ')' statement
-                        {
-                            $$ = newStmtNode(IfK);
-                            $$ -> child[0] = $3;
-                            $$ -> child[1] = $5;
-                        }
-                        | IF '(' expression ')' statement ELSE statement
-                        {
-                            $$ = newStmtNode(IfElseK);
-                            $$ -> child[0] = $3;
-                            $$ -> child[1] = $5;
-                            $$ -> child[2] = $7;
-                        }
+                        | ifstatement {$$ = $1;}
+                        | ifelsestatement {$$ = $1;}
                         | WHILE '(' expression ')' statement
                         {
                             $$ = newStmtNode(WhileK);
                             $$ -> child[0] = $3;
                             $$ -> child[1] = $5;
                             $$ -> lineno = lineno;
+                        }
+                        ;
+
+ifstatement             : IF '(' expression ')' statement
+                        {
+                            $$ = newStmtNode(IfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$ -> lineno = lineno;                            
+                        }
+                        ;
+
+ifelsestatement         : ifstatement ELSE statement
+                        {
+                            $$ = $1;
+                            $$ -> sibling = newStmtNode(ElseK);
+                            $$ -> sibling -> child[0] = $3;
+                            $$ -> sibling -> lineno = lineno;                            
                         }
                         ;
 

@@ -32,7 +32,7 @@ extern int lineno; //Line counter
 //Types of Nodes
 typedef enum {StmtK,ExpK,DecK,LabelK} NodeKind;
 //Types of Statements
-typedef enum {IfK,IfElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
+typedef enum {IfK,ElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
 //Types of Expressions
 typedef enum {OpK,ConstK,IdK,AssignK} ExpKind;
 //Types of Declarations

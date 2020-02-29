@@ -36,7 +36,14 @@ comment      "//"([^("\r"|"\n")]*)?
 
 [ \t\r\b\f\']+              ;
 {newline}                   {
-                                lineno++; characterNumber=0;string_index=0;
+                                lineno++; characterNumber=0;string_index=0;     
+                                for(int i = 0; i < 10; i++)
+                                {   
+                                    for(int j = 0; j < MAXTOKENLEN+1; j++)
+                                    {
+                                        fullLine[i][j] = '\0';
+                                    }
+                                }
                             }
 
 {comment}                   {;}
@@ -99,17 +106,6 @@ TokenType getToken(int firstTime)
     yyout = output;
     }
 
-    if(characterNumber == 0)
-    {
-        for(int i = 0; i < 10; i++)
-        {   
-            for(int j = 0; j < MAXTOKENLEN+1; j++)
-            {
-                fullLine[i][j] = '\0';
-            }
-        }
-    }
-
     strcpy(previousTokenString, tokenString);
 
     currentToken = yylex();  
@@ -124,7 +120,6 @@ TokenType getToken(int firstTime)
     {
         characterNumber=0;
     }
-
 
     if (TraceScan)
     {

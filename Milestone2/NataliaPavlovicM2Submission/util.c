@@ -271,25 +271,25 @@ void printTree(TreeNode *tree)
 
         switch(tree->kind.dec) {
           case VarK:
-            fprintf(output,"[Variable declaration \"%s\" of type \"%s\" at line \"%d\"]\n"
+            fprintf(output,"[Variable declaration \"%s\" of type \"%s\" at line %d]\n"
                    , tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno);
             break;
             
           case ArrayK:
             fprintf(output, "[Array declaration \"%s\" of size %d"
-                    " and type \"%s\" at line \"%d\"]\n",
+                    " and type \"%s\" at line %d]\n",
                     tree->attr.name, tree->value, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno);
             break;
             
           case FunK:
             fprintf(output, "[Function declaration \"%s()\""
-                    " of return type \"%s\" at line \"%d\"]\n", 
+                    " of return type \"%s\" at line %d]\n", 
                     tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno);
             break;
 
           case ParameterK:
             fprintf(output, "[Parameter \"%s\""
-                    " of type \"%s\" at line \"%d\"]\n", 
+                    " of type \"%s\" at line %d]\n", 
                     tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno);
             break;
             
@@ -313,15 +313,15 @@ void printTree(TreeNode *tree)
             //Array Indexing
             if (tree->value != 0)
               fprintf(output, "[%d]", tree->value);
-            fprintf(output, "\" at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "\" at line %d]\n", tree->lineno);
             break;
                 
           case ConstK:
-            fprintf(output, "[Literal constant \"%s\" at line \"%d\"]\n", tree->attr.val, tree->lineno);
+            fprintf(output, "[Literal constant \"%s\" at line %d]\n", tree->attr.val, tree->lineno);
             break;
                 
           case AssignK:
-            fprintf(output, "[Assignment \"%s\" at line \"%d\"]\n", tree->attr.name, tree->lineno);
+            fprintf(output, "[Assignment \"%s\" at line %d]\n", tree->attr.name, tree->lineno);
             break;       
                 
           default:
@@ -334,40 +334,40 @@ void printTree(TreeNode *tree)
 
         switch(tree->kind.stmt) {
           case CompoundK:
-            fprintf(output, "[Compound statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Compound statement at line %d]\n", tree->lineno);
             break;
       
           case IfK:
-            fprintf(output, "[IF statement]\n");
+            fprintf(output, "[IF statement ending at line %d]\n", tree->lineno);
             break;
 
-          case IfElseK:
-            fprintf(output, "[IFELSE statement]\n");
+          case ElseK:
+            fprintf(output, "[ELSE statement ending at line %d]\n", tree->lineno);
             break;
 
           case BreakK:
-            fprintf(output, "[BREAK statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[BREAK statement at line %d]\n", tree->lineno);
             break;
                 
           case WhileK:
-            fprintf(output, "[WHILE statement]\n");
+            fprintf(output, "[WHILE statement ending at line %d]\n", tree->lineno);
             break;
                 
           case ReturnK:
-            fprintf(output, "[RETURN statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[RETURN statement at line %d]\n", tree->lineno);
             break;
                 
           case CallK:
-          fprintf(output, "[Call to function \"%s()\" with \"%d\" argument(s) at line \"%d\"]\n",
+          fprintf(output, "[Call to function \"%s()\" with \"%d\" argument(s) at line %d]\n",
                   tree->attr.name,(tree->child[0])!=NULL?(tree->child[0])->param_size:0, tree->lineno);
           break;
 
           case EmptyK:
-            fprintf(output, "[EMPTY statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[EMPTY statement at line %d]\n", tree->lineno);
             break;
 
           case SemicolonK:
-            fprintf(output, "[Semicolon statement at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Semicolon statement at line %d]\n", tree->lineno);
             break;
        
         default:
@@ -378,15 +378,15 @@ void printTree(TreeNode *tree)
       else if (tree->nodekind == LabelK) {
         switch(tree->kind.stmt) {
           case FctnParamsK:
-            fprintf(output, "[Function Parameters List at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Function Parameters List at line %d]\n", tree->lineno);
             break;  
           
           case FctnArgsK:
-            fprintf(output, "[Function Declaration List at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Function Declaration List at line %d]\n", tree->lineno);
             break;      
           
           case BlockK:
-            fprintf(output, "[Block ending at line \"%d\"]\n", tree->lineno);
+            fprintf(output, "[Block ending at line %d]\n", tree->lineno);
             break;
 
         default:
