@@ -116,11 +116,6 @@ TokenType getToken(int firstTime)
     currentIndex = characterNumber;
     characterNumber++;
 
-    if(currentToken == ';') 
-    {
-        characterNumber=0;
-    }
-
     if (TraceScan)
     {
         printToken(currentToken,tokenString);
