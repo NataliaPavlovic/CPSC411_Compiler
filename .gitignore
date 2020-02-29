@@ -1,6 +1,6 @@
 lex.yy.c
 scanner
-parse.tab.c
-parse.tab.h
+parser.tab.c
+parser.tab.h
 *.o
 parser
