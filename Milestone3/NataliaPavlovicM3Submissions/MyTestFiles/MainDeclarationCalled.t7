@@ -1,0 +1,11 @@
+main()
+{
+	boolean b;
+	b = False;
+	func(b);
+}
+
+void func(boolean b)
+{
+	main();
+}

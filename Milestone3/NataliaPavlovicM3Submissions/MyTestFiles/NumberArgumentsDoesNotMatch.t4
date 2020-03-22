@@ -1,0 +1,15 @@
+main()
+{
+	funcNum(1, 2, 3);
+	funcBool(False, True);
+}
+
+int funcNum(int a, int b)
+{
+	return a + b;
+}
+
+boolean funcBool(boolean b)
+{
+	return b;
+}

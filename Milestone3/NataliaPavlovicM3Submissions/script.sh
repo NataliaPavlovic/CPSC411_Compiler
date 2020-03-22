@@ -1,7 +1,7 @@
 #! /bin/bash
 # Natalia Pavlovic
 # CPSC 411
-# Milestone 2
+# Milestone 3
 # March 2020
 
 printf "Build ***************************************************\n"
@@ -14,40 +14,50 @@ gcc -c -I"$intput" lex.yy.c -lfl -o scanner -Wall
 bison -d parser.y
 make
 
-printf "\nEnter relative path to folder containing test files:\n"
-read input
-
-printf "\nTest File Outputs ***************************************\n"
-
-printf "\nparse.t2 ************************************************\n"
-./parser "$input/parse.t2"
-
-printf "\nparse.t19 ***********************************************\n"
-./parser "$input/parse.t19"
-
-printf "\nparse.t21************************************************\n"
-./parser "$input/parse.t21"
-
-printf "\nparse.t22 ***********************************************\n"
-./parser "$input/parse.t22"
-
-printf "\ngen.t18 *************************************************\n"
-./parser "$input/gen.t18"
-
 printf "\nEnter relative path to folder containing my test files:\n"
 read input
 
-printf "\nnested_statements.t1 ************************************\n"
-./parser "$input/nested_statements.t1"
+printf "\nNoMainDeclaration.t1 *******************************************\n"
+./parser "$input/NoMainDeclaration.t1"
 
-printf "\ncomparison_operators.t2 *********************************\n"
-./parser "$input/comparison_operators.t2"
+printf "\nMultipleMainDeclarations.t2 ************************************\n"
+./parser "$input/MultipleMainDeclarations.t2"
 
-printf "\nmath_operators.t3 ***************************************\n"
-./parser "$input/math_operators.t3"
+printf "\nLocalDeclarationNotInOuterMostBlock.t3 *************************\n"
+./parser "$input/LocalDeclarationNotInOuterMostBlock.t3"
 
-printf "\nfunction_calls.t4 ***************************************\n"
-./parser "$input/function_calls.t4"
+printf "\nNumberArgumentsDoesNotMatch.t4 *********************************\n"
+./parser "$input/NumberArgumentsDoesNotMatch.t4"
 
-printf "\nmultiple_statements_line.t5 *****************************\n"
-./parser "$input/multiple_statements_line.t5"
+printf "\nTypeArgumentsDoesNotMatch.t5 ***********************************\n"
+./parser "$input/TypeArgumentsDoesNotMatch.t5"
+
+printf "\nMainDeclarationWithParameters.t6 *******************************\n"
+./parser "$input/MainDeclarationWithParameters.t6"
+
+printf "\nMainDeclarationCalled.t7 ***************************************\n"
+./parser "$input/MainDeclarationCalled.t7"
+
+printf "\nBreakStatementNotInWhile.t8 ************************************\n"
+./parser "$input/BreakStatementNotInWhile.t8"
+
+printf "\nReturnValueVoid.t9 *********************************************\n"
+./parser "$input/ReturnValueVoid.t9"
+
+printf "\nTypeMismatchOperators.t10 **************************************\n"
+./parser "$input/TypeMismatchOperators.t10"
+
+printf "\nNoReturnValueNonVoid.t11 ***************************************\n"
+./parser "$input/NoReturnValueNonVoid.t11"
+
+printf "\nWrongTypeReturned.t12 ******************************************\n"
+./parser "$input/WrongTypeReturned.t12"
+
+printf "\nIfWhileBooleanCondition.t13 ************************************\n"
+./parser "$input/IfWhileBooleanCondition.t13"
+
+printf "\nRedefinedIdentifier.t14 ****************************************\n"
+./parser "$input/RedefinedIdentifier.t14"
+
+printf "\nUndeclaredIdentifierUsed.t15 ***********************************\n"
+./parser "$input/UndeclaredIdentifierUsed.t15"

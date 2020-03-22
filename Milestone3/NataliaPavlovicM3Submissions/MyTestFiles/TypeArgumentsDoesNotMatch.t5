@@ -1,0 +1,15 @@
+main()
+{
+	func1(2, True);
+	func2(False, 3);
+}
+
+void func1(int a, int b)
+{
+	return;
+}
+
+void func2(int a, int b)
+{
+	return;
+}

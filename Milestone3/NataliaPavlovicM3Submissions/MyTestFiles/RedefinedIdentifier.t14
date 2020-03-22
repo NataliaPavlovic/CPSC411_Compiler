@@ -1,0 +1,19 @@
+main()
+{
+	int a;
+	a = 3;
+	int a;
+}
+
+func()
+{
+	boolean b;
+	b = true;
+	boolean b;
+	return;
+}
+
+func()
+{
+	return;
+}
