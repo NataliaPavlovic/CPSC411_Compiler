@@ -1,7 +1,19 @@
 main()
 {
-	func1(2, True);
-	func2(False, 3);
+	int a;
+	boolean b;
+
+	a = 2;
+	b = true;
+
+	boolean c;
+	int d;
+
+	c = false;
+	d = 3;
+
+	func1(a, b);
+	func2(c, d);
 }
 
 void func1(int a, int b)

@@ -28,6 +28,7 @@ int yyerror(char * s);
 static int firstTime = 1;
 //Stores number of arguments for a function call
 int numberArgs = 0;
+int numberArgsFunk = 0;
 
 %}
 
@@ -36,7 +37,7 @@ int numberArgs = 0;
 %token    ENDFILE ERROR
 %token    INT BOOLEAN VOID IF ELSE WHILE RETURN BREAK TRUE FALSE
 %token    ID NUMBER STRING
-%token    EQ NE LT GT LE GE AND OR 
+%token    EQ NQ LT GT LE GE AND OR 
 %%
 
 start           : /* empty */
@@ -135,6 +136,8 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                             $$ -> child[0] = newLabelNode(FctnParamsK);
                             $$ -> child[0] -> child[0] = $3;
                             $$ -> lineno = lineno;    
+                            $$ -> param_size = numberArgsFunk;
+                            numberArgsFunk = 0;
                         }
                         | ID '(' ')'
                         {
@@ -168,6 +171,7 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                             strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
                             $$ -> lineno = lineno;
+                            $$ -> param_size = 0;
                         }
 
 formalparameterlist     : BOOLEAN ID
@@ -177,7 +181,8 @@ formalparameterlist     : BOOLEAN ID
                             $$ = newDecNode(ParameterK);
                             $$ -> type = Boolean;
                             $$ -> attr.name = str;
-                            $$ -> lineno = lineno;  
+                            $$ -> lineno = lineno; 
+                            numberArgsFunk++; 
                         }
                         | INT ID
                         {
@@ -186,7 +191,8 @@ formalparameterlist     : BOOLEAN ID
                             $$ = newDecNode(ParameterK);
                             $$ -> type = Integer;
                             $$ -> attr.name = str;
-                            $$ -> lineno = lineno;   
+                            $$ -> lineno = lineno; 
+                            numberArgsFunk++;  
                         }
                         | formalparameterlist ',' BOOLEAN ID
                         {
@@ -201,7 +207,7 @@ formalparameterlist     : BOOLEAN ID
                               t -> sibling -> type = Boolean;
                               t -> sibling -> attr.name = str;
                               t -> sibling -> lineno = lineno;
-
+                              numberArgsFunk++;
                               $$ = $1;
                             }
                             else
@@ -211,7 +217,8 @@ formalparameterlist     : BOOLEAN ID
                                 $$ = newDecNode(ParameterK);
                                 $$ -> type = Boolean;
                                 $$ -> attr.name = str;
-                                $$ -> lineno = lineno; 
+                                $$ -> lineno = lineno;
+                                numberArgsFunk++; 
                             }                       
                         }
                         | formalparameterlist ',' INT ID
@@ -227,7 +234,7 @@ formalparameterlist     : BOOLEAN ID
                               t -> sibling -> type = Integer;
                               t -> sibling -> attr.name = str;
                               t -> sibling -> lineno = lineno;
-
+                              numberArgsFunk++;
                               $$ = $1;
                             }
                             else
@@ -237,6 +244,7 @@ formalparameterlist     : BOOLEAN ID
                                 $$ = newDecNode(ParameterK);
                                 $$ -> type = Integer;
                                 $$ -> attr.name = str;
+                                numberArgsFunk++;
                             }                       
                         }
                         ;
@@ -271,6 +279,7 @@ blockstatements         : blockstatement {$$ = $1;}
                                 
                               t -> sibling = $2;
                               $$ = $1;
+
                             }
                             else $$ = $2;   
                         }
@@ -280,7 +289,12 @@ blockstatement          : variabledeclaration {$$ = $1;}
                         | statement {$$ = $1;}
                         ;
 
-statement               : '{' blockstatements '}' {$$ = $2;}
+statement               : '{' blockstatements '}' 
+                        {
+                            $$ = newStmtNode(CompoundK);
+                            $$ -> lineno = lineno;
+                            $$ -> child[0] = $2;
+                        }
                         | '{' '}'
                         {
                             $$ = newStmtNode(EmptyK);
@@ -308,32 +322,27 @@ statement               : '{' blockstatements '}' {$$ = $2;}
                             $$ = newStmtNode(ReturnK);
                             $$ -> lineno = lineno;
                         }
-                        | ifstatement {$$ = $1;}
-                        | ifelsestatement {$$ = $1;}
+                        | IF '(' expression ')' statement
+                        {
+                            $$ = newStmtNode(IfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$-> lineno = $$ -> child[1] -> lineno;
+                        }
+                        | IF '(' expression ')' statement ELSE statement
+                        {
+                            $$ = newStmtNode(IfElseK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$ -> child[2] = $7;
+                            $$-> lineno = lineno;
+                        }
                         | WHILE '(' expression ')' statement
                         {
                             $$ = newStmtNode(WhileK);
                             $$ -> child[0] = $3;
                             $$ -> child[1] = $5;
                             $$ -> lineno = lineno;
-                        }
-                        ;
-
-ifstatement             : IF '(' expression ')' statement
-                        {
-                            $$ = newStmtNode(IfK);
-                            $$ -> child[0] = $3;
-                            $$ -> child[1] = $5;
-                            $$ -> lineno = lineno;                            
-                        }
-                        ;
-
-ifelsestatement         : ifstatement ELSE statement
-                        {
-                            $$ = $1;
-                            $$ -> sibling = newStmtNode(ElseK);
-                            $$ -> sibling -> child[0] = $3;
-                            $$ -> sibling -> lineno = lineno;                            
                         }
                         ;
 
@@ -446,7 +455,7 @@ functioninvocation      : ID '(' argumentlist ')'
 unaryexpression         : '-' unaryexpression
                         {
                             $$ = newExpNode(OpK);
-                            $$->attr.op = '-';
+                            $$ -> attr.op = '-';
                             $$ -> child[0] = $2;
                             $$ -> lineno = lineno;
                         }
@@ -558,10 +567,10 @@ equalityexpression      : relationalexpression {$$ = $1;}
                             $$ -> child[1] = $3;
                             $$ -> lineno = lineno;
                         }
-                        | equalityexpression NE relationalexpression
+                        | equalityexpression NQ relationalexpression
                         {
                             $$ = newExpNode(OpK);
-                            $$ -> attr.op = NE;
+                            $$ -> attr.op = NQ;
                             $$ -> child[0] = $1;
                             $$ -> child[1] = $3;
                             $$ -> lineno = lineno;
@@ -623,8 +632,8 @@ expression              : assignmentexpression {$$ = $1;}
 %%
 
 int yyerror(char * message) {
-  fprintf(output, "Syntax error at line %d: %s\n", lineno, message);
-  fprintf(output, "Current token: ");
+  fprintf(listing, "Syntax error at line %d: %s\n", lineno, message);
+  fprintf(listing, "Current token: ");
   printToken(yychar, tokenString);
   Error = TRUE;
   return 0;

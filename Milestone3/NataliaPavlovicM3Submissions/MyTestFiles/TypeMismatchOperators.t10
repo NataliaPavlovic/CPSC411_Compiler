@@ -49,10 +49,17 @@ main()
 
 	}
 
-	while(!2)
+	if(!2)
 	{
 
 	}
+	else
+	{
+
+	}
+
+	int e;
+	e = -2;
 }
 
 boolean func()

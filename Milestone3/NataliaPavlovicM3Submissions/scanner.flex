@@ -59,7 +59,7 @@ comment      "//"([^("\r"|"\n")]*)?
 "true"                      {return TRUE;}
 "false"                     {return FALSE;}
 
-"!="                        {return NE;}
+"!="                        {return NQ;}
 "=="                        {return EQ;}
 "<"                         {return yytext[0];}
 ">"                         {return yytext[0];}
@@ -103,7 +103,7 @@ TokenType getToken(int firstTime)
     firstTime = FALSE;
     lineno++;
     yyin = source;
-    yyout = output;
+    yyout = listing;
     }
 
     strcpy(previousTokenString, tokenString);

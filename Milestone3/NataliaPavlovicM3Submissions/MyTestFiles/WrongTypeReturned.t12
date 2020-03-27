@@ -6,7 +6,7 @@ main()
 	b = func(a);
 }
 
-boolean func(int a)
+int func(int a)
 {
 	return true;
 }

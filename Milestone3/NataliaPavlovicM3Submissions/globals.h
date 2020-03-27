@@ -1,6 +1,6 @@
 // Natalia Pavlovic
 // CPSC 411
-// Milestone 2
+// Milestone 3
 // March 2020
 // Code modified from EX Compiler from tutorial
 
@@ -24,19 +24,21 @@
 
 typedef int TokenType;
 
-extern FILE* source; //Input Source File
-extern FILE* output; //Output (stdout or file)
+extern FILE * source; //Input Source File
+extern FILE * listing; //Output (stdout or file)
+extern FILE * code;
 
 extern int lineno; //Line counter
+int HighScope;
 
 //Types of Nodes
 typedef enum {StmtK,ExpK,DecK,LabelK} NodeKind;
 //Types of Statements
-typedef enum {IfK,ElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
+typedef enum {IfK,IfElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
 //Types of Expressions
 typedef enum {OpK,ConstK,IdK,AssignK} ExpKind;
 //Types of Declarations
-typedef enum {VarK,ArrayK,FunK,ParameterK} DecKind;
+typedef enum {VarK,FunK,ParameterK} DecKind;
 //Types of Labels that provide additional information
 typedef enum {FctnParamsK,FctnArgsK,BlockK} LabelKind;
 //Type Checking
@@ -53,13 +55,7 @@ typedef struct treeNode {
   union { StmtKind stmt; ExpKind exp; DecKind dec;} kind;
   struct { TokenType op;
           char * val;
-          char * name; } attr;
-  //Array Index
-  int value;
-  //If Object is Array  
-  int isArray;       
-  //If Object is a Parameter
-  int isParameter;
+          char * name; } attr;      
   //If Object is a global variable
   int isGlobal;
   //Parameter Count
@@ -70,11 +66,18 @@ typedef struct treeNode {
   int scope;
   //Type Checking Expressions
   ExpType type;
+  //
+  int in_compound;
+  //
+  int * function_args;
      
 } TreeNode;
 
+extern int EchoSource;
 extern int TraceScan;
 extern int TraceParse;
+extern int TraceAnalyze;
+extern int TraceCode;
 
 //If TRUE, prevents further passes
 extern int Error; 

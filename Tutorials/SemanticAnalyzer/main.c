@@ -1,10 +1,11 @@
-// Natalia Pavlovic
-// CPSC 411
-// Milestone 3
-// March 2020
-// Code modified from EX Compiler from tutorial
+/****************************************************/
+/* File: main.c                                     */
+/* Main program for EX compiler                     */
+/* Including Calls for Symtab and Code Gen          */
+/****************************************************/
 
 #include "globals.h"
+
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
 #define NO_PARSE 0
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
@@ -35,66 +36,57 @@ FILE * listing;
 FILE * code;
 
 /* allocate and set tracing flags */
-int EchoSource = 1;
-int TraceScan = 0;
-int TraceParse = 1;
-int TraceAnalyze = 1;
-int TraceCode = 0;
+int EchoSource = TRUE;
+int TraceScan = FALSE;
+int TraceParse = FALSE;
+int TraceAnalyze = TRUE;
+int TraceCode = FALSE;
 
-int Error = 0;
+int Error = FALSE;
 
-int main( int argc, char * argv[] ) { 
-  
-  TreeNode * syntaxTree;
-  
-  //Source File
-  char fname[120];
-  
-  //Error handling for source file
+int main( int argc, char * argv[] )
+{ TreeNode * syntaxTree;
+  char pgm[120]; /* source code file name */
   if (argc != 2)
-    { fprintf(stderr,"Usage: %s <filename>\n", argv[0]);
+    { fprintf(stderr,"usage: %s <filename>\n",argv[0]);
       exit(1);
     }
-  
-  //Copy source filename onto var  
-  strcpy(fname,argv[1]);
-  //Open Source File 
-  source = fopen(fname, "r");
-  
-  //File Not Found Handler
-  if (source == NULL) {
-    fprintf(stderr,"File %s not found\n", fname);
+  strcpy(pgm,argv[1]) ;
+  source = fopen(pgm,"r");
+  if (source==NULL)
+  { fprintf(stderr,"File %s not found\n",pgm);
     exit(1);
   }
+  listing = stdout; /* send listing to screen */
+  fprintf(listing,"\nEX COMPILATION: %s\n",pgm);
   
-  //Send output to terminal screen
-  listing = stdout;
-  fprintf(listing,"\nCompiler: %s\n", fname);
-  
-  //Set first run to true (Used for scanner)
   int firstTime = 1;
   
-  //Enable if you need to debug parser
-  //yydebug = 1;
+  if (NO_PARSE)
+  {
+    fprintf(listing,"Lexing started\n");
+    getToken(firstTime);
+    firstTime = 0;    
+    while (getToken(firstTime)!=ENDFILE);
+  }
   
-  //Call Parser
+
+  //yydebug = 1;
   syntaxTree = parse();
-  //Print Syntax Tree from parser if TraceParse is True
   if (TraceParse) {
-    fprintf(listing, "\nSyntax tree:\n");
+    fprintf(listing,"\nSyntax tree:\n");
     printTree(syntaxTree);
   }
 
-  #if !NO_ANALYZE
-  if (! Error)
+#if !NO_ANALYZE
+  if (Error)
   { if (TraceAnalyze) fprintf(listing,"\nBuilding Symbol Table...\n");
     buildSymtab(syntaxTree);
     if (TraceAnalyze) fprintf(listing,"\nChecking Types...\n");
     typeCheck(syntaxTree);
     if (TraceAnalyze) fprintf(listing,"\nType Checking Finished\n");
   }
-
-  #if !NO_CODE
+#if !NO_CODE
   if (! Error)
   { char * codefile;
     int fnlen = strcspn(pgm,".");
@@ -109,10 +101,9 @@ int main( int argc, char * argv[] ) {
     codeGen(syntaxTree,codefile);
     fclose(code);
   }
-  #endif
-  #endif
+#endif
+#endif
 
-  //Close Source File
   fclose(source);
   return 0;
 }

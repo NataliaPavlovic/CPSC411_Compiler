@@ -1,10 +1,13 @@
+int b;
+
 main()
 {
-	if("abc")
+	b = 3;
+	if(b)
 	{
 
 	}
-	while(21)
+	while(2)
 	{
 
 	}
