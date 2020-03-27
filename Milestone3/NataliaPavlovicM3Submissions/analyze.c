@@ -9,6 +9,7 @@
 #include "globals.h"
 #include "symtab.h"
 #include "analyze.h"
+#include "util.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -104,6 +105,9 @@ static void insertNode( TreeNode * t)
           else
             st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, -1);
 
+          t->loc = -1;
+          t->scope = scope_a;
+
           // Set scope of function call parameters
           if (t->child[0] != NULL && t->child[0]->child[0] != NULL) {
             t = t->child[0];
@@ -178,14 +182,16 @@ static void insertNode( TreeNode * t)
               BucketList lookup_inner = var_lookup(t->attr.name, t->scope);
               BucketList lookup_outer = var_lookup(t->attr.name, scope_a);
 
-              // Get type information saved in symbol table
+              // Get type and location information saved in symbol table
               if (lookup_inner!=NULL)
               {
                 t->type = lookup_inner->type;
+                t->loc = lookup_inner->memloc;
               }
               else if (lookup_outer!=NULL)
               {
                 t->type = lookup_outer->type;
+                t->loc = lookup_outer->memloc;
               }
 
               if (t->scope > scope_a) {
@@ -198,6 +204,7 @@ static void insertNode( TreeNode * t)
                 {
                   // ID can be found in global scope
                   st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
+                  t->scope = scope_a;
                 }
                 else
                 {
@@ -207,6 +214,7 @@ static void insertNode( TreeNode * t)
               }
               else {
                 st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
+                t->scope = scope_a;
               }
             }
           break;
@@ -217,14 +225,16 @@ static void insertNode( TreeNode * t)
           BucketList lookup_inner = var_lookup(t->attr.name, t->scope);
           BucketList lookup_outer = var_lookup(t->attr.name, scope_a);
 
-          // Get type information saved in symbol table
+          // Get type information and location saved in symbol table
           if (lookup_inner!=NULL)
           {
             t->type = lookup_inner->type;
+            t->loc = lookup_inner->memloc;
           }
           else if (lookup_outer!=NULL)
           {
             t->type = lookup_outer->type;
+            t->loc = lookup_outer->memloc;
           }
 
           if (t->scope > scope_a) {
@@ -237,6 +247,7 @@ static void insertNode( TreeNode * t)
             {
               // ID can be found in global scope
               st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
+              t->scope = scope_a;
             }
             else
             {
@@ -246,6 +257,7 @@ static void insertNode( TreeNode * t)
           }
           else {
             st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
+            t->scope = scope_a;
           }
           break;
         default:
@@ -266,6 +278,7 @@ static void insertNode( TreeNode * t)
             if (t->scope > scope_a) {
               if (var_lookup(t->attr.name, t->scope) == NULL) {
                 // If variable is not declared yet, add to symbol table
+                t->loc = location[t->scope];
                 st_insert(t->attr.name, t->lineno, location[t->scope]++, t->scope, FALSE, t->type);
               }
               else
@@ -278,7 +291,9 @@ static void insertNode( TreeNode * t)
               // Declare variable in global scope
               if (var_lookup(t->attr.name, scope_a) == NULL)
               {
+                t->loc = location[scope_a];
                 st_insert(t->attr.name, t->lineno, location[scope_a]++, scope_a, FALSE, t->type);
+                t->scope = scope_a;
               }
               else
               {
@@ -290,6 +305,7 @@ static void insertNode( TreeNode * t)
         case ParameterK:
             // Add parameters to symbol table
             if (var_lookup(t->attr.name, t->scope) == NULL) {
+              t->loc = location[t->scope];
               st_insert(t->attr.name, t->lineno, location[t->scope]++, t->scope, FALSE, t->type);
             }
             else
@@ -304,6 +320,8 @@ static void insertNode( TreeNode * t)
           return_type = t->type;
 
           st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, -1);
+          t->loc = -1;
+          t->scope = scope_a;
 
           int i;
           for(i = 0; i < totalFuncs; i++)
@@ -614,4 +632,182 @@ static void checkNode(TreeNode * t)
  */
 void typeCheck(TreeNode * syntaxTree)
 { traverse(syntaxTree,nullProc,checkNode);
+}
+
+//Stores Current Num of spaces for AST
+static int indentno = 0;
+
+//Increase/Cecrease Indentation
+#define INDENT indentno+=2
+#define UNINDENT indentno-=2
+
+//Increases Indetation by printing spaces
+void printSpaces(void) {
+  int i;
+  for (i=0;i<indentno;i++)
+    fprintf(listing," ");
+}
+
+//Print the Annotated AST
+void printAnnotatedTree(TreeNode *tree)
+{
+    int i;
+    
+    //Macro to Indent
+    INDENT;
+
+    //Loop while tree is not null (No Children)
+    while (tree != NULL) {
+
+      printSpaces();
+
+      //Output based on Node Type
+        
+      if (tree->nodekind == DecK) {
+
+        switch(tree->kind.dec) {
+          case VarK:
+            fprintf(listing,"[Variable declaration \"%s\" of type \"%s\" at line %d, scope %d and memory location %d]\n"
+                   , tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno, tree->scope, tree->loc);
+            break;
+            
+          case FunK:
+            fprintf(listing, "[Function declaration \"%s()\""
+                    " of return type \"%s\" with \"%d\" arguments at line %d, scope %d and memory location %d. ", 
+                    tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->param_size, tree->lineno, tree->scope, tree->loc);
+            
+            if(tree->param_size != 0)
+            {
+              fprintf(listing,  "Argument types are: ");
+              int i;
+              for(i = 0; i < totalFuncs; i++)
+              {
+                if(!strcmp(functionDeclarations[i].function_name, tree->attr.name))
+                {
+                  break;
+                }
+              }
+
+              for(int j = 0; j < tree->param_size; j++)
+              {
+                fprintf(listing, "%s ", functionDeclarations[i].arg_list[j]==Integer?"Integer": (functionDeclarations[i].arg_list[j]==Boolean?"Boolean":"Void"));
+              }
+            }
+            fprintf(listing, "]\n");
+            break;
+
+          case ParameterK:
+            fprintf(listing, "[Parameter \"%s\""
+                    " of type \"%s\" at line %d, scope %d and memory location %d]\n", 
+                    tree->attr.name, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->lineno, tree->scope, tree->loc);
+            break;
+            
+          default:
+            fprintf(listing, "<<<unknown declaration type>>>\n");
+            break;
+        }
+      }
+      
+      else if (tree->nodekind == ExpK) {
+
+        switch(tree->kind.exp) {          
+          case OpK:
+            fprintf(listing, "[Operator ");
+            printOperators(tree->attr.op, "", tree);
+            fprintf(listing, "of type \"%s\"]\n", tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"));
+            break;
+                
+          case IdK:
+            fprintf(listing, "[Identifier \"%s\" at line %d of type \"%s\", scope %d and memory location %d]\n", tree->attr.name, tree->lineno, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->scope, tree->loc);
+            break;
+                
+          case ConstK:
+            fprintf(listing, "[Literal constant \"%s\" at line %d of type \"%s\"]\n", tree->attr.val, tree->lineno, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"));
+            break;
+                
+          case AssignK:
+            fprintf(listing, "[Assignment \"%s\" at line %d of type \"%s\", scope %d and memory location %d]\n", tree->attr.name, tree->lineno, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"), tree->scope, tree->loc);
+            break;       
+                
+          default:
+            fprintf(listing, "<<<unknown expression type>>>\n");
+            break;
+        }
+      }
+    
+      else if (tree->nodekind == StmtK) {
+
+        switch(tree->kind.stmt) {
+          case CompoundK:
+            fprintf(listing, "[Compound statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case IfK:
+            fprintf(listing, "[IF statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case IfElseK:
+            fprintf(listing, "[IFELSE statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case BreakK:
+            fprintf(listing, "[BREAK statement at line %d]\n", tree->lineno);
+            break;
+                
+          case WhileK:
+            fprintf(listing, "[WHILE statement ending at line %d]\n", tree->lineno);
+            break;
+                
+          case ReturnK:
+            fprintf(listing, "[RETURN statement at line %d of type \"%s\"]\n", tree->lineno, tree->type==Integer?"Integer": (tree->type==Boolean?"Boolean":"Void"));
+            break;
+                
+          case CallK:
+          fprintf(listing, "[Call to function \"%s()\" with \"%d\" argument(s) at line %d, scope %d and memory location %d]\n",
+                  tree->attr.name,(tree->child[0])!=NULL?(tree->child[0])->param_size:0, tree->lineno, tree->scope, tree->loc);
+          break;
+
+          case EmptyK:
+            fprintf(listing, "[EMPTY statement at line %d]\n", tree->lineno);
+            break;
+
+          case SemicolonK:
+            fprintf(listing, "[Semicolon statement at line %d]\n", tree->lineno);
+            break;
+       
+        default:
+          fprintf(listing, "<<<unknown statement type>>>\n");
+          break;
+        }
+      }
+      else if (tree->nodekind == LabelK) {
+        switch(tree->kind.stmt) {
+          case FctnParamsK:
+            fprintf(listing, "[Function Parameters List at line %d]\n", tree->lineno);
+            break;  
+          
+          case FctnArgsK:
+            fprintf(listing, "[Function Declaration List at line %d]\n", tree->lineno);
+            break;      
+          
+          case BlockK:
+            fprintf(listing, "[Block ending at line %d]\n", tree->lineno);
+            break;
+
+        default:
+          fprintf(listing, "<<<unknown label type>>>\n");
+          break;
+        }
+      }
+
+      else
+        fprintf(listing, "<<<unknown node kind>>>\n");
+
+      for (i=0; i<MAXCHILDREN; ++i)
+        printAnnotatedTree(tree->child[i]);
+        
+      tree = tree->sibling;
+    }
+
+    UNINDENT;
 }

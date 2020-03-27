@@ -67,7 +67,9 @@ typedef struct treeNode {
   //Type Checking Expressions
   ExpType type;
   //Set if in compound statement
-  int in_compound;     
+  int in_compound;   
+  //Location in symbol table
+  int loc;  
 } TreeNode;
 
 extern int EchoSource;

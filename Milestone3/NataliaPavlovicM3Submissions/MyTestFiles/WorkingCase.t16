@@ -1,0 +1,12 @@
+main()
+{
+	int a;
+	a = 4;
+	boolean b;
+	func(a, b);
+}
+
+void func(int t, boolean b)
+{
+	t = 2;
+}

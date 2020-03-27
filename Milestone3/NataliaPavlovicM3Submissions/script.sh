@@ -55,3 +55,6 @@ printf "\nRedefinedIdentifier.t14 ****************************************\n"
 
 printf "\nUndeclaredIdentifierUsed.t15 ***********************************\n"
 ./parser "MyTestFiles/UndeclaredIdentifierUsed.t15"
+
+printf "\nWorkingCase.t16 ************************************************\n"
+./parser "MyTestFiles/WorkingCase.t16"

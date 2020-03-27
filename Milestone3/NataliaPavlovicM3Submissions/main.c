@@ -94,6 +94,15 @@ int main( int argc, char * argv[] ) {
     if (TraceAnalyze) fprintf(listing,"\nType Checking Finished\n");
   }
 
+  // Print Annotated AST if there are no errors
+  if(! Error)
+  {
+    if (TraceAnalyze) {
+      fprintf(listing, "\nAnnotated Syntax tree:\n");
+      printAnnotatedTree(syntaxTree);
+    }
+  }
+
   #if !NO_CODE
   if (! Error)
   { char * codefile;
