@@ -1,7 +1,7 @@
 %{
 // Natalia Pavlovic
 // CPSC 411
-// Milestone 2
+// Milestone 3
 // March 2020
 #include "globals.h"
 #include "util.h"

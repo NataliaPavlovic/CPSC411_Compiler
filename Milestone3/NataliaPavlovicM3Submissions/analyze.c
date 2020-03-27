@@ -1,9 +1,10 @@
-/****************************************************/
-/* File: analyze.c                                  */
-/* Semantic analyzer                                */
-/* For EX Compiler                                  */
-/*                                                  */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 3
+// March 2020
+// Code modified from EX Compiler from tutorial
+
+// Semantic analyzer for EX Compiler
 
 #include "globals.h"
 #include "symtab.h"
@@ -19,11 +20,16 @@ static int location[MAX_SCOPE] = {0,0,0};
 
 static int No_change = 0; 
 
+// Counter for number oof current nested while loops
 static int count_while = 0;
+
+// Counter for number of main function declarations
 static int count_main = 0;
 
+// Return type of function declaration
 static int return_type = -1;
 
+// Struct to contain information about function declarations
 struct Funk_decls
 {
   char function_name[20];
@@ -32,14 +38,18 @@ struct Funk_decls
   int arg_list[20];
 } ;
 
+// Array of all function declarations
 struct Funk_decls functionDeclarations [100];
+// Total number of functions in array
 int totalFuncs = 0;
 
+// print an error message and a line number
 static void printError(TreeNode * t, char * message)
 { fprintf(listing,"Error: %s at line %d\n",message, t->lineno);
   Error = TRUE;
 }
 
+// Print an error if there is no main declaration
 static void printNoMainError(TreeNode * t, char * message)
 { fprintf(listing,"Error: %s\n",message);
   Error = TRUE;
@@ -82,16 +92,19 @@ static void insertNode( TreeNode * t)
   switch (t->nodekind)
     {case StmtK:
       switch (t->kind.stmt)
-      { case CallK:
+      { 
+        case CallK:
+          // Check if main function was called
           if(!strcmp(t->attr.name, "main"))
           {
-            printError(t, "Main function is called");
+            printError(t, "main function cannot be called");
           }
           if (st_lookup(t->attr.name, scope_a) == -1)
-            st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, t->type);
+            st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, -1);
           else
-            st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
+            st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, -1);
 
+          // Set scope of function call parameters
           if (t->child[0] != NULL && t->child[0]->child[0] != NULL) {
             t = t->child[0];
               if (st_lookup(t->child[0]->attr.name, scope_a) == -1) {
@@ -101,12 +114,13 @@ static void insertNode( TreeNode * t)
                   t = t->sibling;
                   t->scope = No_change;
                 }
-              }
-         
-          break; 
+              } 
         }
+        break; 
         case ReturnK:
+          // Set type of return to return type of function declaration
           t->type = return_type;
+          // Set scope of child
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
           }
@@ -122,7 +136,7 @@ static void insertNode( TreeNode * t)
         case BreakK:
           if(count_while == 0)
           {
-            printError(t,"Break statement not in a while loop");
+            printError(t,"break must be inside while loop");
           }
           else
           {
@@ -130,6 +144,7 @@ static void insertNode( TreeNode * t)
           }
           break;
         case CompoundK:
+          // Set scope for all children and set in_compound to 1 for all children
           if (t->child[0] != NULL) {
             t->child[0]->scope = No_change;
             t->child[0]->in_compound = 1;
@@ -148,6 +163,7 @@ static void insertNode( TreeNode * t)
     case ExpK:
       switch (t->kind.exp)
       { case OpK:
+          // Set scope for all children
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
             if(t->child[1] != NULL)
@@ -155,11 +171,14 @@ static void insertNode( TreeNode * t)
               t->child[1]->scope = t->scope;
             }
           }
+          break;
         case IdK:
             if(t->attr.name != NULL)
             {
               BucketList lookup_inner = var_lookup(t->attr.name, t->scope);
               BucketList lookup_outer = var_lookup(t->attr.name, scope_a);
+
+              // Get type information saved in symbol table
               if (lookup_inner!=NULL)
               {
                 t->type = lookup_inner->type;
@@ -170,16 +189,19 @@ static void insertNode( TreeNode * t)
               }
 
               if (t->scope > scope_a) {
-                if(lookup_inner == NULL && lookup_outer == NULL)
+                if(lookup_inner == NULL && lookup_outer == NULL) 
                 {
+                  // ID cannot be found in either current scope or global scope
                   printError(t, strcat(t->attr.name, " variable used without being declared"));
                 }
                 else if (lookup_inner == NULL)
                 {
+                  // ID can be found in global scope
                   st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
                 }
                 else
                 {
+                  // ID can be found in current scope
                   st_insert(t->attr.name, t->lineno, 0, t->scope, FALSE, t->type);
                 }
               }
@@ -194,6 +216,8 @@ static void insertNode( TreeNode * t)
           }
           BucketList lookup_inner = var_lookup(t->attr.name, t->scope);
           BucketList lookup_outer = var_lookup(t->attr.name, scope_a);
+
+          // Get type information saved in symbol table
           if (lookup_inner!=NULL)
           {
             t->type = lookup_inner->type;
@@ -206,14 +230,17 @@ static void insertNode( TreeNode * t)
           if (t->scope > scope_a) {
             if(lookup_inner == NULL && lookup_outer== NULL)
             {
+              // ID cannot be found in either current scope or global scope
               printError(t, strcat(t->attr.name, " variable used without being declared"));
             }
             else if (lookup_inner == NULL)
             {
+              // ID can be found in global scope
               st_insert(t->attr.name, t->lineno, 0, scope_a, FALSE, t->type);
             }
             else
             {
+              // ID can be found in current scope
               st_insert(t->attr.name, t->lineno, 0, t->scope, FALSE, t->type);
             }
           }
@@ -227,33 +254,41 @@ static void insertNode( TreeNode * t)
       break;
     case DecK:
       switch (t->kind.dec)
-      { case VarK:
+      { 
+        case VarK:
+          // check if variable declared in compound statement
           if(t->in_compound == 1)
           {
-            printError(t, "Variable declared in compound statament");
+            printError(t, "Local declaration not in outermost block");
           }
           else
           {
             if (t->scope > scope_a) {
               if (var_lookup(t->attr.name, t->scope) == NULL) {
+                // If variable is not declared yet, add to symbol table
                 st_insert(t->attr.name, t->lineno, location[t->scope]++, t->scope, FALSE, t->type);
               }
               else
-                {
-                  printError(t, "Variable redeclared in same scope");
-                }
+              {
+                // Variable is already declared in scope
+                printError(t, "Variable redeclared in same scope");
+              }
             }
             else {
+              // Declare variable in global scope
               if (var_lookup(t->attr.name, scope_a) == NULL)
+              {
                 st_insert(t->attr.name, t->lineno, location[scope_a]++, scope_a, FALSE, t->type);
+              }
               else
-                {
-                  printError(t, "Variable redeclared in global scope");
-                }
+              {
+                printError(t, "Variable redeclared in global scope");
+              }
             }
           }
           break;
         case ParameterK:
+            // Add parameters to symbol table
             if (var_lookup(t->attr.name, t->scope) == NULL) {
               st_insert(t->attr.name, t->lineno, location[t->scope]++, t->scope, FALSE, t->type);
             }
@@ -265,24 +300,23 @@ static void insertNode( TreeNode * t)
           {
             count_main++;
           }
-          if (count_main > 1)
-          {
-            printError(t, "Second main declaration");
-          }
 
           return_type = t->type;
 
-          st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, t->type);
+          st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, -1);
 
           int i;
           for(i = 0; i < totalFuncs; i++)
           {
             if(!strcmp(t->attr.name, functionDeclarations[i].function_name))
             {
-              printError(t, "Function redefined");
+
+              printError(t, strcat(t->attr.name," function redefined"));
               break;
             }
           }
+
+          // Populate array entry in functionDeclarations array
           if (i == totalFuncs)
           {
             strcpy(functionDeclarations[i].function_name, t->attr.name);
@@ -291,9 +325,10 @@ static void insertNode( TreeNode * t)
           }
           totalFuncs++;
 
+          // Check if main function has parameters
           if(!strcmp(t->attr.name, "main") && t->param_size != 0)
           {
-            printError(t, "Main declaration has parameters");
+            printError(t, "main declaration can't have parameters");
           }
 
           No_change++;
@@ -306,12 +341,12 @@ static void insertNode( TreeNode * t)
             t = t->child[0];
             t->child[0]->scope = No_change;
             t = t->child[0];
-            functionDeclarations[i].arg_list[j] = t->type;
+            functionDeclarations[i].arg_list[j] = t->type; // Set function declaration parameter types
             while (t->sibling != NULL) {
               t = t->sibling;
               t->scope = No_change;
               j++;
-              functionDeclarations[i].arg_list[j] = t->type;
+              functionDeclarations[i].arg_list[j] = t->type; // Set function declaration parameter types
             }
           }
 
@@ -340,9 +375,12 @@ static void insertNode( TreeNode * t)
                 }
               }
 
+              // No return statements in function declaration
               if (count_return == 0)
               {
-                printError(t, "No Return statement for non-void function");
+                char * str = (char *)malloc(42+1);
+                strcpy(str, "No return statement for non-void function ");
+                printError(t, strcat(str, temp->attr.name));
               }
             }
             else{
@@ -355,9 +393,11 @@ static void insertNode( TreeNode * t)
               }
             }
           }
-          else if (return_type != Void)
+          else if (return_type != Void) // Empty statement
           {
-            printError(t, "No Return statement for non-void function");
+            char * str = (char *)malloc(42+1);
+            strcpy(str, "No return statement for non-void function ");
+            printError(t, strcat(str, temp->attr.name));
           }
 
           HighScope++;
@@ -380,7 +420,7 @@ void buildSymtab(TreeNode * syntaxTree)
 { traverse(syntaxTree,insertNode,nullProc);
   if (count_main == 0)
   {
-    printNoMainError(syntaxTree, "No main declaration");
+    printNoMainError(syntaxTree, "No main declaration found");
   }
   if (TraceAnalyze)
   { fprintf(listing,"\nSymbol table:\n\n");
@@ -401,6 +441,7 @@ static void checkNode(TreeNode * t)
   { case ExpK:
       switch (t->kind.exp)
       { case OpK:
+          // Check if children of op are not Integers
           if (t->child[1] != NULL)
           {
             if ((t->child[0]->type != Integer) || (t->child[1]->type != Integer))
@@ -412,6 +453,7 @@ static void checkNode(TreeNode * t)
               typeError(t,"Op applied to non-integer");
           }
 
+          // Check if op will lead to a boolean expression
           if ((t->attr.op == LE) || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
             {
               t->type = Boolean;
@@ -420,25 +462,43 @@ static void checkNode(TreeNode * t)
             t->type = Integer;
           break;
         case AssignK:
-          if(t->child[0] != NULL)
+          if(t->child[0] != NULL && t->child[0]->attr.name == NULL)
           {
             if(t->child[0]->child[0] == NULL)
             {
+              // Check if op will lead to a boolean expression
               if ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!'))
-              typeError(t->child[0], "Cannot assign boolean to int variable");
+                typeError(t->child[0], "Cannot assign boolean to int variable");
+              // Check if type of children matches types of assign
               else if (t->child[0]->type != t->type)
               {
-                typeError(t->child[0], "Cannot assign this type to variable");
+                if(t->type == Boolean)
+                {
+                  typeError(t->child[0], "cannot assign to boolean variable");
+                }
+                else if(t->type == Integer)
+                {
+                  typeError(t->child[0], "cannot assign to integer variable");
+                }
               }
             }
             else
             {
               t = t->child[0];
+              // Check if op will lead to a boolean expression
               if ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!'))
-              typeError(t->child[0], "Cannot assign boolean to int variable");
+                typeError(t->child[0], "Cannot assign boolean to int variable");
+              // Check if type of children matches types of assign
               else if (t->child[0]->type != t->type)
               {
-                typeError(t->child[0], "Cannot assign this type to variable");
+                if(t->type == Boolean)
+                {
+                  typeError(t->child[0], "cannot assign to boolean variable");
+                }
+                else if(t->type == Integer)
+                {
+                  typeError(t->child[0], "cannot assign to integer variable");
+                }
               }
             }
           }
@@ -454,41 +514,42 @@ static void checkNode(TreeNode * t)
           if(t->child[0]->child[0] == NULL)
           {
             if (t->child[0]->type == Integer)
-              typeError(t->child[0],"if condition is not Boolean");
+              typeError(t->child[0],"need a boolean expression for if condition");
           }
           else
           {
             if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"if condition is not Boolean");
+              typeError(t->child[0]->child[0],"need a boolean expression for if condition");
           }
           break;
         case IfElseK:
           if(t->child[0]->child[0] == NULL)
           {
             if (t->child[0]->type == Integer)
-              typeError(t->child[0],"ifelse condition is not Boolean");
+              typeError(t->child[0],"need a boolean expression for ifelse condition");
           }
           else
           {
             if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"ifelse condition is not Boolean");
+              typeError(t->child[0]->child[0],"need a boolean expression for ifelse condition");
           }
           break;
         case WhileK:
           if(t->child[0]->child[0] == NULL)
           {
             if (t->child[0]->type == Integer)
-              typeError(t->child[0],"while condition is not Boolean");
+              typeError(t->child[0],"need a boolean expression for while condition");
           }
           else
           {
             if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"while condition is not Boolean");
+              typeError(t->child[0]->child[0],"need a boolean expression for while condition");
           }
 
           break;
         case CallK:
         {
+          // Find fundtionDeclaration entry for the current function call
           int i;
           for(i = 0; i < totalFuncs; i++)
           {
@@ -500,33 +561,42 @@ static void checkNode(TreeNode * t)
 
           if (i== totalFuncs)
           {
-            printError(t, "The function was not declared");
+            printError(t, "function was used but never declared");
           }
 
-          if (t->child[0] != NULL && t->child[0]->child[0]) {
+          // Check the types of arguments passed into the function call
+          if (t->child[0] != NULL) {
             if(t->child[0]->param_size != functionDeclarations[i].param_size)
             {
-              printError(t, "Function called with wrong number of arguments");
+              printError(t, "number of arguments doesn't match function declaration");
             }
             t = t->child[0];
             int j = 0;
             if (t->child[0]->type != functionDeclarations[i].arg_list[j])
-              typeError(t->child[0],"Call parameter is not correct type");
+              typeError(t->child[0],"type of arguments doesn't match function declaration");
             j++;
             t = t->child[0];
             while (t->sibling != NULL && j < functionDeclarations[i].param_size) {
-              if (t->type != functionDeclarations[i].arg_list[j])
-                typeError(t,"Call parameter is not correct type");
+              if (t->sibling->type != functionDeclarations[i].arg_list[j])
+                typeError(t,"type of arguments doesn't match function declaration");
               t = t->sibling;
               j++;
             }
           }
+
           break;
         }
         case ReturnK:
           if (t->child[0] != NULL) {
             if (t->child[0]->type != t->type)
-              typeError(t->child[0],"Return value is of wrong type");
+              if(t->type == Void)
+              {
+                typeError(t->child[0], "void function can't return a value");
+              }
+              else
+              {
+                typeError(t->child[0],"type of return value doesn't match function declaration");
+              }
           }          
           break;
         default:

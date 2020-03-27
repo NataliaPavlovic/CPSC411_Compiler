@@ -1,8 +1,11 @@
-/****************************************************/
-/* File: analyze.h                                  */
-/* Semantic analyzer interface for EX compiler      */
-/*        	                                        */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 3
+// March 2020
+// Code modified from EX Compiler from tutorial
+
+// Semantic analyzer interface for EX compiler
+
 #ifndef _ANALYZE_H_
 #define _ANALYZE_H_
 

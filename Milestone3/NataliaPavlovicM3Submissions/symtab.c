@@ -1,12 +1,14 @@
-/****************************************************/
-/* File: symtab.c                                   */
-/* Symbol table implementation for the EX compiler  */
-/* (allows only one symbol table)                   */
-/* Symbol table is implemented as a chained         */
-/* hash table                                       */
-/*                                                  */
-/*                                                  */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 3
+// March 2020
+// Code modified from EX Compiler from tutorial
+
+// Symbol table implementation for the EX compiler
+// (allows only one symbol table)
+// Symbol table is implemented as a chained
+// hash table
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -109,8 +111,8 @@ void printSymTab(FILE * listing)
 { int i,j;
   for(j=0;j<=HighScope;j++)
   {
-    fprintf(listing,"Scope Variable Name  Type   Location   Line Numbers\n");
-    fprintf(listing,"----- -------------  ----   --------   ------------\n");
+    fprintf(listing,"Scope Variable Name  Location   Line Numbers\n");
+    fprintf(listing,"----- -------------  --------   ------------\n");
     for (i=0;i<SIZE;++i)
     { if (Scope[j].hashTable[i] != NULL)
       { BucketList l = Scope[j].hashTable[i];
@@ -118,7 +120,6 @@ void printSymTab(FILE * listing)
         { LineList t = l->lines;
           fprintf(listing,"%-6d ",l->scope);
           fprintf(listing,"%-14s ",l->name);
-          fprintf(listing,"%-1d     ",l->type);
           fprintf(listing,"%-8d  ",l->memloc);
           while (t != NULL)
           { fprintf(listing,"%4d ",t->lineno);

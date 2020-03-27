@@ -1,10 +1,12 @@
-/****************************************************/
-/* File: symtab.h                                   */
-/* Symbol table interface for the C-  compiler      */
-/* (allows only one symbol table)                   */
-/* EX Compiler Project				                      */
-/*       	                                          */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 3
+// March 2020
+// Code modified from EX Compiler from tutorial
+
+// Symbol table interface for the C-  compiler
+// (allows only one symbol table)
+// EX Compiler Project
 
 #ifndef _SYMTAB_H_
 #define _SYMTAB_H_

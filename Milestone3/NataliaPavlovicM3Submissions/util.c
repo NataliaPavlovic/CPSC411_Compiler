@@ -1,6 +1,6 @@
 // Natalia Pavlovic
 // CPSC 411
-// Milestone 2
+// Milestone 3
 // March 2020
 // Code modified from EX Compiler from tutorial
 // Code Extracts From: Kenneth C. Louden
