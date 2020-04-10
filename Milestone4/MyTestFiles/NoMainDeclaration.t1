@@ -1,0 +1,5 @@
+void notMain()
+{
+	int a;
+	return;
+}

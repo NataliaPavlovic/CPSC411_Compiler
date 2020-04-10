@@ -1,0 +1,31 @@
+main()
+{
+	int a;
+	int b;
+	int c;
+
+	a = 1;
+	b = 2;
+	c = 3;
+
+	boolean d;
+	boolean e;
+
+	d = false;
+	e = true;
+
+	funcNum(a, b, c);
+	funcBool(d, e);
+}
+
+int funcNum(int a, int b)
+{
+	int c;
+	return a + b;
+}
+
+boolean funcBool(boolean b)
+{
+	int d;
+	return b;
+}

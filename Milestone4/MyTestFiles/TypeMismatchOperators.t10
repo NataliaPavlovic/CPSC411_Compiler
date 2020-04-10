@@ -1,0 +1,82 @@
+main()
+{
+	int a;
+	a = true;
+
+	boolean b;
+	b = true;
+
+	int c;
+	int d;
+	c = 1 + b;
+	d = 2 - b;
+
+	c = 3 * b;
+	d = 6 / b;
+	
+	c = 3%false;
+
+	if(1 || true)
+	{
+		return;
+	}
+	if(2 && false)
+	{
+
+	}
+	if(3 == true)
+	{
+
+	}
+	if(4 != func())
+	{
+
+	}
+	if(5 < b)
+	{
+
+	}
+	if(b < 6)
+	{
+
+	}
+	if(7 <= true)
+	{
+
+	}
+	if(8 >= false)
+	{
+
+	}
+
+	if(!2)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	if(b)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	while(b>3)
+	{
+
+	}
+
+	int e;
+	e = -2;
+}
+
+boolean func()
+{
+	return true;
+}

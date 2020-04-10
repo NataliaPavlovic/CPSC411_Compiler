@@ -1,0 +1,13 @@
+How to build and run parser.y:
+
+Build:
+flex scanner.flex
+gcc -c -I<path to folder containing scanner.flex> lex.yy.c -lfl -o scanner -Wall
+bison -d parser.y
+make
+
+Run:
+./parser <testfile>
+
+How to run script.sh:
+./script.sh

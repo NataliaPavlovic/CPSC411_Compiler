@@ -1,0 +1,12 @@
+main()
+{
+	int a;
+	a = 3;
+	boolean b;
+	b = func(a);
+}
+
+int func(int a)
+{
+	return true;
+}

@@ -1,0 +1,13 @@
+main()
+{
+	int a;
+	a = 0;
+	return;
+}
+
+main()
+{
+	int a;
+	a = 0;
+	return;
+}
