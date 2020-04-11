@@ -13,7 +13,7 @@
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE 1
+#define NO_CODE 0
 
 #include "util.h"
 #if NO_PARSE
@@ -37,9 +37,9 @@ FILE * code;
 /* allocate and set tracing flags */
 int EchoSource = 1;
 int TraceScan = 0;
-int TraceParse = 0;
+int TraceParse = 1;
 int TraceAnalyze = 1;
-int TraceCode = 0;
+int TraceCode = 1;
 
 int Error = 0;
 
@@ -102,17 +102,19 @@ int main( int argc, char * argv[] ) {
       printAnnotatedTree(syntaxTree);
     }
   }
-
+  
   #if !NO_CODE
   if (! Error)
-  { char * codefile;
-    int fnlen = strcspn(pgm,".");
+  { 
+    char * codefile;
+    int fnlen = strcspn(fname,".");
     codefile = (char *) calloc(fnlen+4, sizeof(char));
-    strncpy(codefile,pgm,fnlen);
-    strcat(codefile,".tm");
+    strncpy(codefile,fname,fnlen);
+    strcat(codefile,".wat");
     code = fopen(codefile,"w");
     if (code == NULL)
-    { printf("Unable to open %s\n",codefile);
+    { 
+      printf("Unable to open %s\n",codefile);
       exit(1);
     }
     codeGen(syntaxTree,codefile);

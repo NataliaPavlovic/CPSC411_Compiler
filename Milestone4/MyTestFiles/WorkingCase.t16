@@ -4,6 +4,8 @@ main()
 	a = 4;
 	boolean b;
 	func(a, b);
+	a = a%1;
+	a = -a;
 }
 
 void func(int t, boolean b)
