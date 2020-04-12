@@ -11,6 +11,7 @@
 #include "symtab.h"
 #include "code.h"
 #include "cgen.h"
+#include "analyze.h"
 
 /* to store local var of main 
 */
@@ -35,7 +36,7 @@ static int tmp;
  */
 static int isRecursive = 1;
 
-static int dataSize = 0;
+static int dataSize = 11;
 static int memorySize = 1;
 
 static int indentation = 4;
@@ -349,10 +350,12 @@ static void genExp( TreeNode * tree)
           emitRM("i32.const 0", indentation, NULL, 1);
         }
       }
-      // Strings
+      // String
       else
       {
-
+        emitNumberedLabel("i32.const ", indentation, dataSize, NULL);
+        emitNumberedLabel("i32.const ", indentation, strlen(tree->attr.val) + 4, NULL);
+        dataSize += strlen(tree->attr.val) + 4;
       }
       break;
     }
@@ -519,106 +522,132 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
    /* generate standard prelude */
    emitComment("Standard prelude:", 0);
    emitRM("(module", 0, NULL, 1);
-   emitRM("(import \"host\" \"exit\" (func $exit))", 4, NULL, 1);
-   emitRM("(import \"host\" \"getchar\" (func $getchar (result i32)))", 4, NULL, 1);
+   // exit
+   if(!halt_redefined)
+   {
+     emitRM("(import \"host\" \"exit\" (func $exit))", 4, NULL, 1);
+   }
+   // getchar
+   if(!getchar_redefined)
+   {
+     emitRM("(import \"host\" \"getchar\" (func $getchar (result i32)))", 4, NULL, 1);
+   }
 
    // putchar
-   emitRM("(import \"host\" \"putchar\" (func $putchar (param i32)))", 4, NULL, 1);
+   if(!printc_redefined)
+   {
+     emitRM("(import \"host\" \"putchar\" (func $putchar (param i32)))", 4, NULL, 1);
+   }
 
    // halt
-   emitRM("(func $halt", 4, NULL, 1);
-   emitRM("call $exit", 8, NULL, 1);
-   emitRM(")", 4, NULL, 1);
-
+   if(!halt_redefined)
+   {
+     emitRM("(func $halt", 4, NULL, 1);
+     emitRM("call $exit", 8, NULL, 1);
+     emitRM(")", 4, NULL, 1);
+   }
+  
    // printc
-   emitRM("(func $printc (param $char i32)", 4, NULL, 1);
-   emitRM("local.get $char", 8, NULL, 1); 
-   emitRM("call $putchar", 8, NULL, 1); 
-   emitRM(")", 4, NULL, 1);
+   if(!printc_redefined)
+   {
+     emitRM("(func $printc (param $char i32)", 4, NULL, 1);
+     emitRM("local.get $char", 8, NULL, 1); 
+     emitRM("call $putchar", 8, NULL, 1); 
+     emitRM(")", 4, NULL, 1);
+   }
 
    // prints
-   emitRM("(func $prints (param $offset i32) (param $length i32)", 4, NULL, 1);
-   emitRM("(local $I0 i32)", 8, NULL, 1);
-   emitRM("i32.const 0", 8, NULL, 1);
-   emitRM("local.set $I0", 8, NULL, 1);
-   emitRM("(block $B1", 8, NULL, 1);
-   emitRM("(loop $L1", 12, NULL, 1);
-   emitRM("local.get $length", 16, NULL, 1);
-   emitRM("local.get $I0", 16, NULL, 1);
-   emitRM("i32.le_s", 16, NULL, 1);
-   emitRM("br_if $B1", 16, NULL, 1);
-   emitRM("local.get $offset", 16, NULL, 1);
-   emitRM("local.get $I0", 16, NULL, 1);
-   emitRM("i32.add", 16, NULL, 1);
-   emitRM("i32.load", 16, NULL, 1);
-   emitRM("call $printc", 16, NULL, 1);
-   emitRM("local.get $I0", 16, NULL, 1);
-   emitRM("i32.const 1", 16, NULL, 1);
-   emitRM("i32.add", 16, NULL, 1);
-   emitRM("local.set $I0", 16, NULL, 1);
-   emitRM("br $L1", 16, NULL, 1);
-   emitRM(")", 12, NULL, 1);
-   emitRM(")", 8, NULL, 1);
-   emitRM(")", 4, NULL, 1);
+   if(!prints_redefined)
+   {
+     emitRM("(func $prints (param $offset i32) (param $length i32)", 4, NULL, 1);
+     emitRM("(local $I0 i32)", 8, NULL, 1);
+     emitRM("i32.const 0", 8, NULL, 1);
+     emitRM("local.set $I0", 8, NULL, 1);
+     emitRM("(block $B1", 8, NULL, 1);
+     emitRM("(loop $L1", 12, NULL, 1);
+     emitRM("local.get $length", 16, NULL, 1);
+     emitRM("local.get $I0", 16, NULL, 1);
+     emitRM("i32.le_s", 16, NULL, 1);
+     emitRM("br_if $B1", 16, NULL, 1);
+     emitRM("local.get $offset", 16, NULL, 1);
+     emitRM("local.get $I0", 16, NULL, 1);
+     emitRM("i32.add", 16, NULL, 1);
+     emitRM("i32.load", 16, NULL, 1);
+     emitRM("call $printc", 16, NULL, 1);
+     emitRM("local.get $I0", 16, NULL, 1);
+     emitRM("i32.const 1", 16, NULL, 1);
+     emitRM("i32.add", 16, NULL, 1);
+     emitRM("local.set $I0", 16, NULL, 1);
+     emitRM("br $L1", 16, NULL, 1);
+     emitRM(")", 12, NULL, 1);
+     emitRM(")", 8, NULL, 1);
+     emitRM(")", 4, NULL, 1);
+   }
 
    // print b
-   emitRM("(func $printb (param $b i32)", 4, NULL, 1);
-   emitComment("select with 3rd operand 0 selects 2nd operand", 4);
-   emitComment("select with 3rd operand 1 selects 1st operand", 4);
-   emitRM("(local $I0 i32)", 8, NULL, 1);
-   emitRM("i32.const 5", 8, NULL, 1);
-   emitRM("i32.const 6", 8, NULL, 1);
-   emitRM("local.get $b", 8, NULL, 1);
-   emitRM("select", 8, NULL, 1);
-   emitRM("local.set $I0", 8, NULL, 1);
-   emitRM("i32.const 0", 8, NULL, 1);
-   emitRM("i32.const 5", 8, NULL, 1);
-   emitRM("local.get $b", 8, NULL, 1);
-   emitRM("select", 8, NULL, 1);
-   emitRM("local.get $I0", 8, NULL, 1);
-   emitRM("call $prints", 8, NULL, 1);
-   emitRM(")", 4, NULL, 1);
+   if(!printb_redefined)
+   {
+     emitRM("(func $printb (param $b i32)", 4, NULL, 1);
+     emitComment("select with 3rd operand 0 selects 2nd operand", 4);
+     emitComment("select with 3rd operand 1 selects 1st operand", 4);
+     emitRM("(local $I0 i32)", 8, NULL, 1);
+     emitRM("i32.const 5", 8, NULL, 1);
+     emitRM("i32.const 6", 8, NULL, 1);
+     emitRM("local.get $b", 8, NULL, 1);
+     emitRM("select", 8, NULL, 1);
+     emitRM("local.set $I0", 8, NULL, 1);
+     emitRM("i32.const 0", 8, NULL, 1);
+     emitRM("i32.const 5", 8, NULL, 1);
+     emitRM("local.get $b", 8, NULL, 1);
+     emitRM("select", 8, NULL, 1);
+     emitRM("local.get $I0", 8, NULL, 1);
+     emitRM("call $prints", 8, NULL, 1);
+     emitRM(")", 4, NULL, 1);
+   }
 
    // printi
-   emitRM("(func $printi (param $n i32) (param $pow i32)", 4, NULL, 1); 
-   emitRM("(block $B2", 8, NULL, 1); 
-   emitRM("(loop $L2", 12, NULL, 1);
-   emitRM("local.get $n", 16, NULL, 1);
-   emitRM("i32.const 0", 16, NULL, 1);
-   emitRM("i32.ge_s", 16, NULL, 1); 
-   emitRM("br_if $B2", 16, NULL, 1);
-   emitRM("local.get $n", 16, NULL, 1);
-   emitRM("i32.const -1", 16, NULL, 1);
-   emitRM("i32.mul", 16, NULL, 1);
-   emitRM("local.set $n", 16, NULL, 1);
-   emitRM("i32.const 45", 16, NULL, 1);
-   emitRM("call $printc", 16, NULL, 1);
-   emitRM(")", 12, NULL, 1);
-   emitRM(")", 8, NULL, 1);
-   emitRM("(block $B1", 8, NULL, 1);
-   emitRM("(loop $L1", 12, NULL, 1);
-   emitRM("i32.const 0", 16, NULL, 1);
-   emitRM("local.get $pow", 16, NULL, 1);
-   emitRM("i32.ge_s", 16, NULL, 1);
-   emitRM("br_if $B1", 16, NULL, 1);
-   emitRM("local.get $n", 16, NULL, 1);
-   emitRM("local.get $pow", 16, NULL, 1);
-   emitRM("i32.div_u", 16, NULL, 1);
-   emitRM("i32.const 10", 16, NULL, 1);
-   emitRM("i32.rem_u", 16, NULL, 1);
-   emitRM("i32.const 48", 16, NULL, 1);
-   emitRM("i32.add", 16, NULL, 1);
-   emitRM("call $printc", 16, NULL, 1);
-   emitRM("local.get $pow", 16, NULL, 1);
-   emitRM("i32.const 10", 16, NULL, 1);
-   emitRM("i32.div_u", 16, NULL, 1);
-   emitRM("local.set $pow", 16, NULL, 1);
-   emitRM("br $L1", 16, NULL, 1);
-   emitRM(")", 12, NULL, 1);
-   emitRM(")", 8, NULL, 1); 
-   emitRM("i32.const 10", 8, "print newline character", 1);
-   emitRM("call $printc", 8, NULL, 1); 
-   emitRM(")", 4, NULL, 1); 
+   if(!printi_redefined)
+   {
+     emitRM("(func $printi (param $n i32) (param $pow i32)", 4, NULL, 1); 
+     emitRM("(block $B2", 8, NULL, 1); 
+     emitRM("(loop $L2", 12, NULL, 1);
+     emitRM("local.get $n", 16, NULL, 1);
+     emitRM("i32.const 0", 16, NULL, 1);
+     emitRM("i32.ge_s", 16, NULL, 1); 
+     emitRM("br_if $B2", 16, NULL, 1);
+     emitRM("local.get $n", 16, NULL, 1);
+     emitRM("i32.const -1", 16, NULL, 1);
+     emitRM("i32.mul", 16, NULL, 1);
+     emitRM("local.set $n", 16, NULL, 1);
+     emitRM("i32.const 45", 16, NULL, 1);
+     emitRM("call $printc", 16, NULL, 1);
+     emitRM(")", 12, NULL, 1);
+     emitRM(")", 8, NULL, 1);
+     emitRM("(block $B1", 8, NULL, 1);
+     emitRM("(loop $L1", 12, NULL, 1);
+     emitRM("i32.const 0", 16, NULL, 1);
+     emitRM("local.get $pow", 16, NULL, 1);
+     emitRM("i32.ge_s", 16, NULL, 1);
+     emitRM("br_if $B1", 16, NULL, 1);
+     emitRM("local.get $n", 16, NULL, 1);
+     emitRM("local.get $pow", 16, NULL, 1);
+     emitRM("i32.div_u", 16, NULL, 1);
+     emitRM("i32.const 10", 16, NULL, 1);
+     emitRM("i32.rem_u", 16, NULL, 1);
+     emitRM("i32.const 48", 16, NULL, 1);
+     emitRM("i32.add", 16, NULL, 1);
+     emitRM("call $printc", 16, NULL, 1);
+     emitRM("local.get $pow", 16, NULL, 1);
+     emitRM("i32.const 10", 16, NULL, 1);
+     emitRM("i32.div_u", 16, NULL, 1);
+     emitRM("local.set $pow", 16, NULL, 1);
+     emitRM("br $L1", 16, NULL, 1);
+     emitRM(")", 12, NULL, 1);
+     emitRM(")", 8, NULL, 1); 
+     emitRM("i32.const 10", 8, "print newline character", 1);
+     emitRM("call $printc", 8, NULL, 1); 
+     emitRM(")", 4, NULL, 1); 
+   }
 
    emitComment("End of standard prelude.", 0);
 
@@ -630,58 +659,16 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
    // Call main
    emitRM("(start $main)", 4, NULL, 1);
 
-   // /*defining Input & output fuction as if they were in-built(global) */
-   // /* if only necessary  i,e. if they are used in program */ 
-   // fun = fun_lookup("input",0);
-   // if(fun!=NULL){
-   // if (TraceCode) emitComment("Begin input()");
-   // fun->fun_start = emitSkip(0);
-   // emitRO("IN",ax,0,0,"read input into ax");
-   // emitRM("LDA",sp,1,sp,"pop prepare");
-   // emitRM("LD",pc,-1,sp,"pop return addr");
-   // if (TraceCode) emitComment("End input()");
-   // }
-   
-   // fun = fun_lookup("output",0);
-   // if(fun!=NULL){
-   // if (TraceCode) emitComment("Begin output()");
-   // fun->fun_start = emitSkip(0);
-   // emitRM("LD",ax,1,sp,"load param into ax");
-   // emitRO("OUT",ax,0,0,"output using ax");
-   // emitRM("LDA",sp,1,sp,"pop prepare");
-   // emitRM("LD",pc,-1,sp,"pop return addr");
-   // if (TraceCode) emitComment("End output()");
-   // }
-   
-  //   /* Fill up jump-to-main code */
-  //  emitBackup(loc);
-  //  fun = fun_lookup("main",0);
-  //  if(fun==NULL)
-  //  {
-  //  	fprintf(stderr,"main not found\n");
-  //  }
-   
-  // emitRM("LDA",ax,3,pc,"store returned PC");
-  // emitRM("LDA",sp,-1,sp,"push prepare");
-  // emitRM("ST",ax,0,sp,"push returned PC");
-  // emitRM("LDC",pc,fun->fun_start,0,"jump to function");
-  // emitRM("LDA",sp,main_locals,sp,"release local var");
-
   char * trueString = "\"true\\n\"";
-  emitData(trueString, dataSize, NULL);
-  dataSize += originalStringLength(trueString);
+  emitData(trueString, 0, NULL);
 
   char * falseString = "\"false\\n\"";
-  emitData(falseString, dataSize, NULL);
-  dataSize += originalStringLength(falseString);
+  emitData(falseString, 5, NULL);
    
   memorySize += dataSize / 65536;
    
   emitMemory(memorySize, NULL);
 
   emitRM(")", 0, NULL, 1);
-      
-  //emitComment("End of execution.", 0);
-  //emitRO("HALT",0,0,0,"");
 }
 

@@ -34,4 +34,11 @@ struct Funk_decls functionDeclarations [100];
 // Total number of functions in array
 extern int totalFuncs;
 
+extern int getchar_redefined;
+extern int halt_redefined;
+extern int printb_redefined;
+extern int printc_redefined;
+extern int printi_redefined;
+extern int prints_redefined;
+
 #endif

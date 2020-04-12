@@ -95,13 +95,13 @@ int main( int argc, char * argv[] ) {
   }
 
   // Print Annotated AST if there are no errors
-  if(! Error)
-  {
-    if (TraceAnalyze) {
-      fprintf(listing, "\nAnnotated Syntax tree:\n");
-      printAnnotatedTree(syntaxTree);
-    }
-  }
+  // if(! Error)
+  // {
+  //   if (TraceAnalyze) {
+  //     fprintf(listing, "\nAnnotated Syntax tree:\n");
+  //     printAnnotatedTree(syntaxTree);
+  //   }
+  // }
   
   #if !NO_CODE
   if (! Error)

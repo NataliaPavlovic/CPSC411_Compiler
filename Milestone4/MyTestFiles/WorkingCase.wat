@@ -104,7 +104,7 @@
         i32.const 0
         local.set $Ib
         local.get $Ia
-        local.get $Ib
+        i32.const 1
         call $func
         i32.const 1
         local.set $Ic
@@ -136,6 +136,11 @@
             i32.const 5
             local.set $Ic
         )
+        i32.const 65
+        local.set $Ia
+        i32.const 11
+        i32.const 18
+        call $prints
     )
     (func $func  (param $It i32)  (param $Ib i32)        
         (local $Ic i32)

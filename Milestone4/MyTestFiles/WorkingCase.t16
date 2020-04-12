@@ -4,7 +4,7 @@ main()
 	a = 4;
 	boolean b;
 	b = false;
-	func(a, b);
+	func(a, true);
 	int c;
 	int d;
 	c = 1;
@@ -21,6 +21,8 @@ main()
 		}
 		c = 5;
 	}
+	a = 65;
+	prints("Hello World!\n");
 }
 
 int r;

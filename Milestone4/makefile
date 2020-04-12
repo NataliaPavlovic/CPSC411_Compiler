@@ -11,7 +11,7 @@ util.o : globals.h parser.tab.h
 analyze.o: globals.h symtab.h analyze.h util.h
 symtab.o: symtab.h globals.h
 code.o: globals.h code.h
-cgen.c: globals.h symtab.h code.h cgen.h
+cgen.c: globals.h symtab.h code.h cgen.h analyze.h
 
 
 .PHONY : clean

@@ -33,6 +33,13 @@ static int return_type = -1;
 // Total number of functions in array
 int totalFuncs = 0;
 
+int getchar_redefined = 0;
+int halt_redefined = 0;
+int printb_redefined = 0;
+int printc_redefined = 0;
+int printi_redefined = 0;
+int prints_redefined = 0;
+
 // print an error message and a line number
 static void printError(TreeNode * t, char * message, int print_line_no)
 { 
@@ -101,15 +108,18 @@ static void insertNode( TreeNode * t)
 
           // Set scope of function call parameters
           if (t->child[0] != NULL && t->child[0]->child[0] != NULL) {
-            t = t->child[0];
-              if (st_lookup(t->child[0]->attr.name, scope_a) == -1) {
-                t->child[0]->scope = No_change;
-                t = t->child[0];
-                while (t->sibling != NULL) {
-                  t = t->sibling;
-                  t->scope = No_change;
-                }
-              } 
+            t = t->child[0]->child[0];
+            while(t != NULL && (t->attr.name == NULL))
+            {
+              t = t->sibling;
+            }
+            if (t != NULL && st_lookup(t->attr.name, scope_a) == -1) {
+              t->scope = No_change;
+              while (t->sibling != NULL) {
+                t = t->sibling;
+                t->scope = No_change;
+              }
+            } 
         }
         break; 
         case ReturnK:
@@ -323,7 +333,31 @@ static void insertNode( TreeNode * t)
           {
             count_main++;
           }
-
+          if(!strcmp(t->attr.name, "getchar"))
+          {
+            getchar_redefined = 1;
+          }
+          if(!strcmp(t->attr.name, "halt"))
+          {
+            halt_redefined = 1;
+          }
+          if(!strcmp(t->attr.name, "printb"))
+          {
+            printb_redefined = 1;
+          }
+          if(!strcmp(t->attr.name, "printc"))
+          {
+            printc_redefined = 1;
+          }
+          if(!strcmp(t->attr.name, "printi"))
+          {
+            printi_redefined = 1;
+          }
+          if(!strcmp(t->attr.name, "prints"))
+          {
+            prints_redefined = 1;
+          }
+            
           return_type = t->type;
 
           st_insert(t->attr.name, t->lineno, -1, scope_a, FALSE, -1);
@@ -487,8 +521,29 @@ static void checkNode(TreeNode * t)
             t->type = Integer;
           break;
         case AssignK:
-          if(t->child[0] != NULL && t->child[0]->attr.name == NULL)
+        {
+          if(t->child[0] != NULL)
           {
+            int not_RTS = (strcmp(t->attr.name, "getchar")) && (strcmp(t->attr.name, "halt")) && strcmp(t->attr.name, "printb") && strcmp(t->attr.name, "printc") && strcmp(t->attr.name, "printi") && strcmp(t->attr.name, "prints");
+            if(!not_RTS)
+            {
+              if(strcmp(t->attr.name, "getchar"))
+                {
+                  if(!getchar_redefined)
+                    t->child[0]->type = Integer;
+                }
+              else if(strcmp(t->attr.name, "halt"))
+                {
+                  if(!halt_redefined)
+                    t->child[0]->type = Void;
+                }
+              else if(strcmp(t->attr.name, "printc"))
+                {
+                  if(!printc_redefined)
+                    t->child[0]->type = Void;
+                }
+            }
+            
             if(t->child[0]->child[0] == NULL)
             {
               // Check if op will lead to a boolean expression
@@ -527,6 +582,7 @@ static void checkNode(TreeNode * t)
             }
           }
           break;
+        }
         default:
           break;
       }
@@ -558,13 +614,103 @@ static void checkNode(TreeNode * t)
             }
           }
 
-          if (i== totalFuncs)
+          int not_RTS = (strcmp(t->attr.name, "getchar")) && (strcmp(t->attr.name, "halt")) && strcmp(t->attr.name, "printb") && strcmp(t->attr.name, "printc") && strcmp(t->attr.name, "printi") && strcmp(t->attr.name, "prints");
+          if (i== totalFuncs && not_RTS)
           {
             printError(t, "function was used but never declared", 1);
           }
 
+          if(!not_RTS)
+          {
+            if(strcmp(t->attr.name, "getchar")==0)
+            {
+              if(!getchar_redefined)
+              {
+                if(t->child[0] != NULL)
+                {
+                  printError(t, "number of arguments doesn't match getchar RTS function declaration", 1);
+                }
+                break;
+              }
+            }
+            else if(strcmp(t->attr.name, "halt")==0)
+            {
+              if(!getchar_redefined)
+              {
+                if(t->child[0] != NULL)
+                {
+                  printError(t, "number of arguments doesn't match halt RTS function declaration", 1);
+                }
+              }
+            }
+            else if(strcmp(t->attr.name, "printb")==0)
+            {
+              if(!printb_redefined)
+              {
+                if(t->child[0] == NULL || t->child[0]->param_size != 1)
+                {
+                  printError(t, "number of arguments doesn't match printb RTS function declaration", 1);
+                }
+                if(t->child[0] != NULL)
+                {
+                  t = t->child[0];
+                  if (t->child[0]->type != Boolean)
+                    typeError(t->child[0],"type of arguments doesn't match printb RTS function declaration");
+                }
+              }
+            }
+            else if(strcmp(t->attr.name, "printc")==0)
+            {
+              if(!printc_redefined)
+              {
+                if(t->child[0] == NULL || t->child[0]->param_size != 1)
+                {
+                  printError(t, "number of arguments doesn't match printc RTS function declaration", 1);
+                }
+                if(t->child[0] != NULL)
+                {
+                  t = t->child[0];
+                  if (t->child[0]->type != Integer)
+                    typeError(t->child[0],"type of arguments doesn't match printc RTS function declaration");
+                }
+              }
+            }
+            else if(strcmp(t->attr.name, "printi")==0)
+            {
+              if(!printi_redefined)
+              {
+                if(t->child[0] == NULL || t->child[0]->param_size != 1)
+                {
+                  printError(t, "number of arguments doesn't match printi RTS function declaration", 1);
+                }
+                if(t->child[0] != NULL)
+                {
+                  t = t->child[0];
+                  if (t->child[0]->type != Integer)
+                    typeError(t->child[0],"type of arguments doesn't match printi RTS function declaration");
+                }
+              }
+            }
+            else if(strcmp(t->attr.name, "prints")==0)
+            {
+              if(!prints_redefined)
+              {
+                if(t->child[0] == NULL || t->child[0]->param_size != 1)
+                {
+                  printError(t, "number of arguments doesn't match prints RTS function declaration", 1);
+                }
+                if(t->child[0] != NULL)
+                {
+                  t = t->child[0];
+                  if (t->child[0]->type == Integer || t->child[0]->type == Boolean)
+                    typeError(t->child[0],"type of arguments doesn't match prints RTS function declaration");
+                }
+              }
+            }
+          }
+
           // Check the types of arguments passed into the function call
-          if (t->child[0] != NULL) {
+          if ( not_RTS && t->child[0] != NULL) {
             if(t->child[0]->param_size != functionDeclarations[i].param_size)
             {
               printError(t, "number of arguments doesn't match function declaration", 1);
@@ -582,7 +728,10 @@ static void checkNode(TreeNode * t)
               j++;
             }
           }
-
+          else if( not_RTS && t->child[0] == NULL && functionDeclarations[i].param_size != 0)
+          {
+              printError(t, "number of arguments doesn't match function declaration", 1);
+          }
           break;
         }
         case ReturnK:
