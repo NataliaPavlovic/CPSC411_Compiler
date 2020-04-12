@@ -37,7 +37,7 @@ int numberArgsFunk = 0;
 %token    ENDFILE ERROR
 %token    INT BOOLEAN VOID IF ELSE WHILE RETURN BREAK TRUE FALSE
 %token    ID NUMBER STRING
-%token    EQ NQ LT GT LE GE AND OR 
+%token    EQ NQ LE GE AND OR 
 %%
 
 start           : /* empty */
@@ -609,7 +609,7 @@ assignment              : ID '=' assignmentexpression
                             char * str = (char *)malloc(MAXTOKENLEN+1);
 
                             int i;
-                            for(i = currentIndex; i >= 0; i--)
+                            for(i = 0; i <= currentIndex; i++)
                             {
                                 if(fullLine[i][0]=='=')
                                 {

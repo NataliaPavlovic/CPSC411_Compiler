@@ -91,28 +91,63 @@
         call $printc
     )
 ;; End of standard prelude.
-    (start $main)
+    (global $Gr (mut i32) (i32.const 0))
+    (global $Gb (mut i32) (i32.const 0))
     (func $main        
-        (local $a i32)
-        (local $b i32)
+        (local $Ia i32)
+        (local $Ib i32)
+        (local $Ic i32)
+        (local $Id i32)
+        (local $Ie i32)
         i32.const 4
-        local.set $a
-        local.get $a
-        local.get $b
-        call $func
-        local.get $a
-        i32.const 1
-        i32.mod_u
-        local.set $a
+        local.set $Ia
         i32.const 0
-        local.get $a
-        i32.sub
-        local.set $a
-    )
-    (func $func  (param $t i32)  (param $b i32)        
+        local.set $Ib
+        local.get $Ia
+        local.get $Ib
+        call $func
+        i32.const 1
+        local.set $Ic
         i32.const 2
-        local.set $t
+        local.set $Id
+        local.get $Ic
+        local.get $Id
+        i32.le_s
+        local.set $Ib
+        local.get $Ib
+        i32.const 1
+        i32.xor
+        local.set $Ie
+        (block $B0
+            local.get $Ie
+            i32.eqz
+            br_if $B0
+            i32.const 3
+            local.set $Ic
+            (block $B1
+                local.get $Ic
+                local.get $Id
+                i32.gt_s
+                i32.eqz
+                br_if $B1
+                i32.const 4
+                local.set $Id
+            )
+            i32.const 5
+            local.set $Ic
+        )
     )
+    (func $func  (param $It i32)  (param $Ib i32)        
+        (local $Ic i32)
+        i32.const 6
+        local.set $Ic
+        i32.const 0
+        i32.const 2
+        i32.sub
+        local.set $It
+        return
+    )
+    (start $main)
     (data 0 (i32.const 0) "true\n")
     (data 0 (i32.const 5) "false\n")
     (memory 1)

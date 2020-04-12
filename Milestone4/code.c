@@ -49,6 +49,13 @@ void emitMemory( int memorySize, char *c)
   if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
 } /* emitRO */
 
+void emitNumberedLabel( char * op, int r, int number, char *c)
+{
+  fprintf(code,"%*.*s%s%d",r,r, " ", op, number);
+  if (TraceCode && c!=NULL) fprintf(code,"\t%s",c) ;
+  fprintf(code,"\n") ;
+  if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
+}
 
 /* Procedure emitRM emits a register-to-memory
  * op = the opcode

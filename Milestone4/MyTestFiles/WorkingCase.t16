@@ -3,12 +3,33 @@ main()
 	int a;
 	a = 4;
 	boolean b;
+	b = false;
 	func(a, b);
-	a = a%1;
-	a = -a;
+	int c;
+	int d;
+	c = 1;
+	d = 2;
+	b = c <= d;
+	boolean e;
+	e = !b;
+	if(e)
+	{
+		c = 3;
+		if(c > d)
+		{
+			d = 4;
+		}
+		c = 5;
+	}
 }
+
+int r;
+boolean b;
 
 void func(int t, boolean b)
 {
-	t = 2;
+	int c;
+	c = 6;
+	t = -2;
+	return;
 }

@@ -28,7 +28,6 @@ void printToken( TokenType token, const char* tokenString ) {
       break;
     //Operation/Special Symbols 
     case LE: fprintf(listing, "%d: Special Symbol: <=\n", lineno); break;
-    case GT: fprintf(listing, "%d: Special Symbol: >\n", lineno); break;
     case GE: fprintf(listing, "%d: Special Symbol: >=\n", lineno); break;
     case EQ: fprintf(listing,"%d: Special Symbol: ==\n", lineno); break;
     case NQ: fprintf(listing,"%d: Special Symbol: !=\n", lineno); break;
@@ -95,7 +94,6 @@ void printOperators( TokenType token, const char* tokenString, TreeNode *tree ) 
       break;
     //Operation/Special Symbols 
     case LE: fprintf(listing, "<= at line %d", tree->lineno); break;
-    case GT: fprintf(listing, "> at line %d", tree->lineno); break;
     case GE: fprintf(listing, ">= at line %d", tree->lineno); break;
     case EQ: fprintf(listing,"== at line %d", tree->lineno); break;
     case NQ: fprintf(listing,"!= at line %d", tree->lineno); break;

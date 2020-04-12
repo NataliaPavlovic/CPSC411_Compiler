@@ -70,6 +70,9 @@ typedef struct treeNode {
   int in_compound;   
   //Location in symbol table
   int loc;  
+  int if_block_counter;
+  int ifelse_block_counter;
+  int loop_counter;
 } TreeNode;
 
 extern int EchoSource;

@@ -55,6 +55,8 @@ void emitData( char *op, int offset, char *c);
 
 void emitMemory( int memorySize, char *c);
 
+void emitNumberedLabel( char * op, int r, int number, char *c);
+
 /* Procedure emitRM emits a register-to-memory
  * TM instruction
  * op = the opcode

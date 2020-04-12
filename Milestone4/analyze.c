@@ -474,12 +474,12 @@ static void checkNode(TreeNode * t)
           }
           else
           {
-            if (t->child[0]->type != Integer)
+            if (t->child[0]->type != Integer && t->attr.op != '!')
               typeError(t,"Op applied to non-integer");
           }
 
           // Check if op will lead to a boolean expression
-          if ((t->attr.op == LE) || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
+          if ((t->attr.op == LE) || (t->attr.op == '!') || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
             {
               t->type = Boolean;
             }
@@ -492,7 +492,7 @@ static void checkNode(TreeNode * t)
             if(t->child[0]->child[0] == NULL)
             {
               // Check if op will lead to a boolean expression
-              if ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!'))
+              if (t->type == Integer && ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!') || (t->child[0]->attr.op == EQ) || (t->child[0]->attr.op == NQ)))
                 typeError(t->child[0], "Cannot assign boolean to int variable");
               // Check if type of children matches types of assign
               else if (t->child[0]->type != t->type)
@@ -509,9 +509,8 @@ static void checkNode(TreeNode * t)
             }
             else
             {
-              t = t->child[0];
               // Check if op will lead to a boolean expression
-              if ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!'))
+              if (t->type == Integer && ((t->child[0]->attr.op == LE) || (t->child[0]->attr.op == '<') || (t->child[0]->attr.op == '>') || (t->child[0]->attr.op == GE) || (t->child[0]->attr.op == AND) || (t->child[0]->attr.op == OR) || (t->child[0]->attr.op == '!') || (t->child[0]->attr.op == EQ) || (t->child[0]->attr.op == NQ)))
                 typeError(t->child[0], "Cannot assign boolean to int variable");
               // Check if type of children matches types of assign
               else if (t->child[0]->type != t->type)
@@ -536,41 +535,16 @@ static void checkNode(TreeNode * t)
       switch (t->kind.stmt)
       { 
         case IfK:
-          if(t->child[0]->child[0] == NULL)
-          {
-            if (t->child[0]->type == Integer)
-              typeError(t->child[0],"need a boolean expression for if condition");
-          }
-          else
-          {
-            if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"need a boolean expression for if condition");
-          }
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for if condition");
           break;
         case IfElseK:
-          if(t->child[0]->child[0] == NULL)
-          {
-            if (t->child[0]->type == Integer)
-              typeError(t->child[0],"need a boolean expression for ifelse condition");
-          }
-          else
-          {
-            if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"need a boolean expression for ifelse condition");
-          }
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for ifelse condition");
           break;
         case WhileK:
-          if(t->child[0]->child[0] == NULL)
-          {
-            if (t->child[0]->type == Integer)
-              typeError(t->child[0],"need a boolean expression for while condition");
-          }
-          else
-          {
-            if (t->child[0]->child[0]->type == Integer)
-              typeError(t->child[0]->child[0],"need a boolean expression for while condition");
-          }
-
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for while condition");
           break;
         case CallK:
         {

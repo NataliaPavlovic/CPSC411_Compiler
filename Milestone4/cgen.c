@@ -25,6 +25,7 @@ static int getValue=1;
 /* prototype for internal recursive code generator */
 static void cGen (TreeNode * tree);
 
+static void cGen_globalvars (TreeNode * tree);
 
 static int tmp;
 
@@ -38,6 +39,8 @@ static int dataSize = 0;
 static int memorySize = 1;
 
 static int indentation = 4;
+static int block_counter = 0;
+static int loop_counter = 0;
 
 /* stack used for call */
 TreeNode* paramStack[10];
@@ -61,38 +64,6 @@ TreeNode* popParam()
   return paramStack[--top];
 }  
 
-/* emit one instruction to get the address of a var,
- * store the address in bx,
- * we can access the var by bx[0]
- * Might help you understand what steps to take when generating code for each case
- * Edit to generate code for WAT instead
- */
-void emitGetAddr(TreeNode *var)
-{
-  switch(var->scope){
-    case 0:
-        // char * s = (char *) malloc(strlen(tree->attr.name)+13);
-        // strcpy(s,"local.set $");
-        // strcat(s, tree->attr.name);
-        // (st_lookup(var->attr.name,0))
-        // emitRM();
-        //emitRM("LDA",bx,-1-(st_lookup(var->attr.name,0)),gp,"get global address");
-        break;
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    {
-      char * s = (char *) malloc(strlen(var->attr.name)+13);
-      strcpy(s,"local.set $");
-      strcat(s, var->attr.name);
-      emitRM(s, indentation, NULL, 1);
-      break;
-    }
-  }
-}
-
 /* Procedure genDec generates code at an declaration node */
 static void genDec( TreeNode * tree)
 { /* Complete this function */
@@ -100,17 +71,28 @@ static void genDec( TreeNode * tree)
   { 
     case VarK:
     {
-      char * s = (char *) malloc(strlen(tree->attr.name)+14);
-      strcpy(s, "(local $");
-      strcat(s, tree->attr.name);
-      strcat(s," i32)");
-      emitRM(s, indentation, NULL, 1);
+      if(tree->scope == 0)
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+37);
+        strcpy(s, "(global $G");
+        strcat(s, tree->attr.name);
+        strcat(s, " (mut i32) (i32.const 0))");
+        emitRM(s, indentation, NULL, 1);
+      }
+      else
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+14);
+        strcpy(s, "(local $I");
+        strcat(s, tree->attr.name);
+        strcat(s," i32)");
+        emitRM(s, indentation, NULL, 1);
+      }
       break;
     }
     case ParameterK:
     {
       char * s = (char *) malloc(strlen(tree->attr.name)+15);
-      strcpy(s," (param $");
+      strcpy(s," (param $I");
       strcat(s, tree->attr.name);
       strcat(s, " i32)");
       emitRM(s, 1, NULL, 0);
@@ -120,6 +102,7 @@ static void genDec( TreeNode * tree)
     }
     case FunK:
     {
+      block_counter = 0;
       char * s = (char *) malloc(strlen(tree->attr.name)+8);
       strcpy(s,"(func $");
       strcat(s, tree->attr.name);
@@ -131,7 +114,6 @@ static void genDec( TreeNode * tree)
       cGen(tree->child[1]);
       indentation -= 4;
       emitRM(")", indentation, NULL, 1);
-
       cGen(tree->sibling);
       break;
     }
@@ -153,6 +135,7 @@ static void genStmt( TreeNode * tree)
       break;
     }
     case ReturnK:
+      emitRM("return", indentation, NULL, 1);
       break;
     case WhileK:
     {
@@ -161,19 +144,75 @@ static void genStmt( TreeNode * tree)
     }
     case IfK:
     {
+      char * s = (char *) malloc(9);
+      strcpy(s,"(block $B");
+      emitNumberedLabel(s, indentation, block_counter, NULL);
+      indentation+=4;
+      tree->if_block_counter = block_counter;
+      block_counter++;
       cGen(tree->child[0]);
+      emitRM("i32.eqz", indentation, NULL, 1); 
+      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL);
+      
+      cGen(tree->child[1]);
+
+      indentation-=4;
+      emitRM(")", indentation, NULL, 1);
       break;
     }
     case IfElseK:
     {
+      char * s = (char *) malloc(9);
+      strcpy(s,"(block $B");
+      emitNumberedLabel(s, indentation, block_counter, NULL);
+      indentation+=4;;
+      tree->ifelse_block_counter = block_counter;
+      block_counter++;
+      strcpy(s,"(block $B");
+      emitNumberedLabel(s, indentation, block_counter, NULL);
+      indentation+=4;
+      tree->if_block_counter = block_counter;
       cGen(tree->child[0]);
+      emitRM("i32.eqz", indentation, NULL, 1); 
+      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL);
+      block_counter++;
+
+      if(tree->child[2] != NULL)
+      {
+        cGen(tree->child[1]);
+        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL);
+        indentation-=4;
+        emitRM(")", indentation, NULL, 1);
+        cGen(tree->child[2]);
+        indentation-=4;
+        emitRM(")", indentation, NULL, 1);
+      }
+      else
+      {
+        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL);
+        indentation-=4;
+        emitRM(")", indentation, NULL, 1);
+        cGen(tree->child[1]);
+        indentation-=4;
+        emitRM(")", indentation, NULL, 1);
+      }
       break;
     }
     case BreakK:
       break;
     case CompoundK:
     {
-      cGen(tree->child[0]);
+      if(tree->child[0] != NULL)
+      {
+        cGen(tree->child[0]);
+        tree=tree->child[0];
+        while(tree->sibling != NULL)
+        {
+          cGen(tree->sibling);
+          tree=tree->sibling;
+        }
+      }
+
       break;
     }
     default:
@@ -222,33 +261,118 @@ static void genExp( TreeNode * tree)
         case '%':
           cGen(tree->child[0]);
           cGen(tree->child[1]);
-          emitRM("i32.mod_u", indentation, NULL, 1); 
+          emitRM("i32.rem_u", indentation, NULL, 1); 
           break;
-        // case '!':
-        //   break;
+        case '!':
+          cGen(tree->child[0]);
+          emitRM("i32.const 1", indentation, NULL, 1); 
+          emitRM("i32.xor", indentation, NULL, 1); 
+          break;
+        case '>':
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.gt_s", indentation, NULL, 1);
+          break;
+        case '<':
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.lt_s", indentation, NULL, 1); 
+          break;
+        case AND:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);
+          emitRM("", indentation, NULL, 1); 
+          break;
+        case OR:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);
+          emitRM("", indentation, NULL, 1);
+          break;
+        case LE:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.le_s", indentation, NULL, 1); 
+          break;
+        case GE:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.ge_s", indentation, NULL, 1); 
+          break;
+        case EQ:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.eq", indentation, NULL, 1); 
+          break;
+        case NQ:
+          cGen(tree->child[0]);
+          cGen(tree->child[1]);          
+          emitRM("i32.ne", indentation, NULL, 1); 
+          break;
       }
       break;
     }
     case IdK:
     {
-      char * s = (char *) malloc(strlen(tree->attr.name)+12);
-      strcpy(s,"local.get $");
-      strcat(s, tree->attr.name);
-      emitRM(s, indentation, NULL, 1);
+      if(tree->scope == 0)
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+13);
+        strcpy(s,"global.get $G");
+        strcat(s, tree->attr.name);
+        emitRM(s, indentation, NULL, 1);
+      }
+      else
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+12);
+        strcpy(s,"local.get $I");
+        strcat(s, tree->attr.name);
+        emitRM(s, indentation, NULL, 1);
+      }
       break;
     }
     case ConstK:
     {
-      char * s = (char *) malloc(strlen(tree->attr.val)+11);
-      strcpy(s,"i32.const ");
-      strcat(s, tree->attr.val);
-      emitRM(s, indentation, NULL, 1);
+      if(tree->type == Integer)
+      {
+        char * s = (char *) malloc(strlen(tree->attr.val)+11);
+        strcpy(s,"i32.const ");
+        strcat(s, tree->attr.val);
+        emitRM(s, indentation, NULL, 1);
+      }
+      else if(tree->type == Boolean)
+      {
+        if(!strcmp(tree->attr.val,"true"))
+        {
+          emitRM("i32.const 1", indentation, NULL, 1);
+        }
+        else if(!strcmp(tree->attr.val,"false"))
+        {
+          emitRM("i32.const 0", indentation, NULL, 1);
+        }
+      }
+      // Strings
+      else
+      {
+
+      }
       break;
     }
     case AssignK:
     {
       cGen(tree->child[0]);
-      emitGetAddr(tree);      
+      if(tree->scope == 0)
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+14);
+        strcpy(s,"global.set $G");
+        strcat(s, tree->attr.name);
+        emitRM(s, indentation, NULL, 1);
+      } 
+      else
+      {
+        char * s = (char *) malloc(strlen(tree->attr.name)+13);
+        strcpy(s,"local.set $I");
+        strcat(s, tree->attr.name);
+        emitRM(s, indentation, NULL, 1);
+      }   
       break;   
     }
   }
@@ -308,24 +432,45 @@ static void cGen( TreeNode * tree)
   if (tree != NULL)
   { switch (tree->nodekind) {
       case StmtK:
-        printf("StmtK %s\n", tree->attr.name);
         genStmt(tree);
         break;
       case ExpK:
-        if (tree->attr.name != NULL)
-          printf("ExpK %s\n", tree->attr.name);
-        else
-          printf("ExpK %s\n", tree->attr.val);
         genExp(tree);
         break;
       case DecK:
-        printf("DecK %s\n", tree->attr.name);
-        genDec(tree);
+      {
+        if( tree->kind.dec == VarK && tree->scope == 0)
+        {
+          cGen(tree->sibling);
+        }
+        else
+        {
+          genDec(tree);
+        }
         break;
+      }
       case LabelK:
-        printf("LabelK\n");
         genLabel(tree);
         break;
+      default:
+        break;
+    }
+  }
+}
+
+static void cGen_globalvars( TreeNode * tree)
+{ 
+  if (tree != NULL)
+  { switch (tree->nodekind) {
+      case DecK:
+      {
+        if( tree->kind.dec == VarK && tree->scope == 0)
+        {
+          genDec(tree);
+        }
+        cGen_globalvars(tree->sibling);
+        break;
+      }
       default:
         break;
     }
@@ -477,8 +622,10 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
 
    emitComment("End of standard prelude.", 0);
 
-   // Global Declarations
-   // Function Declarations
+   //  /* generate code for program */
+    cGen_globalvars(syntaxTree);
+    cGen(syntaxTree);
+   //  /* finish */
 
    // Call main
    emitRM("(start $main)", 4, NULL, 1);
@@ -505,10 +652,6 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
    // emitRM("LD",pc,-1,sp,"pop return addr");
    // if (TraceCode) emitComment("End output()");
    // }
-   
-  //  /* generate code for program */
-   cGen(syntaxTree);
-  //  /* finish */
    
   //   /* Fill up jump-to-main code */
   //  emitBackup(loc);
