@@ -104,7 +104,8 @@
         i32.const 0
         local.set $Ib
         local.get $Ia
-        i32.const 1
+        i32.const 2
+        local.get $Ia
         call $func
         i32.const 1
         local.set $Ic
@@ -138,11 +139,23 @@
         )
         i32.const 65
         local.set $Ia
-        i32.const 11
-        i32.const 18
-        call $prints
+        local.get $Ia
+        call $printc
+        (block $B2
+            (loop $L0
+                i32.const 1
+                i32.eqz
+                br_if $B2
+                br $B2
+                br $L0
+            )
+        )
+        call $getchar
+        local.set $Ic
+        local.get $Ic
+        call $printc
     )
-    (func $func  (param $It i32)  (param $Ib i32)        
+    (func $func  (param $It i32)  (param $Ii i32)  (param $Iq i32)        
         (local $Ic i32)
         i32.const 6
         local.set $Ic
@@ -150,6 +163,60 @@
         i32.const 2
         i32.sub
         local.set $It
+        (block $B0
+            (loop $L0
+                i32.const 1
+                i32.eqz
+                br_if $B0
+                (block $B1
+                    (loop $L1
+                        i32.const 0
+                        i32.eqz
+                        br_if $B1
+                        br $B1
+                        br $L1
+                    )
+                )
+                br $B0
+                br $L0
+            )
+        )
+        (block $B2
+            local.get $Ic
+            local.get $It
+            i32.lt_s
+            i32.eqz
+            br_if $B2
+            i32.const 2
+            local.set $Ic
+        )
+        (block $B3
+            (loop $L2
+                local.get $Ic
+                local.get $It
+                i32.lt_s
+                i32.eqz
+                br_if $B3
+                (block $B4
+                    (loop $L3
+                        i32.const 0
+                        i32.eqz
+                        br_if $B4
+                        br $B4
+                        br $L3
+                    )
+                )
+                (block $B5
+                    local.get $Ic
+                    local.get $It
+                    i32.eq
+                    i32.eqz
+                    br_if $B5
+                    br $B3
+                )
+                br $L2
+            )
+        )
         return
     )
     (start $main)

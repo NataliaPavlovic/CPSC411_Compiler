@@ -4,7 +4,7 @@ main()
 	a = 4;
 	boolean b;
 	b = false;
-	func(a, true);
+	func(a, 2, a);
 	int c;
 	int d;
 	c = 1;
@@ -22,16 +22,45 @@ main()
 		c = 5;
 	}
 	a = 65;
-	prints("Hello World!\n");
+	printc(a);
+	while(true)
+	{
+		break;
+	}
+	c = getchar();
+	printc(c);
 }
 
 int r;
 boolean b;
 
-void func(int t, boolean b)
+void func(int t, int i, int q)
 {
 	int c;
 	c = 6;
 	t = -2;
+	while(true)
+	{
+		while(false)
+		{
+			break;
+		}
+		break;
+	}
+	if(c < t)
+	{
+		c = 2;
+	}
+	while(c < t)
+	{
+		while(false)
+		{
+			break;
+		}
+		if(c == t)
+		{
+			break;
+		}
+	}
 	return;
 }

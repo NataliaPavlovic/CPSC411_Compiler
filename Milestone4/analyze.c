@@ -21,8 +21,10 @@ static int location[MAX_SCOPE] = {0,0,0};
 
 static int No_change = 0; 
 
-// Counter for number oof current nested while loops
+// Counter for number of current nested while loops
 static int count_while = 0;
+
+static int total_func_loops = 0;
 
 // Counter for number of main function declarations
 static int count_main = 0;
@@ -497,7 +499,8 @@ static void typeError(TreeNode * t, char * message)
  */
 static void checkNode(TreeNode * t)
 { switch (t->nodekind)
-  { case ExpK:
+  { 
+    case ExpK:
       switch (t->kind.exp)
       { case OpK:
           // Check if children of op are not Integers
@@ -524,22 +527,41 @@ static void checkNode(TreeNode * t)
         {
           if(t->child[0] != NULL)
           {
-            int not_RTS = (strcmp(t->attr.name, "getchar")) && (strcmp(t->attr.name, "halt")) && strcmp(t->attr.name, "printb") && strcmp(t->attr.name, "printc") && strcmp(t->attr.name, "printi") && strcmp(t->attr.name, "prints");
+            int not_RTS = 1;
+            if(t->child[0]->attr.name != NULL)
+            {
+              not_RTS = (strcmp(t->child[0]->attr.name, "getchar")) && (strcmp(t->child[0]->attr.name, "halt")) && strcmp(t->child[0]->attr.name, "printb") && strcmp(t->child[0]->attr.name, "printc") && strcmp(t->child[0]->attr.name, "printi") && strcmp(t->child[0]->attr.name, "prints");
+            }
             if(!not_RTS)
             {
-              if(strcmp(t->attr.name, "getchar"))
+              if(!strcmp(t->child[0]->attr.name, "getchar"))
                 {
                   if(!getchar_redefined)
                     t->child[0]->type = Integer;
                 }
-              else if(strcmp(t->attr.name, "halt"))
+              else if(!strcmp(t->child[0]->attr.name, "halt"))
                 {
                   if(!halt_redefined)
                     t->child[0]->type = Void;
                 }
-              else if(strcmp(t->attr.name, "printc"))
+              else if(!strcmp(t->child[0]->attr.name, "printc"))
                 {
                   if(!printc_redefined)
+                    t->child[0]->type = Void;
+                }
+              else if(!strcmp(t->child[0]->attr.name, "printb"))
+                {
+                  if(!printb_redefined)
+                    t->child[0]->type = Void;
+                }
+              else if(!strcmp(t->child[0]->attr.name, "printi"))
+                {
+                  if(!printi_redefined)
+                    t->child[0]->type = Void;
+                }
+              else if(!strcmp(t->child[0]->attr.name, "prints"))
+                {
+                  if(!prints_redefined)
                     t->child[0]->type = Void;
                 }
             }
@@ -599,6 +621,7 @@ static void checkNode(TreeNode * t)
             typeError(t->child[0],"need a boolean expression for ifelse condition");
           break;
         case WhileK:
+          total_func_loops++;
           if (t->child[0]->type == Integer)
             typeError(t->child[0],"need a boolean expression for while condition");
           break;
@@ -615,6 +638,7 @@ static void checkNode(TreeNode * t)
           }
 
           int not_RTS = (strcmp(t->attr.name, "getchar")) && (strcmp(t->attr.name, "halt")) && strcmp(t->attr.name, "printb") && strcmp(t->attr.name, "printc") && strcmp(t->attr.name, "printi") && strcmp(t->attr.name, "prints");
+          int redef = 0;
           if (i== totalFuncs && not_RTS)
           {
             printError(t, "function was used but never declared", 1);
@@ -622,95 +646,82 @@ static void checkNode(TreeNode * t)
 
           if(!not_RTS)
           {
-            if(strcmp(t->attr.name, "getchar")==0)
+            if(strcmp(t->attr.name, "getchar")==0 && !getchar_redefined)
             {
-              if(!getchar_redefined)
+              if(t->child[0] != NULL)
               {
-                if(t->child[0] != NULL)
-                {
-                  printError(t, "number of arguments doesn't match getchar RTS function declaration", 1);
-                }
-                break;
+                printError(t, "number of arguments doesn't match getchar RTS function declaration", 1);
+              }
+              break;
+            }
+            else if(strcmp(t->attr.name, "halt")==0 && !getchar_redefined)
+            {
+              if(t->child[0] != NULL)
+              {
+                printError(t, "number of arguments doesn't match halt RTS function declaration", 1);
               }
             }
-            else if(strcmp(t->attr.name, "halt")==0)
+            else if(strcmp(t->attr.name, "printb")==0 && !printb_redefined)
             {
-              if(!getchar_redefined)
+              if(t->child[0] == NULL || t->child[0]->param_size != 1)
               {
-                if(t->child[0] != NULL)
-                {
-                  printError(t, "number of arguments doesn't match halt RTS function declaration", 1);
-                }
+                printError(t, "number of arguments doesn't match printb RTS function declaration", 1);
+              }
+              if(t->child[0] != NULL)
+              {
+                t = t->child[0];
+                if (t->child[0]->type != Boolean)
+                  typeError(t->child[0],"type of arguments doesn't match printb RTS function declaration");
               }
             }
-            else if(strcmp(t->attr.name, "printb")==0)
+            else if(strcmp(t->attr.name, "printc")==0 && !printc_redefined)
             {
-              if(!printb_redefined)
+              if(t->child[0] == NULL || t->child[0]->param_size != 1)
               {
-                if(t->child[0] == NULL || t->child[0]->param_size != 1)
-                {
-                  printError(t, "number of arguments doesn't match printb RTS function declaration", 1);
-                }
-                if(t->child[0] != NULL)
-                {
-                  t = t->child[0];
-                  if (t->child[0]->type != Boolean)
-                    typeError(t->child[0],"type of arguments doesn't match printb RTS function declaration");
-                }
+                printError(t, "number of arguments doesn't match printc RTS function declaration", 1);
+              }
+              if(t->child[0] != NULL)
+              {
+                t = t->child[0];
+                if (t->child[0]->type != Integer)
+                  typeError(t->child[0],"type of arguments doesn't match printc RTS function declaration");
               }
             }
-            else if(strcmp(t->attr.name, "printc")==0)
+            else if(strcmp(t->attr.name, "printi")==0 && !printi_redefined)
             {
-              if(!printc_redefined)
+              if(t->child[0] == NULL || t->child[0]->param_size != 1)
               {
-                if(t->child[0] == NULL || t->child[0]->param_size != 1)
-                {
-                  printError(t, "number of arguments doesn't match printc RTS function declaration", 1);
-                }
-                if(t->child[0] != NULL)
-                {
-                  t = t->child[0];
-                  if (t->child[0]->type != Integer)
-                    typeError(t->child[0],"type of arguments doesn't match printc RTS function declaration");
-                }
+                printError(t, "number of arguments doesn't match printi RTS function declaration", 1);
+              }
+              if(t->child[0] != NULL)
+              {
+                t = t->child[0];
+                if (t->child[0]->type != Integer)
+                  typeError(t->child[0],"type of arguments doesn't match printi RTS function declaration");
               }
             }
-            else if(strcmp(t->attr.name, "printi")==0)
+            else if(strcmp(t->attr.name, "prints")==0 && !prints_redefined)
             {
-              if(!printi_redefined)
+              if(t->child[0] == NULL || t->child[0]->param_size != 1)
               {
-                if(t->child[0] == NULL || t->child[0]->param_size != 1)
-                {
-                  printError(t, "number of arguments doesn't match printi RTS function declaration", 1);
-                }
-                if(t->child[0] != NULL)
-                {
-                  t = t->child[0];
-                  if (t->child[0]->type != Integer)
-                    typeError(t->child[0],"type of arguments doesn't match printi RTS function declaration");
-                }
+                printError(t, "number of arguments doesn't match prints RTS function declaration", 1);
+              }
+              if(t->child[0] != NULL)
+              {
+                t = t->child[0];
+                if (t->child[0]->type == Integer || t->child[0]->type == Boolean)
+                  typeError(t->child[0],"type of arguments doesn't match prints RTS function declaration");
               }
             }
-            else if(strcmp(t->attr.name, "prints")==0)
+            else
             {
-              if(!prints_redefined)
-              {
-                if(t->child[0] == NULL || t->child[0]->param_size != 1)
-                {
-                  printError(t, "number of arguments doesn't match prints RTS function declaration", 1);
-                }
-                if(t->child[0] != NULL)
-                {
-                  t = t->child[0];
-                  if (t->child[0]->type == Integer || t->child[0]->type == Boolean)
-                    typeError(t->child[0],"type of arguments doesn't match prints RTS function declaration");
-                }
-              }
+              redef = 1;
             }
           }
 
           // Check the types of arguments passed into the function call
-          if ( not_RTS && t->child[0] != NULL) {
+          if ( (not_RTS || redef==1) && t->child[0] != NULL) {
+            redef = 0;
             if(t->child[0]->param_size != functionDeclarations[i].param_size)
             {
               printError(t, "number of arguments doesn't match function declaration", 1);
@@ -728,8 +739,9 @@ static void checkNode(TreeNode * t)
               j++;
             }
           }
-          else if( not_RTS && t->child[0] == NULL && functionDeclarations[i].param_size != 0)
+          else if( (not_RTS || redef == 1) && t->child[0] == NULL && functionDeclarations[i].param_size != 0)
           {
+              redef = 0;
               printError(t, "number of arguments doesn't match function declaration", 1);
           }
           break;
@@ -751,6 +763,17 @@ static void checkNode(TreeNode * t)
           break;
       }
       break;
+      case DecK:
+        // switch(t->kind.dec)
+        // {
+        //   case FunK:
+        //     {
+        //       t->number_loops = total_func_loops;
+        //       total_func_loops = 0;
+        //     }
+        //   default:
+        //     break;
+        // }
     default:
       break;
 

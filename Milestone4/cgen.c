@@ -42,6 +42,7 @@ static int memorySize = 1;
 static int indentation = 4;
 static int block_counter = 0;
 static int loop_counter = 0;
+static int current_loop_counter = 0;
 
 /* stack used for call */
 TreeNode* paramStack[10];
@@ -104,6 +105,7 @@ static void genDec( TreeNode * tree)
     case FunK:
     {
       block_counter = 0;
+      loop_counter = 0;
       char * s = (char *) malloc(strlen(tree->attr.name)+8);
       strcpy(s,"(func $");
       strcat(s, tree->attr.name);
@@ -112,6 +114,13 @@ static void genDec( TreeNode * tree)
       cGen(tree->child[0]);
       indentation += 4;
       emitRM("\n", indentation, NULL, 0);
+      // for(int i = 0; i < tree->number_loops; i++)
+      // {
+      //   emitNumberedLabel("(local $T", indentation, loop_counter, NULL, 0);
+      //   emitRM(" i32)", 0, NULL, 1);
+      //   loop_counter++;
+      // }
+      // loop_counter = 0;
       cGen(tree->child[1]);
       indentation -= 4;
       emitRM(")", indentation, NULL, 1);
@@ -140,20 +149,50 @@ static void genStmt( TreeNode * tree)
       break;
     case WhileK:
     {
+      char * s = (char *) malloc(9);
+      strcpy(s,"(block $B");
+      emitNumberedLabel(s, indentation, block_counter, NULL, 1);
+      indentation+=4;
+      tree->if_block_counter = block_counter;
+      block_counter++;
+      char * l = (char *) malloc(8);
+      strcpy(l,"(loop $L");
+      emitNumberedLabel(l, indentation, loop_counter, NULL, 1);
+      indentation+=4;
+      tree->while_loop_counter = loop_counter;
+      loop_counter++;
+
       cGen(tree->child[0]);
+
+      emitRM("i32.eqz", indentation, NULL, 1); 
+      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
+
+      int restore_loop_counter = current_loop_counter;
+      current_loop_counter = tree->if_block_counter;
+
+      cGen(tree->child[1]);
+
+      emitNumberedLabel("br $L", indentation, tree->while_loop_counter, NULL, 1);
+
+      indentation-=4;
+      emitRM(")", indentation, NULL, 1);
+      indentation-=4;
+      emitRM(")", indentation, NULL, 1);
+
+      current_loop_counter = restore_loop_counter;
       break;
     }
     case IfK:
     {
       char * s = (char *) malloc(9);
       strcpy(s,"(block $B");
-      emitNumberedLabel(s, indentation, block_counter, NULL);
+      emitNumberedLabel(s, indentation, block_counter, NULL, 1);
       indentation+=4;
       tree->if_block_counter = block_counter;
       block_counter++;
       cGen(tree->child[0]);
       emitRM("i32.eqz", indentation, NULL, 1); 
-      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL);
+      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
       
       cGen(tree->child[1]);
 
@@ -165,23 +204,23 @@ static void genStmt( TreeNode * tree)
     {
       char * s = (char *) malloc(9);
       strcpy(s,"(block $B");
-      emitNumberedLabel(s, indentation, block_counter, NULL);
+      emitNumberedLabel(s, indentation, block_counter, NULL, 1);
       indentation+=4;;
       tree->ifelse_block_counter = block_counter;
       block_counter++;
       strcpy(s,"(block $B");
-      emitNumberedLabel(s, indentation, block_counter, NULL);
+      emitNumberedLabel(s, indentation, block_counter, NULL, 1);
       indentation+=4;
       tree->if_block_counter = block_counter;
       cGen(tree->child[0]);
       emitRM("i32.eqz", indentation, NULL, 1); 
-      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL);
+      emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
       block_counter++;
 
       if(tree->child[2] != NULL)
       {
         cGen(tree->child[1]);
-        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL);
+        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL, 1);
         indentation-=4;
         emitRM(")", indentation, NULL, 1);
         cGen(tree->child[2]);
@@ -190,7 +229,7 @@ static void genStmt( TreeNode * tree)
       }
       else
       {
-        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL);
+        emitNumberedLabel("br $B", indentation, tree->ifelse_block_counter, NULL, 1);
         indentation-=4;
         emitRM(")", indentation, NULL, 1);
         cGen(tree->child[1]);
@@ -200,6 +239,7 @@ static void genStmt( TreeNode * tree)
       break;
     }
     case BreakK:
+      emitNumberedLabel("br $B", indentation, current_loop_counter, NULL, 1);
       break;
     case CompoundK:
     {
@@ -353,8 +393,8 @@ static void genExp( TreeNode * tree)
       // String
       else
       {
-        emitNumberedLabel("i32.const ", indentation, dataSize, NULL);
-        emitNumberedLabel("i32.const ", indentation, strlen(tree->attr.val) + 4, NULL);
+        emitNumberedLabel("i32.const ", indentation, dataSize, NULL, 1);
+        emitNumberedLabel("i32.const ", indentation, strlen(tree->attr.val) + 4, NULL, 1);
         dataSize += strlen(tree->attr.val) + 4;
       }
       break;

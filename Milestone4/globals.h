@@ -72,7 +72,8 @@ typedef struct treeNode {
   int loc;  
   int if_block_counter;
   int ifelse_block_counter;
-  int loop_counter;
+  // int number_loops;
+  int while_loop_counter;
 } TreeNode;
 
 extern int EchoSource;

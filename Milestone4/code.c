@@ -49,11 +49,14 @@ void emitMemory( int memorySize, char *c)
   if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
 } /* emitRO */
 
-void emitNumberedLabel( char * op, int r, int number, char *c)
+void emitNumberedLabel( char * op, int r, int number, char *c, int newline)
 {
   fprintf(code,"%*.*s%s%d",r,r, " ", op, number);
-  if (TraceCode && c!=NULL) fprintf(code,"\t%s",c) ;
-  fprintf(code,"\n") ;
+  if (newline)
+  {
+    if (TraceCode && c!=NULL) fprintf(code,"\t;; %s",c) ;
+    fprintf(code,"\n") ;
+  }
   if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
 }
 
