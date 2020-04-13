@@ -36,7 +36,7 @@ boolean b;
 
 void func(int t, int i, int q)
 {
-	int c;
+    int c;
 	c = 6;
 	t = -2;
 	while(true)

@@ -26,10 +26,10 @@ id           ({letter})({letter}|{digit})*
 
 number       ({digit})*
 
+comment      "//"(["("|")"|^("\r"|"\n")]*)?
+
 operator     "+"|"-"|"*"|"/"|"%"|"="|"!"
 special      ";"|","|"("|")"|"{"|"}"
-
-comment      "//"([^("\r"|"\n")]*)?
 
 %x  STRING_TOKEN
 %%
