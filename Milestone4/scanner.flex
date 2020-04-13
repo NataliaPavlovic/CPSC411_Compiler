@@ -22,16 +22,17 @@ letter       [a-zA-Z_]
 digit        [0-9]
 newline      \n
 
+comment      "//"
+
 id           ({letter})({letter}|{digit})*
 
 number       ({digit})*
-
-comment      "//"(["("|")"|^("\r"|"\n")]*)?
 
 operator     "+"|"-"|"*"|"/"|"%"|"="|"!"
 special      ";"|","|"("|")"|"{"|"}"
 
 %x  STRING_TOKEN
+%x  COMMENT_TOKEN
 %%
 
 [ \t\r\b\f\']+              ;
@@ -45,8 +46,6 @@ special      ";"|","|"("|")"|"{"|"}"
                                     }
                                 }
                             }
-
-{comment}                   {;}
 
 "int"                       {return INT;}
 "boolean"                   {return BOOLEAN;}
@@ -67,6 +66,11 @@ special      ";"|","|"("|")"|"{"|"}"
 ">="                        {return GE;}
 "&&"                        {return AND;}
 "||"                        {return OR;}
+
+{comment}                   {BEGIN COMMENT_TOKEN;}
+<COMMENT_TOKEN>\n           {BEGIN 0;}
+<COMMENT_TOKEN>\r           {BEGIN 0;}
+<COMMENT_TOKEN>.            {;}
 
 {operator}                  {return yytext[0];}
 {special}                   {return yytext[0];}
