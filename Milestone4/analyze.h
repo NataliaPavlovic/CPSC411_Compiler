@@ -41,4 +41,8 @@ extern int printc_redefined;
 extern int printi_redefined;
 extern int prints_redefined;
 
+extern int main_replacement_index;
+extern int main_replacement_counter;
+extern int count_main;
+
 #endif

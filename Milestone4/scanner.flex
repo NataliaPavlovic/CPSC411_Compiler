@@ -10,7 +10,7 @@
 char tokenString[MAXTOKENLEN+1];
 int string_index = 0; 
 char previousTokenString[MAXTOKENLEN+1];
-char fullLine[10][MAXTOKENLEN+1];
+char fullLine[40][MAXTOKENLEN+1];
 int characterNumber = 0;
 int currentIndex = 0;
 int startIndex = 0;

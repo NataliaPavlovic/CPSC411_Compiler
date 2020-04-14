@@ -28,7 +28,7 @@ static int total_func_loops = 0;
 static int func_return_counter = 0;
 
 // Counter for number of main function declarations
-static int count_main = 0;
+int count_main = 0;
 
 // Return type of function declaration
 static int return_type = -1;
@@ -42,6 +42,9 @@ int printb_redefined = 0;
 int printc_redefined = 0;
 int printi_redefined = 0;
 int prints_redefined = 0;
+
+int main_replacement_index;
+int main_replacement_counter;
 
 // print an error message and a line number
 static void printError(TreeNode * t, char * message, int print_line_no)
@@ -485,6 +488,12 @@ static void insertNode( TreeNode * t)
             printError(t, "main declaration can't have parameters", 1);
           }
 
+          if(t->type == Void && t->param_size == 0 && strcmp(t->attr.name, "main"))
+          {
+            main_replacement_index = i;
+            main_replacement_counter++;
+          }
+
           No_change++;
 
           TreeNode * temp = t;
@@ -547,12 +556,6 @@ static void insertNode( TreeNode * t)
               }
             }
           }
-          // else if (return_type != Void) // Empty statement
-          // {
-          //   char * str = (char *)malloc(42+1);
-          //   strcpy(str, "No return statement for non-void function ");
-          //   printError(t, strcat(str, temp->attr.name), 1);
-          // }
 
           HighScope++;
           break;
@@ -607,7 +610,7 @@ void buildSymtab(TreeNode * syntaxTree)
 { 
   global_vars_first(syntaxTree);
   traverse(syntaxTree,insertNode,nullProc);
-  if (count_main == 0 && !(totalFuncs==1 && functionDeclarations[0].param_size==0))
+  if (count_main == 0 && (main_replacement_counter == 0 || main_replacement_counter > 1))
   {
     printError(syntaxTree, "No main declaration found", 0);
   }

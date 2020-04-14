@@ -390,7 +390,8 @@ primary                 : NUMBER
                             $$ -> lineno = lineno;
                         }
                         | '(' expression ')' {$$ = $2;}
-                        | functioninvocation {$$ = $1;}
+                        | functioninvocation {$$ = $1;;
+}
                         ;
 
 argumentlist            : expression {$$ = $1;}
@@ -409,16 +410,6 @@ argumentlist            : expression {$$ = $1;}
                             else $$ = $3;
                             {
                                 $$ -> param_size = $$ -> param_size + 1;
-
-                                int i;
-                                for(i = currentIndex; i >= 0; i--)
-                                    {
-                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
-                                        {
-                                            break;
-                                        }   
-                                    }
-                                startIndex = i - 1;
                             }
                             $$ -> lineno = lineno;
                         }
@@ -442,7 +433,6 @@ functioninvocation      : ID '(' argumentlist ')'
                                 {
                                     break;
                                 } 
-                                printf("%c %d\n", fullLine[i][0], j);
                             }
 
                             if(i == -1)
@@ -463,8 +453,6 @@ functioninvocation      : ID '(' argumentlist ')'
 
                             char * str = (char *)malloc(MAXTOKENLEN+1);
                             strcpy(str, fullLine[i-1]); 
-
-                            printf("%s %d %d\n", str, i, currentIndex);
 
                             $$ = newStmtNode(CallK);
                             $$ -> attr.name = str;

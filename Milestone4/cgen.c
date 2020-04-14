@@ -697,11 +697,11 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
    //  /* finish */
 
    // Call main
-  if(totalFuncs==1 && strcmp(functionDeclarations[0].function_name, "main") && functionDeclarations[0].param_size==0)
+  if(main_replacement_counter == 1 && count_main == 0)
   {
-    char * s = (char *) malloc(strlen(functionDeclarations[0].function_name)+9);
+    char * s = (char *) malloc(strlen(functionDeclarations[main_replacement_index].function_name)+9);
     strcpy(s,"(start $");
-    strcat(s, functionDeclarations[0].function_name);
+    strcat(s, functionDeclarations[main_replacement_index].function_name);
     strcat(s, ")");
     emitRM(s, 4, NULL, 1);
   }

@@ -20,7 +20,7 @@ extern char tokenString[MAXTOKENLEN+1];
 //Store lexeme of previous tokens
 extern char previousTokenString[MAXTOKENLEN+1];
 //Store entire current line of tokens
-extern char fullLine[10][MAXTOKENLEN+1];
+extern char fullLine[40][MAXTOKENLEN+1];
 //Stroe the fullLine index for the current tokenString
 extern int currentIndex;
 extern int startIndex;
