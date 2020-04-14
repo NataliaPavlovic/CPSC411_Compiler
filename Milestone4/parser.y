@@ -4,7 +4,7 @@
 // Milestone 3
 // March 2020
 #define YYPARSER
-#define YYINITDEPTH 1000
+#define YYINITDEPTH 2000
 
 #include "globals.h"
 #include "util.h"
@@ -393,7 +393,7 @@ primary                 : NUMBER
                         | functioninvocation {$$ = $1;}
                         ;
 
-argumentlist            : expression {$$ = $1; numberArgs++;printf("num args %d\n", $$ -> param_size);}
+argumentlist            : expression {$$ = $1;}
                         | argumentlist ',' expression
                         {
                             YYSTYPE t = $1;
@@ -409,78 +409,70 @@ argumentlist            : expression {$$ = $1; numberArgs++;printf("num args %d\
                             else $$ = $3;
                             {
                                 $$ -> param_size = $$ -> param_size + 1;
+
+                                int i;
+                                for(i = currentIndex; i >= 0; i--)
+                                    {
+                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                        {
+                                            break;
+                                        }   
+                                    }
+                                startIndex = i - 1;
                             }
                             $$ -> lineno = lineno;
-                            printf("num args %d\n", $$ -> param_size);
                         }
                         ;
 
 functioninvocation      : ID '(' argumentlist ')'
                         {
-                            char * str = (char *)malloc(MAXTOKENLEN+1);
-                            printf("%d %d %d\n", startIndex, currentIndex, lineno);
-
                             int i;
                             int j = 0;
                             for(i = currentIndex; i >= 0; i--)
+                            {
+                                if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
                                 {
-                                    if(fullLine[i][0]=='(')
-                                    {
-                                        j++;
-                                    } 
-                                    else if (fullLine[i][0]==')')
-                                    {
-                                        j--;
-                                    }
-                                }
-                                if(startIndex == 0)
+                                    j++;
+                                } 
+                                else if(fullLine[i][0]==')')
                                 {
-                                    for(i = currentIndex; i >= 0; i--)
-                                    {
-                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
-                                        {
-                                            break;
-                                        }   
-                                    }
-                                    startIndex = i-1;
-                                }
-                                else
+                                    j--;
+                                } 
+                                if(j%2==0 && j >= 0 && fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
                                 {
-                                    //Nested
-                                    for(i = startIndex; i >= 0; i--)
-                                    {
-                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
-                                        {
-                                            break;
-                                        }   
-                                    }
-                                    if(i == -1)
-                                    {
-                                        for(i = currentIndex; i >=startIndex; i--)
-                                        {
-                                            if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
-                                            {
-                                                break;
-                                            }   
-                                        }
-                                        startIndex = i-1;
-                                    }
-                                    else
-                                    {
-                                        startIndex = i-1;  
-                                    }
-                                }
+                                    break;
+                                } 
+                                printf("%c %d\n", fullLine[i][0], j);
+                            }
 
-                                strcpy(str, fullLine[i-1]);
-                                printf("%d %d %d %s\n", startIndex, currentIndex, lineno, str);
+                            if(i == -1)
+                            {
+                                for(i = currentIndex; i >=startIndex; i--)
+                                {
+                                    if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                    {
+                                        break;
+                                    }   
+                                }
+                                startIndex = i;                    
+                            }
+                            else
+                            {
+                                startIndex = i - 1;
+                            }
 
-                                $$ = newStmtNode(CallK);
-                                $$ -> attr.name = str;
-                                $$ -> child[0] = newLabelNode(FctnArgsK);
-                                $$ -> child[0] -> child[0] = $3;
-                                $3 -> param_size = $3 -> param_size + 1;
-                                $$ -> child[0] -> param_size = $3 -> param_size ;
-                                $$ -> lineno = lineno;
+                            char * str = (char *)malloc(MAXTOKENLEN+1);
+                            strcpy(str, fullLine[i-1]); 
+
+                            printf("%s %d %d\n", str, i, currentIndex);
+
+                            $$ = newStmtNode(CallK);
+                            $$ -> attr.name = str;
+                            $$ -> child[0] = newLabelNode(FctnArgsK);
+                            $$ -> child[0] -> child[0] = $3;
+                            $3 -> param_size = $3 -> param_size + 1;
+                            $$ -> child[0] -> param_size = $3 -> param_size ;
+                            $$ -> lineno = lineno;
                         }
                         | ID '(' ')'
                         {
