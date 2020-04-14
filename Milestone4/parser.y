@@ -36,9 +36,13 @@ int numberArgsFunk = 0;
 %start    start
 
 %token    ENDFILE ERROR
-%token    INT BOOLEAN VOID IF ELSE WHILE RETURN BREAK TRUE FALSE
+%token    INT BOOLEAN VOID IF ELSE ELSEIF WHILE RETURN BREAK TRUE FALSE
 %token    ID NUMBER STRING
 %token    EQ NQ LE GE AND OR 
+
+%nonassoc IF  
+%nonassoc ELSE
+%nonassoc ELSEIF 
 %%
 
 start           : /* empty */
@@ -333,6 +337,20 @@ statement               : '{' blockstatements '}'
                             $$ -> child[1] = $5;
                             $$-> lineno = $$ -> child[1] -> lineno;
                         }
+                        | IF '(' expression ')' statement elseifstatements
+                        {
+                            $$ = newStmtNode(IfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$-> lineno = $$ -> child[1] -> lineno;
+                        }
+                        | IF '(' expression ')' statement elseifstatements ELSE statement
+                        {
+                            $$ = newStmtNode(IfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$-> lineno = $$ -> child[1] -> lineno;
+                        }
                         | IF '(' expression ')' statement ELSE statement
                         {
                             $$ = newStmtNode(IfElseK);
@@ -349,6 +367,11 @@ statement               : '{' blockstatements '}'
                             $$ -> lineno = lineno;
                         }
                         ;
+
+elseifstatements        : elseifstatement
+                        | elseifstatements ELSEIF '(' expression ')' statement {}
+
+elseifstatement         : ELSEIF '(' expression ')' statement {printf("here1\n");}
 
 statementexpression     : assignment {$$ = $1;}
                         | functioninvocation {$$ = $1;}

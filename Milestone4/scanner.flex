@@ -55,6 +55,7 @@ special      ";"|","|"("|")"|"{"|"}"
 "void"                      {return VOID;}
 "if"                        {return IF;}
 "else"                      {return ELSE;}
+"else if"                   {return ELSEIF;}
 "while"                     {return WHILE;}
 "return"                    {return RETURN;}
 "break"                     {return BREAK;}
