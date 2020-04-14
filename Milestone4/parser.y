@@ -4,6 +4,7 @@
 // Milestone 3
 // March 2020
 #define YYPARSER
+#define YYINITDEPTH 1000
 
 #include "globals.h"
 #include "util.h"
@@ -116,22 +117,21 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                                 }   
                             }
 
-                            strcpy(str, fullLine[i-2]);
+                            strcpy(str, fullLine[i-1]);
 
-                            if(strcmp("boolean", str)==0)
+                            if(strcmp("boolean", fullLine[i-2])==0)
                             {
                                 $$ -> type = Boolean;
                             }
-                            else if(strcmp("int", str)==0) 
+                            else if(strcmp("int", fullLine[i-2])==0) 
                             {
                                 $$ -> type = Integer;
                             }
-                            else if(strcmp("void", str)==0) 
+                            else if(strcmp("void", fullLine[i-2])==0) 
                             {
                                 $$ -> type = Void;
                             }
 
-                            strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
                             $$ -> child[0] = newLabelNode(FctnParamsK);
                             $$ -> child[0] -> child[0] = $3;
@@ -143,7 +143,7 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                         {
                             $$ = newDecNode(FunK);
                             char * str = (char *)malloc(MAXTOKENLEN+1);
-                            
+
                             int i;
                             for(i = currentIndex; i >= 0; i--)
                             {
@@ -153,22 +153,21 @@ functiondeclarator      : ID '(' formalparameterlist ')'
                                 }   
                             }
 
-                            strcpy(str, fullLine[i-2]);
+                            strcpy(str, fullLine[i-1]);
 
-                            if(strcmp("boolean", str)==0)
+                            if(strcmp("boolean", fullLine[i-2])==0)
                             {
                                 $$ -> type = Boolean;
                             }
-                            else if(strcmp("int", str)==0) 
+                            else if(strcmp("int", fullLine[i-2])==0) 
                             {
                                 $$ -> type = Integer;
                             }
-                            else if(strcmp("void", str)==0) 
+                            else if(strcmp("void", fullLine[i-2])==0) 
                             {
                                 $$ -> type = Void;
                             }
 
-                            strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;
                             $$ -> lineno = lineno;
                             $$ -> param_size = 0;
@@ -305,7 +304,12 @@ statement               : '{' blockstatements '}'
                             $$ = newStmtNode(SemicolonK);
                             $$ -> lineno = lineno;
                         }
-                        | statementexpression ';' {$$ = $1;}
+                        | statementexpression ';' 
+                        {
+                            $$ = newStmtNode(CompoundK);
+                            $$ -> lineno = lineno;
+                            $$ -> child[0] = $1;
+                        }
                         | BREAK ';'
                         {
                             $$ = newStmtNode(BreakK);
@@ -389,7 +393,7 @@ primary                 : NUMBER
                         | functioninvocation {$$ = $1;}
                         ;
 
-argumentlist            : expression {$$ = $1; numberArgs++;}
+argumentlist            : expression {$$ = $1; numberArgs++;printf("num args %d\n", $$ -> param_size);}
                         | argumentlist ',' expression
                         {
                             YYSTYPE t = $1;
@@ -404,45 +408,106 @@ argumentlist            : expression {$$ = $1; numberArgs++;}
                             }
                             else $$ = $3;
                             {
-                                numberArgs++;
+                                $$ -> param_size = $$ -> param_size + 1;
                             }
                             $$ -> lineno = lineno;
+                            printf("num args %d\n", $$ -> param_size);
                         }
                         ;
 
 functioninvocation      : ID '(' argumentlist ')'
                         {
                             char * str = (char *)malloc(MAXTOKENLEN+1);
+                            printf("%d %d %d\n", startIndex, currentIndex, lineno);
 
                             int i;
+                            int j = 0;
                             for(i = currentIndex; i >= 0; i--)
-                            {
-                                if(fullLine[i][0]=='(')
                                 {
-                                    break;
-                                }   
-                            }
+                                    if(fullLine[i][0]=='(')
+                                    {
+                                        j++;
+                                    } 
+                                    else if (fullLine[i][0]==')')
+                                    {
+                                        j--;
+                                    }
+                                }
+                                if(startIndex == 0)
+                                {
+                                    for(i = currentIndex; i >= 0; i--)
+                                    {
+                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                        {
+                                            break;
+                                        }   
+                                    }
+                                    startIndex = i-1;
+                                }
+                                else
+                                {
+                                    //Nested
+                                    for(i = startIndex; i >= 0; i--)
+                                    {
+                                        if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                        {
+                                            break;
+                                        }   
+                                    }
+                                    if(i == -1)
+                                    {
+                                        for(i = currentIndex; i >=startIndex; i--)
+                                        {
+                                            if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                            {
+                                                break;
+                                            }   
+                                        }
+                                        startIndex = i-1;
+                                    }
+                                    else
+                                    {
+                                        startIndex = i-1;  
+                                    }
+                                }
 
-                            strcpy(str, fullLine[i-1]);
-                            $$ = newStmtNode(CallK);
-                            $$->attr.name = str;
-                            $$ -> child[0] = newLabelNode(FctnArgsK);
-                            $$ -> child[0] -> child[0] = $3;
-                            $$ -> child[0] -> param_size = numberArgs;
-                            numberArgs = 0;
-                            $$ -> lineno = lineno;
+                                strcpy(str, fullLine[i-1]);
+                                printf("%d %d %d %s\n", startIndex, currentIndex, lineno, str);
+
+                                $$ = newStmtNode(CallK);
+                                $$ -> attr.name = str;
+                                $$ -> child[0] = newLabelNode(FctnArgsK);
+                                $$ -> child[0] -> child[0] = $3;
+                                $3 -> param_size = $3 -> param_size + 1;
+                                $$ -> child[0] -> param_size = $3 -> param_size ;
+                                $$ -> lineno = lineno;
                         }
                         | ID '(' ')'
                         {
                             char * str = (char *)malloc(MAXTOKENLEN+1);
-
                             int i;
-                            for(i = currentIndex; i >= 0; i--)
+
+                            if(startIndex == 0)
                             {
-                                if(fullLine[i][0]=='(')
+                                for(i = currentIndex; i >= 0; i--)
                                 {
-                                    break;
-                                }   
+                                    if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                    {
+                                        break;
+                                    }   
+                                }
+                                startIndex = i-1;
+                            }
+                            else
+                            {
+                                for(i = currentIndex; i >=startIndex; i--)
+                                {
+                                    if(fullLine[i][0]=='(' && (isalpha(fullLine[i-1][0])) || fullLine[i-1][0] == '_')
+                                    {
+                                        break;
+                                    }   
+                                }
+                                startIndex = i-1;
                             }
 
                             strcpy(str, fullLine[i-1]);
@@ -609,13 +674,14 @@ assignment              : ID '=' assignmentexpression
                             char * str = (char *)malloc(MAXTOKENLEN+1);
 
                             int i;
-                            for(i = 0; i <= currentIndex; i++)
+                            for(i = startIndexAssign; i >= 0; i--)
                             {
                                 if(fullLine[i][0]=='=')
                                 {
                                     break;
                                 }   
                             }
+                            startIndexAssign = i-1;
 
                             strcpy(str, fullLine[i-1]);
                             $$ -> attr.name = str;

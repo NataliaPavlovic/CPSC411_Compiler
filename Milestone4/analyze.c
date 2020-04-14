@@ -25,6 +25,7 @@ static int No_change = 0;
 static int count_while = 0;
 
 static int total_func_loops = 0;
+static int func_return_counter = 0;
 
 // Counter for number of main function declarations
 static int count_main = 0;
@@ -91,7 +92,25 @@ static void nullProc(TreeNode * t)
 static void insertNode( TreeNode * t)
 { 
   switch (t->nodekind)
-    {case StmtK:
+    {
+    case LabelK:
+      switch (t->kind.stmt)
+      {
+        case FctnArgsK:
+          if (t->child[0] != NULL) {
+            t->child[0]->scope = No_change;
+            t = t->child[0];
+            while (t->sibling != NULL) {
+              t = t->sibling;
+              t->scope = No_change;
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    break;
+    case StmtK:
       switch (t->kind.stmt)
       { 
         case CallK:
@@ -125,8 +144,71 @@ static void insertNode( TreeNode * t)
         }
         break; 
         case ReturnK:
+        {
           // Set type of return to return type of function declaration
           t->type = return_type;
+
+          if(t->child[0] != NULL)
+          {
+            int not_RTS = 1;
+            if(t->child[0]->attr.name != NULL)
+            {
+              not_RTS = (strcmp(t->child[0]->attr.name, "getchar")) && (strcmp(t->child[0]->attr.name, "halt")) && strcmp(t->child[0]->attr.name, "printb") && strcmp(t->child[0]->attr.name, "printc") && strcmp(t->child[0]->attr.name, "printi") && strcmp(t->child[0]->attr.name, "prints");
+            }
+            if(!not_RTS)
+            {
+              if(!strcmp(t->child[0]->attr.name, "getchar"))
+                {
+                  if(!getchar_redefined)
+                  {
+                    t->child[0]->type = Integer;
+                    t->type = Integer;
+                  }
+                }
+              else if(!strcmp(t->child[0]->attr.name, "halt"))
+                {
+                  if(!halt_redefined)
+                  {
+                    t->child[0]->type = Void;
+                    t->type = Void;
+                  }
+
+                }
+              else if(!strcmp(t->child[0]->attr.name, "printc"))
+                {
+                  if(!printc_redefined)
+                  {
+                    t->child[0]->type = Void;
+                    t->type = Void;
+                  }
+                }
+              else if(!strcmp(t->child[0]->attr.name, "printb"))
+                {
+                  if(!printb_redefined)
+                  {
+                    t->child[0]->type = Void;
+                    t->type = Void;
+                  }
+                }
+              else if(!strcmp(t->child[0]->attr.name, "printi"))
+                {
+                  if(!printi_redefined)
+                  {
+                    t->child[0]->type = Void;
+                    t->type = Void;
+                  }
+                }
+              else if(!strcmp(t->child[0]->attr.name, "prints"))
+                {
+                  if(!prints_redefined)
+                  {
+                    t->child[0]->type = Void;
+                    t->type = Void;
+                  }
+                }
+            }
+          }
+
           // Set scope of child
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
@@ -135,8 +217,8 @@ static void insertNode( TreeNode * t)
           {
             printError(t, "No value returned from non-void function", 1);
           }
-          return_type = -1;
           break;
+        }
         case WhileK:
           // Set scope of child
           if (t->child[0] != NULL) {
@@ -186,6 +268,15 @@ static void insertNode( TreeNode * t)
     case ExpK:
       switch (t->kind.exp)
       { case OpK:
+
+          // Check if op will lead to a boolean expression
+          if ((t->attr.op == LE) || (t->attr.op == '!') || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
+            {
+              t->type = Boolean;
+            }
+          else
+            t->type = Integer;
+
           // Set scope for all children
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
@@ -259,6 +350,7 @@ static void insertNode( TreeNode * t)
           if (t->scope > scope_a) {
             if(lookup_inner == NULL && lookup_outer== NULL)
             {
+              printf("%s %d\n", t->attr.name, t->scope);
               // ID cannot be found in either current scope or global scope
               printError(t, strcat(t->attr.name, " variable used without being declared"), 1);
             }
@@ -306,19 +398,19 @@ static void insertNode( TreeNode * t)
                 printError(t, "Variable redeclared in same scope", 1);
               }
             }
-            else {
-              // Declare variable in global scope
-              if (var_lookup(t->attr.name, scope_a) == NULL)
-              {
-                t->loc = location[scope_a];
-                st_insert(t->attr.name, t->lineno, location[scope_a]++, scope_a, FALSE, t->type);
-                t->scope = scope_a;
-              }
-              else
-              {
-                printError(t, "Variable redeclared in global scope", 1);
-              }
-            }
+            // else {
+            //   // Declare variable in global scope
+            //   if (var_lookup(t->attr.name, scope_a) == NULL)
+            //   {
+            //     t->loc = location[scope_a];
+            //     st_insert(t->attr.name, t->lineno, location[scope_a]++, scope_a, FALSE, t->type);
+            //     t->scope = scope_a;
+            //   }
+            //   else
+            //   {
+            //     printError(t, "Variable redeclared in global scope", 1);
+            //   }
+            // }
           }
           break;
         case ParameterK:
@@ -331,6 +423,7 @@ static void insertNode( TreeNode * t)
               st_insert(t->attr.name, t->lineno, 0, t->scope, FALSE, t->type);
             break;
         case FunK:
+          return_type = -1;
           if(!strcmp(t->attr.name, "main"))
           {
             count_main++;
@@ -436,13 +529,13 @@ static void insertNode( TreeNode * t)
                 }
               }
 
-              // No return statements in function declaration
-              if (count_return == 0)
-              {
-                char * str = (char *)malloc(42+1);
-                strcpy(str, "No return statement for non-void function ");
-                printError(t, strcat(str, temp->attr.name), 1);
-              }
+              // // No return statements in function declaration
+              // if (count_return == 0)
+              // {
+              //   char * str = (char *)malloc(42+1);
+              //   strcpy(str, "No return statement for non-void function ");
+              //   printError(t, strcat(str, temp->attr.name), 1);
+              // }
             }
             else{
               t->child[0]->scope = No_change;
@@ -454,12 +547,12 @@ static void insertNode( TreeNode * t)
               }
             }
           }
-          else if (return_type != Void) // Empty statement
-          {
-            char * str = (char *)malloc(42+1);
-            strcpy(str, "No return statement for non-void function ");
-            printError(t, strcat(str, temp->attr.name), 1);
-          }
+          // else if (return_type != Void) // Empty statement
+          // {
+          //   char * str = (char *)malloc(42+1);
+          //   strcpy(str, "No return statement for non-void function ");
+          //   printError(t, strcat(str, temp->attr.name), 1);
+          // }
 
           HighScope++;
           break;
@@ -474,12 +567,47 @@ static void insertNode( TreeNode * t)
 
 }
 
+
+static void global_vars_first( TreeNode * tree)
+{ 
+  if (tree != NULL)
+  { switch (tree->nodekind) {
+      case DecK:
+      {
+        if( tree->kind.dec == VarK && tree->scope == 0)
+        {
+            // Declare variable in global scope
+            if (var_lookup(tree->attr.name, scope_a) == NULL)
+            {
+              tree->loc = location[scope_a];
+              st_insert(tree->attr.name, tree->lineno, location[scope_a]++, scope_a, FALSE, tree->type);
+              tree->scope = scope_a;
+            }
+            else
+            {
+              printError(tree, "Variable redeclared in global scope", 1);
+            }
+        }
+        global_vars_first(tree->sibling);
+        break;
+      }
+      default:
+        break;
+    }
+  }
+}
+
+
+
+
 /* Function buildSymtab constructs the symbol 
  * table by preorder traversal of the syntax tree
  */
 void buildSymtab(TreeNode * syntaxTree)
-{ traverse(syntaxTree,insertNode,nullProc);
-  if (count_main == 0)
+{ 
+  global_vars_first(syntaxTree);
+  traverse(syntaxTree,insertNode,nullProc);
+  if (count_main == 0 && !(totalFuncs==1 && functionDeclarations[0].param_size==0))
   {
     printError(syntaxTree, "No main declaration found", 0);
   }
@@ -503,26 +631,34 @@ static void checkNode(TreeNode * t)
     case ExpK:
       switch (t->kind.exp)
       { case OpK:
-          // Check if children of op are not Integers
-          if (t->child[1] != NULL)
-          {
-            if ((t->child[0]->type != Integer) || (t->child[1]->type != Integer))
-              typeError(t,"Op applied to non-integer");
-          }
-          else
-          {
-            if (t->child[0]->type != Integer && t->attr.op != '!')
-              typeError(t,"Op applied to non-integer");
-          }
-
+        {
           // Check if op will lead to a boolean expression
-          if ((t->attr.op == LE) || (t->attr.op == '!') || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
+          if ((t->attr.op == AND) || (t->attr.op == OR))
             {
-              t->type = Boolean;
+              if (t->child[1] != NULL)
+              {
+                if ((t->child[0]->type != Boolean) || (t->child[1]->type != Boolean))
+                  typeError(t,"Op applied to non-integer");
+              }
             }
           else
-            t->type = Integer;
+          {
+            // Check if children of op are not Integers
+            if (t->child[1] != NULL)
+            {
+              if ((t->child[0]->type != Integer) || (t->child[1]->type != Integer))
+                typeError(t,"Op applied to non-integer");
+            }
+            else
+            {
+              if (t->child[0]->type != Integer && t->attr.op != '!')
+                typeError(t,"Op applied to non-integer");
+            }
+          }
+
           break;
+        }
+
         case AssignK:
         {
           if(t->child[0] != NULL)
@@ -637,6 +773,8 @@ static void checkNode(TreeNode * t)
             }
           }
 
+          t->type = functionDeclarations[i].return_type;
+
           int not_RTS = (strcmp(t->attr.name, "getchar")) && (strcmp(t->attr.name, "halt")) && strcmp(t->attr.name, "printb") && strcmp(t->attr.name, "printc") && strcmp(t->attr.name, "printi") && strcmp(t->attr.name, "prints");
           int redef = 0;
           if (i== totalFuncs && not_RTS)
@@ -652,14 +790,16 @@ static void checkNode(TreeNode * t)
               {
                 printError(t, "number of arguments doesn't match getchar RTS function declaration", 1);
               }
+              t->type = Integer;
               break;
             }
-            else if(strcmp(t->attr.name, "halt")==0 && !getchar_redefined)
+            else if(strcmp(t->attr.name, "halt")==0 && !halt_redefined)
             {
               if(t->child[0] != NULL)
               {
                 printError(t, "number of arguments doesn't match halt RTS function declaration", 1);
               }
+              t->type = Void;
             }
             else if(strcmp(t->attr.name, "printb")==0 && !printb_redefined)
             {
@@ -667,7 +807,8 @@ static void checkNode(TreeNode * t)
               {
                 printError(t, "number of arguments doesn't match printb RTS function declaration", 1);
               }
-              if(t->child[0] != NULL)
+              t->type = Void;
+              if(t->child[0]->child[0] != NULL)
               {
                 t = t->child[0];
                 if (t->child[0]->type != Boolean)
@@ -680,7 +821,8 @@ static void checkNode(TreeNode * t)
               {
                 printError(t, "number of arguments doesn't match printc RTS function declaration", 1);
               }
-              if(t->child[0] != NULL)
+              t->type = Void;
+              if(t->child[0]->child[0] != NULL)
               {
                 t = t->child[0];
                 if (t->child[0]->type != Integer)
@@ -693,7 +835,8 @@ static void checkNode(TreeNode * t)
               {
                 printError(t, "number of arguments doesn't match printi RTS function declaration", 1);
               }
-              if(t->child[0] != NULL)
+              t->type = Void;
+              if(t->child[0]->child[0]!= NULL)
               {
                 t = t->child[0];
                 if (t->child[0]->type != Integer)
@@ -706,7 +849,8 @@ static void checkNode(TreeNode * t)
               {
                 printError(t, "number of arguments doesn't match prints RTS function declaration", 1);
               }
-              if(t->child[0] != NULL)
+              t->type = Void;
+              if(t->child[0]->child[0] != NULL)
               {
                 t = t->child[0];
                 if (t->child[0]->type == Integer || t->child[0]->type == Boolean)
@@ -747,33 +891,57 @@ static void checkNode(TreeNode * t)
           break;
         }
         case ReturnK:
+        {
+          func_return_counter++;
+          // if (t->child[0] != NULL) {
+          //   if (t->child[0]->type != t->type)
+          //     if(t->type == Void)
+          //     {
+          //       typeError(t->child[0], "void function can't return a value");
+          //     }
+          //     else
+          //     {
+          //       typeError(t->child[0],"type of return value doesn't match function declaration");
+          //     }
+          // }  
           if (t->child[0] != NULL) {
             if (t->child[0]->type != t->type)
+            {
               if(t->type == Void)
               {
                 typeError(t->child[0], "void function can't return a value");
               }
               else
               {
+                printf("%d %d\n", t->child[0]->type, t->type);
                 typeError(t->child[0],"type of return value doesn't match function declaration");
               }
-          }          
+            }
+          }        
           break;
+        }
         default:
           break;
       }
       break;
       case DecK:
-        // switch(t->kind.dec)
-        // {
-        //   case FunK:
-        //     {
-        //       t->number_loops = total_func_loops;
-        //       total_func_loops = 0;
-        //     }
-        //   default:
-        //     break;
-        // }
+        switch(t->kind.dec)
+        {
+          case FunK:
+            {
+              if(func_return_counter == 0 && t->type != Void)
+              {
+                char * str = (char *)malloc(42+1);
+                strcpy(str, "No return statement for non-void function ");
+                printError(t, strcat(str, t->attr.name), 1);
+              }
+              func_return_counter = 0;
+              break;
+          default:
+            break;
+        }
+      }
+      break;
     default:
       break;
 

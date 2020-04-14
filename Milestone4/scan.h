@@ -23,7 +23,8 @@ extern char previousTokenString[MAXTOKENLEN+1];
 extern char fullLine[10][MAXTOKENLEN+1];
 //Stroe the fullLine index for the current tokenString
 extern int currentIndex;
-
+extern int startIndex;
+extern int startIndexAssign;
 //Return next token in source file
 TokenType getToken(int firstTime);
 

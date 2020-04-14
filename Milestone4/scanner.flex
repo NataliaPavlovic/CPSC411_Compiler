@@ -13,6 +13,8 @@ char previousTokenString[MAXTOKENLEN+1];
 char fullLine[10][MAXTOKENLEN+1];
 int characterNumber = 0;
 int currentIndex = 0;
+int startIndex = 0;
+int startIndexAssign = 0;
 
 %}
 
@@ -37,7 +39,8 @@ special      ";"|","|"("|")"|"{"|"}"
 
 [ \t\r\b\f\']+              ;
 {newline}                   {
-                                lineno++; characterNumber=0;string_index=0;     
+                                lineno++; characterNumber=0;string_index=0; 
+                                startIndex = 0;    
                                 for(int i = 0; i < 10; i++)
                                 {   
                                     for(int j = 0; j < MAXTOKENLEN+1; j++)
@@ -133,6 +136,7 @@ TokenType getToken(int firstTime)
     strcpy(fullLine[characterNumber], tokenString);
     //Set currentIndex to its index in fullLine
     currentIndex = characterNumber;
+    startIndexAssign = currentIndex;
     characterNumber++;
 
     if (TraceScan)

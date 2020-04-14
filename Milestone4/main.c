@@ -13,7 +13,7 @@
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE 0
+#define NO_CODE 1
 
 #include "util.h"
 #if NO_PARSE
