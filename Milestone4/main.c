@@ -108,8 +108,16 @@ int main( int argc, char * argv[] ) {
   { 
     char * codefile;
     int fnlen = strcspn(fname,".");
-    codefile = (char *) calloc(fnlen+4, sizeof(char));
-    strncpy(codefile,fname,fnlen);
+    fname[fnlen] = '_';
+    codefile = (char *) calloc(strlen(fname)+4, sizeof(char));
+    strcpy(codefile,fname);
+    for(int i = 0; i < strlen(codefile); i++)
+    {
+      if(codefile[i] == '-')
+      {
+        codefile[i] = '_';
+      }
+    }
     strcat(codefile,".wat");
     code = fopen(codefile,"w");
     if (code == NULL)
