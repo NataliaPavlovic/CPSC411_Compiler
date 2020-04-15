@@ -54,6 +54,15 @@
     (func $printi (param $n i32)
         (local $I0 i32)
         (local $I1 i32)
+        (block $B5
+            local.get $n
+            i32.const 0
+            i32.ne
+            br_if $B5
+            i32.const 48
+            call $printc
+            return
+        )
             i32.const 1000000000
             local.set $I0
             (block $B0

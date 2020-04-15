@@ -1028,6 +1028,15 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
      emitRM("(func $printi (param $n i32)", 4, NULL, 1); 
      emitRM("(local $I0 i32)", 8, NULL, 1);
      emitRM("(local $I1 i32)", 8, NULL, 1);
+     emitRM("(block $B5", 8, NULL, 1);
+     emitRM("local.get $n", 12, NULL, 1);
+     emitRM("i32.const 0", 12, NULL, 1);
+     emitRM("i32.ne", 12, NULL, 1);
+     emitRM("br_if $B5", 12, NULL, 1);
+     emitRM("i32.const 48", 12, NULL, 1);
+     emitRM("call $printc", 12, NULL, 1);
+     emitRM("return", 12, NULL, 1);
+     emitRM(")", 8, NULL, 1);
      emitRM("i32.const 1000000000", 12, NULL, 1);
      emitRM("local.set $I0", 12, NULL, 1);
      emitRM("(block $B0", 12, NULL, 1);
