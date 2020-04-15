@@ -68,6 +68,11 @@ void printToken( TokenType token, const char* tokenString ) {
       fprintf(listing,
           "%d: ERROR: %s\n", lineno, tokenString);
       break;
+
+    case STRING:
+      fprintf(listing,
+          "%d: STRING: %s\n", lineno, tokenString);
+      break;
       
     default:
       fprintf(listing,"%d: Unknown token: %c\n", lineno, token);
@@ -333,6 +338,18 @@ void printTree(TreeNode *tree)
             fprintf(listing, "[IFELSE statement ending at line %d]\n", tree->lineno);
             break;
 
+          case IfElseIfK:
+            fprintf(listing, "[IFELSEIF statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case IfElseIfElseK:
+            fprintf(listing, "[IFELSEIFELSE statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case ElseIfK:
+            fprintf(listing, "[ELSEIF statement ending at line %d]\n", tree->lineno);
+            break;
+
           case BreakK:
             fprintf(listing, "[BREAK statement at line %d]\n", tree->lineno);
             break;
@@ -509,6 +526,18 @@ void printAnnotatedTree(TreeNode *tree)
 
           case IfElseK:
             fprintf(listing, "[IFELSE statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case IfElseIfK:
+            fprintf(listing, "[IFELSEIF statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case IfElseIfElseK:
+            fprintf(listing, "[IFELSEIFELSE statement ending at line %d]\n", tree->lineno);
+            break;
+
+          case ElseIfK:
+            fprintf(listing, "[ELSEIF statement ending at line %d]\n", tree->lineno);
             break;
 
           case BreakK:

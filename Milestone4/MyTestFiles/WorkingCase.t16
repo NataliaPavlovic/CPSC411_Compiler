@@ -27,12 +27,26 @@ main()
 	}
 	c = getchar();
 	printc(c);
+	printi(-2147483648);
 }
 
 int r;
 boolean b;
 
-void func(int t, int i, int q)
+int findpow(int n)
+{
+	int i;
+	i = 10;
+	while(n/i>0)
+	{
+		i = i * 10;
+	}
+	i = i/10;
+
+	return i;
+}
+
+int func(int t, int i, int q)
 {
     int c;
 	c = 6;
@@ -49,6 +63,18 @@ void func(int t, int i, int q)
 	{
 		c = 2;
 	}
+	else if(c == t)
+	{
+		c = 3;
+	}
+	else if(c > t)
+	{
+		t = 4;
+	}
+	else
+	{
+		
+	}
 	while(c < t)
 	{
 		while(false)
@@ -60,5 +86,6 @@ void func(int t, int i, int q)
 			break;
 		}
 	}
-	return;
+	prints("Hello World\n");
+	return 2 + 5;
 }

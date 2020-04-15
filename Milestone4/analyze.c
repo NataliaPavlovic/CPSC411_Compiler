@@ -139,9 +139,11 @@ static void insertNode( TreeNode * t)
             }
             if (t != NULL && st_lookup(t->attr.name, scope_a) == -1) {
               t->scope = No_change;
+              t-> output_return_value = 1;
               while (t->sibling != NULL) {
                 t = t->sibling;
                 t->scope = No_change;
+                t-> output_return_value = 1;
               }
             } 
         }
@@ -215,6 +217,7 @@ static void insertNode( TreeNode * t)
           // Set scope of child
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
           }
           else if(return_type != Void)
           {
@@ -225,7 +228,8 @@ static void insertNode( TreeNode * t)
         case WhileK:
           // Set scope of child
           if (t->child[0] != NULL) {
-            t->child[0]->scope = t->scope;
+            t->child[0] -> scope = t->scope;
+            t->child[0] -> output_return_value = 1;
           }         
           count_while++;
           break;
@@ -233,12 +237,57 @@ static void insertNode( TreeNode * t)
           // Set scope of child
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
           }         
           break;
         case IfElseK:
           // Set scope of child
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
+          }         
+          break;
+        case IfElseIfK:
+          // Set scope of child
+          if (t->child[0] != NULL) {
+            t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
+          }    
+          if (t->child[2] != NULL) {
+            t->child[2]->scope = t->scope;
+            t->child[2] -> output_return_value = 1;
+            t = t->child[2];
+            while(t->sibling != NULL)
+            {
+              t->sibling->scope = t->scope;
+              t->sibling-> output_return_value = 1;
+              t = t->sibling;
+            }
+          }      
+          break;
+        case IfElseIfElseK:
+          // Set scope of child
+          if (t->child[0] != NULL) {
+            t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
+          } 
+          if (t->child[2] != NULL) {
+            t->child[2]->scope = t->scope;
+            t->child[2] -> output_return_value = 1;
+            t = t->child[2];
+            while(t->sibling != NULL)
+            {
+              t->sibling->scope = t->scope;
+              t->sibling-> output_return_value = 1;
+              t = t->sibling;
+            }
+          } 
+          break;
+        case ElseIfK:
+          // Set scope of child
+          if (t->child[0] != NULL) {
+            t->child[0]->scope = t->scope;
+            t->child[0] -> output_return_value = 1;
           }         
           break;
         case BreakK:
@@ -271,7 +320,6 @@ static void insertNode( TreeNode * t)
     case ExpK:
       switch (t->kind.exp)
       { case OpK:
-
           // Check if op will lead to a boolean expression
           if ((t->attr.op == LE) || (t->attr.op == '!') || (t->attr.op == '<') || (t->attr.op == '>') || (t->attr.op == GE) || (t->attr.op == EQ) || (t->attr.op == NQ) || (t->attr.op == AND) || (t->attr.op == OR))
             {
@@ -283,9 +331,11 @@ static void insertNode( TreeNode * t)
           // Set scope for all children
           if (t->child[0] != NULL) {
             t->child[0]->scope = t->scope;
+            t-> child[0] -> output_return_value = 1;
             if(t->child[1] != NULL)
             {
               t->child[1]->scope = t->scope;
+              t-> child[1]->output_return_value = 1;
             }
           }
           break;
@@ -401,19 +451,6 @@ static void insertNode( TreeNode * t)
                 printError(t, "Variable redeclared in same scope", 1);
               }
             }
-            // else {
-            //   // Declare variable in global scope
-            //   if (var_lookup(t->attr.name, scope_a) == NULL)
-            //   {
-            //     t->loc = location[scope_a];
-            //     st_insert(t->attr.name, t->lineno, location[scope_a]++, scope_a, FALSE, t->type);
-            //     t->scope = scope_a;
-            //   }
-            //   else
-            //   {
-            //     printError(t, "Variable redeclared in global scope", 1);
-            //   }
-            // }
           }
           break;
         case ParameterK:
@@ -488,7 +525,7 @@ static void insertNode( TreeNode * t)
             printError(t, "main declaration can't have parameters", 1);
           }
 
-          if(t->type == Void && t->param_size == 0 && strcmp(t->attr.name, "main"))
+          if(t->type == Void && t->param_size == 0 && strcmp(t->attr.name, "main") && main_replacement_counter == 0)
           {
             main_replacement_index = i;
             main_replacement_counter++;
@@ -537,14 +574,6 @@ static void insertNode( TreeNode * t)
                   count_return++;
                 }
               }
-
-              // // No return statements in function declaration
-              // if (count_return == 0)
-              // {
-              //   char * str = (char *)malloc(42+1);
-              //   strcpy(str, "No return statement for non-void function ");
-              //   printError(t, strcat(str, temp->attr.name), 1);
-              // }
             }
             else{
               t->child[0]->scope = No_change;
@@ -610,7 +639,7 @@ void buildSymtab(TreeNode * syntaxTree)
 { 
   global_vars_first(syntaxTree);
   traverse(syntaxTree,insertNode,nullProc);
-  if (count_main == 0 && (main_replacement_counter == 0 || main_replacement_counter > 1))
+  if (count_main == 0 && main_replacement_counter == 0)
   {
     printError(syntaxTree, "No main declaration found", 0);
   }
@@ -756,6 +785,18 @@ static void checkNode(TreeNode * t)
             typeError(t->child[0],"need a boolean expression for if condition");
           break;
         case IfElseK:
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for ifelse condition");
+          break;
+        case IfElseIfK:
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for ifelse condition");
+          break;
+        case IfElseIfElseK:
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"need a boolean expression for ifelse condition");
+          break;
+        case ElseIfK:
           if (t->child[0]->type == Integer)
             typeError(t->child[0],"need a boolean expression for ifelse condition");
           break;

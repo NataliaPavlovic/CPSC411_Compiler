@@ -34,7 +34,7 @@ int HighScope;
 //Types of Nodes
 typedef enum {StmtK,ExpK,DecK,LabelK} NodeKind;
 //Types of Statements
-typedef enum {IfK,IfElseK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
+typedef enum {IfK,IfElseK,IfElseIfK,IfElseIfElseK,ElseIfK,BreakK,WhileK,CallK,ReturnK,CompoundK,EmptyK,SemicolonK} StmtKind;
 //Types of Expressions
 typedef enum {OpK,ConstK,IdK,AssignK} ExpKind;
 //Types of Declarations
@@ -44,7 +44,7 @@ typedef enum {FctnParamsK,FctnArgsK,BlockK} LabelKind;
 //Type Checking
 typedef enum {Void,Integer,Boolean} ExpType;
 
-#define MAXCHILDREN 3
+#define MAXCHILDREN 4
 
 //Struct for Tree Nodes
 typedef struct treeNode {
@@ -72,8 +72,11 @@ typedef struct treeNode {
   int loc;  
   int if_block_counter;
   int ifelse_block_counter;
+  int ifelseif_block_counter;
   // int number_loops;
   int while_loop_counter;
+  int string_offset;
+  int output_return_value;
 } TreeNode;
 
 extern int EchoSource;

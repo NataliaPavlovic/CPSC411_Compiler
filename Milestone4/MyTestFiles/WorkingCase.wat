@@ -51,49 +51,74 @@
         local.get $I0
         call $prints
     )
-    (func $printi (param $n i32) (param $pow i32)
+    (func $printi (param $n i32)
+        (local $I0 i32)
+        (local $I1 i32)
+            i32.const 1000000000
+            local.set $I0
+            (block $B0
+            (loop $L0
+                local.get $n
+                local.get $I0
+                i32.div_s
+                i32.const 0
+                i32.gt_u
+                br_if $B0
+                local.get $I0
+                i32.const 10
+                i32.div_s
+                local.set $I0
+                br $L0
+            )
+        )
         (block $B2
             (loop $L2
                 local.get $n
                 i32.const 0
                 i32.ge_s
                 br_if $B2
-                local.get $n
-                i32.const -1
-                i32.mul
-                local.set $n
                 i32.const 45
                 call $printc
             )
         )
         (block $B1
             (loop $L1
-                i32.const 0
-                local.get $pow
-                i32.ge_s
+                local.get $I0
+                i32.eqz
                 br_if $B1
                 local.get $n
-                local.get $pow
-                i32.div_u
+                local.get $I0
+                i32.div_s
+                local.set $I1
+                (block $B3
+                    local.get $I1
+                    i32.const 0
+                    i32.gt_s
+                    br_if $B3
+                    i32.const 0
+                    local.get $I1
+                    i32.sub
+                    local.set $I1
+                )
+                local.get $I1
                 i32.const 10
                 i32.rem_u
                 i32.const 48
                 i32.add
                 call $printc
-                local.get $pow
+                local.get $I0
                 i32.const 10
-                i32.div_u
-                local.set $pow
+                i32.div_s
+                local.set $I0
                 br $L1
             )
         )
-        i32.const 10	;; print newline character
-        call $printc
     )
 ;; End of standard prelude.
     (global $Gr (mut i32) (i32.const 0))
     (global $Gb (mut i32) (i32.const 0))
     (func $main        
+        (local $T0 i32)
         (local $Ia i32)
         (local $Ib i32)
         (local $Ic i32)
@@ -107,6 +132,7 @@
         i32.const 2
         local.get $Ia
         call $func
+        local.set $T0
         i32.const 1
         local.set $Ic
         i32.const 2
@@ -151,11 +177,48 @@
             )
         )
         call $getchar
+        local.set $T0
+        local.get $T0
         local.set $Ic
         local.get $Ic
         call $printc
+        i32.const 0
+        i32.const 2147483648
+        i32.sub
+        call $printi
     )
-    (func $func  (param $It i32)  (param $Ii i32)  (param $Iq i32)        
+    (func $findpow  (param $In i32) (result i32)        
+        (local $T0 i32)
+        (local $Ii i32)
+        i32.const 10
+        local.set $Ii
+        (block $B0
+            (loop $L0
+                local.get $In
+                local.get $Ii
+                i32.div_s
+                i32.const 0
+                i32.gt_s
+                i32.eqz
+                br_if $B0
+                local.get $Ii
+                i32.const 10
+                i32.mul
+                local.set $Ii
+                br $L0
+            )
+        )
+        local.get $Ii
+        i32.const 10
+        i32.div_s
+        local.set $Ii
+        local.get $Ii
+        return
+        i32.const -1
+        return
+    )
+    (func $func  (param $It i32)  (param $Ii i32)  (param $Iq i32) (result i32)        
+        (local $T0 i32)
         (local $Ic i32)
         i32.const 6
         local.set $Ic
@@ -182,45 +245,77 @@
             )
         )
         (block $B2
-            local.get $Ic
-            local.get $It
-            i32.lt_s
-            i32.eqz
-            br_if $B2
-            i32.const 2
-            local.set $Ic
-        )
-        (block $B3
-            (loop $L2
+            (block $B3
                 local.get $Ic
                 local.get $It
                 i32.lt_s
                 i32.eqz
                 br_if $B3
-                (block $B4
+                i32.const 2
+                local.set $Ic
+                br $B2
+            )
+            (block $B4
+                local.get $Ic
+                local.get $It
+                i32.eq
+                i32.eqz
+                br_if $B4
+                i32.const 3
+                local.set $Ic
+                br $B2
+            )
+            (block $B5
+                local.get $Ic
+                local.get $It
+                i32.gt_s
+                i32.eqz
+                br_if $B5
+                i32.const 4
+                local.set $It
+                br $B2
+            )
+        )
+        (block $B6
+            (loop $L2
+                local.get $Ic
+                local.get $It
+                i32.lt_s
+                i32.eqz
+                br_if $B6
+                (block $B7
                     (loop $L3
                         i32.const 0
                         i32.eqz
-                        br_if $B4
-                        br $B4
+                        br_if $B7
+                        br $B7
                         br $L3
                     )
                 )
-                (block $B5
+                (block $B8
                     local.get $Ic
                     local.get $It
                     i32.eq
                     i32.eqz
-                    br_if $B5
-                    br $B3
+                    br_if $B8
+                    br $B6
                 )
                 br $L2
             )
         )
+        i32.const 11
+        i32.const 13
+        call $prints
+        i32.const 2
+        i32.const 5
+        i32.add
+        return
+        i32.const -1
         return
     )
     (start $main)
-    (data 0 (i32.const 0) "true\n")
-    (data 0 (i32.const 5) "false\n")
+    (data 0 (i32.const 0) "true")
+    (data 0 (i32.const 5) "false")
+    (data 0 (i32.const 11) "Hello World\n")
     (memory 1)
 )

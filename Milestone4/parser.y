@@ -337,20 +337,6 @@ statement               : '{' blockstatements '}'
                             $$ -> child[1] = $5;
                             $$-> lineno = $$ -> child[1] -> lineno;
                         }
-                        | IF '(' expression ')' statement elseifstatements
-                        {
-                            $$ = newStmtNode(IfK);
-                            $$ -> child[0] = $3;
-                            $$ -> child[1] = $5;
-                            $$-> lineno = $$ -> child[1] -> lineno;
-                        }
-                        | IF '(' expression ')' statement elseifstatements ELSE statement
-                        {
-                            $$ = newStmtNode(IfK);
-                            $$ -> child[0] = $3;
-                            $$ -> child[1] = $5;
-                            $$-> lineno = $$ -> child[1] -> lineno;
-                        }
                         | IF '(' expression ')' statement ELSE statement
                         {
                             $$ = newStmtNode(IfElseK);
@@ -358,6 +344,23 @@ statement               : '{' blockstatements '}'
                             $$ -> child[1] = $5;
                             $$ -> child[2] = $7;
                             $$-> lineno = lineno;
+                        }
+                        | IF '(' expression ')' statement elseifstatements
+                        {
+                            $$ = newStmtNode(IfElseIfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$ -> lineno = $$ -> child[1] -> lineno;
+                            $$ -> child[2] = $6;  // ElseIf Nodes
+                        }
+                        | IF '(' expression ')' statement elseifstatements ELSE statement
+                        {
+                            $$ = newStmtNode(IfElseIfElseK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$ -> lineno = $$ -> child[1] -> lineno;
+                            $$ -> child[2] = $6;  // ElseIf Nodes
+                            $$ -> child[3] = $8;  // Else Statement
                         }
                         | WHILE '(' expression ')' statement
                         {
@@ -368,10 +371,28 @@ statement               : '{' blockstatements '}'
                         }
                         ;
 
-elseifstatements        : elseifstatement
-                        | elseifstatements ELSEIF '(' expression ')' statement {}
+elseifstatements        : elseifstatement {$$ = $1;}
+                        | elseifstatements elseifstatement 
+                        {
+                            YYSTYPE t = $1;
+                            if (t != NULL) {
+                              while (t -> sibling != NULL)
+                                t = t -> sibling;
+                                
+                              t -> sibling = $2;
+                              $$ = $1;
 
-elseifstatement         : ELSEIF '(' expression ')' statement {printf("here1\n");}
+                            }
+                            else $$ = $2;     
+                        }
+
+elseifstatement         : ELSEIF '(' expression ')' statement 
+                        {
+                            $$ = newStmtNode(ElseIfK);
+                            $$ -> child[0] = $3;
+                            $$ -> child[1] = $5;
+                            $$-> lineno = $$ -> child[1] -> lineno;      
+                        }
 
 statementexpression     : assignment {$$ = $1;}
                         | functioninvocation {$$ = $1;}
@@ -499,7 +520,6 @@ functioninvocation      : ID '(' argumentlist ')'
                                         break;
                                     }   
                                 }
-                                startIndex = i-1;
                             }
                             else
                             {
@@ -510,8 +530,9 @@ functioninvocation      : ID '(' argumentlist ')'
                                         break;
                                     }   
                                 }
-                                startIndex = i-1;
                             }
+                            
+                            startIndex = i-1;
 
                             strcpy(str, fullLine[i-1]);
                             $$ = newStmtNode(CallK);
