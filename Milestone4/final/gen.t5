@@ -1,0 +1,18 @@
+int i;
+
+main() {
+	int j;
+	i = 123;
+	j = 456;
+	k = 789;
+	i = j = k = 42;
+
+	int NL;
+	NL = 10;
+
+	printi(i);	printc(NL);
+	printi(j);	printc(NL);
+	printi(k);	printc(NL);
+}
+
+int k;

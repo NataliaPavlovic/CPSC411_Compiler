@@ -77,6 +77,7 @@ typedef struct treeNode {
   int while_loop_counter;
   int string_offset;
   int output_return_value;
+  int logic_block;
 } TreeNode;
 
 extern int EchoSource;

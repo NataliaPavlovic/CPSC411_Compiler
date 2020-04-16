@@ -1,0 +1,10 @@
+void nl() {
+	prints("\n");
+}
+
+main() {
+	printi(-123);		nl();
+	printi(-2147483648);	nl();
+	printi(--2147483648);	nl();
+	printi(---2147483648);	nl();
+}

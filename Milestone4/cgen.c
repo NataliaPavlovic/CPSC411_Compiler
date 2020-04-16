@@ -133,6 +133,7 @@ static void genDec( TreeNode * tree, int output)
         indentation += 4;
         emitRM("\n", indentation, NULL, 0);
         emitRM("(local $T0 i32)", indentation, NULL, 1);
+        emitRM("(local $T1 i32)", indentation, NULL, 1);
       }
 
       cGen(tree->child[1], output);
@@ -262,13 +263,14 @@ static void genStmt( TreeNode * tree, int output)
         char * s = (char *) malloc(9);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
-        indentation+=4;;
+        indentation+=4;
         tree->ifelse_block_counter = block_counter;
         block_counter++;
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
-        tree->if_block_counter = block_counter;      
+        tree->if_block_counter = block_counter; 
+        block_counter++;     
       }
 
       cGen(tree->child[0], output);
@@ -277,7 +279,6 @@ static void genStmt( TreeNode * tree, int output)
       {
         emitRM("i32.eqz", indentation, NULL, 1); 
         emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
-        block_counter++;  
       }
 
       if(tree->child[2] != NULL)
@@ -349,6 +350,7 @@ static void genStmt( TreeNode * tree, int output)
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
         tree->if_block_counter = block_counter;
+        block_counter++;     
       }
 
       cGen(tree->child[0], output);
@@ -357,7 +359,6 @@ static void genStmt( TreeNode * tree, int output)
       {
         emitRM("i32.eqz", indentation, NULL, 1); 
         emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
-        block_counter++;     
       }
 
       cGen(tree->child[1], output);
@@ -409,7 +410,8 @@ static void genStmt( TreeNode * tree, int output)
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
-        tree->if_block_counter = block_counter;       
+        tree->if_block_counter = block_counter; 
+        block_counter++;           
       }
 
       cGen(tree->child[0], output);
@@ -418,7 +420,6 @@ static void genStmt( TreeNode * tree, int output)
       {
         emitRM("i32.eqz", indentation, NULL, 1); 
         emitNumberedLabel("br_if $B", indentation, tree->if_block_counter, NULL, 1);
-        block_counter++;
       }
 
       cGen(tree->child[1], output);
@@ -587,21 +588,66 @@ static void genExp( TreeNode * tree, int output)
           }         
           break;
         case AND:
+        {
+          if (output)
+          {
+            char * s = (char *) malloc(9);
+            strcpy(s,"(block $B");
+            emitNumberedLabel(s, indentation, block_counter, NULL, 1);
+            indentation+=4;
+            tree->logic_block = block_counter;
+            block_counter++; 
+          }
           cGen(tree->child[0], output);
+          if (output)
+          {
+            emitRM("local.set $T1", indentation, NULL, 1);
+            emitRM("local.get $T1", indentation, NULL, 1);
+            emitRM("i32.eqz", indentation, NULL, 1);   
+            emitNumberedLabel("br_if $B", indentation, tree->logic_block, NULL, 1);                                         
+            emitRM("local.get $T1", indentation, NULL, 1);                      
+          }
           cGen(tree->child[1], output);
           if (output)
           {
-            emitRM("i32.and", indentation, NULL, 1);             
+            emitRM("i32.and", indentation, NULL, 1); 
+            emitRM("local.set $T1", indentation, NULL, 1);
+            indentation-=4;
+            emitRM(")", indentation, NULL, 1);  
+            emitRM("local.get $T1", indentation, NULL, 1);                       
           }
           break;
+        }
         case OR:
+        {
+          if (output)
+          {
+            char * s = (char *) malloc(9);
+            strcpy(s,"(block $B");
+            emitNumberedLabel(s, indentation, block_counter, NULL, 1);
+            indentation+=4;
+            tree->logic_block = block_counter;
+            block_counter++; 
+          }
           cGen(tree->child[0], output);
+          if (output)
+          {
+            emitRM("i32.const 1", indentation, NULL, 1);
+            emitRM("i32.eq", indentation, NULL, 1);   
+            emitNumberedLabel("br_if $B", indentation, tree->logic_block, NULL, 1);                                         
+            emitRM("local.get $T1", indentation, NULL, 1);                      
+          }
           cGen(tree->child[1], output);
           if (output)
           {
-            emitRM("i32.or", indentation, NULL, 1);            
+            emitRM("i32.or", indentation, NULL, 1);   
+            emitRM("local.set $T1", indentation, NULL, 1);
+            indentation-=4;
+            emitRM(")", indentation, NULL, 1);  
+            emitRM("local.get $T1", indentation, NULL, 1);       
           }
           break;
+        }
         case LE:
           cGen(tree->child[0], output);
           cGen(tree->child[1], output); 
@@ -718,20 +764,20 @@ static void genExp( TreeNode * tree, int output)
         {
           emitRM("local.get $T0", indentation, NULL, 1); 
         } 
-        // else if(tree->child[0] != NULL && tree->child[0]->attr.name != NULL)
-        // {
-        //   char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
-        //   if(tree->child[0]->scope == 0)
-        //   {
-        //     strcpy(s2,"global.get $G");       
-        //   }
-        //   else
-        //   {
-        //     strcpy(s2,"local.get $I");       
-        //   }
-        //   strcat(s2, tree->child[0]->attr.name);
-        //   emitRM(s2, indentation, NULL, 1); 
-        // }
+        else if(tree->child[0] != NULL && tree->child[0]->nodekind == ExpK && tree->child[0]->kind.exp == AssignK )
+        {
+          char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
+          if(tree->child[0]->scope == 0)
+          {
+            strcpy(s2,"global.get $G");       
+          }
+          else
+          {
+            strcpy(s2,"local.get $I");       
+          }
+          strcat(s2, tree->child[0]->attr.name);
+          emitRM(s2, indentation, NULL, 1); 
+        }
 
         if(tree->scope == 0)
         {

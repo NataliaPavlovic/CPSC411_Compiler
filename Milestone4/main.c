@@ -35,10 +35,10 @@ FILE * listing;
 FILE * code;
 
 /* allocate and set tracing flags */
-int EchoSource = 1;
-int TraceScan = 1;
+int EchoSource = 0;
+int TraceScan = 0;
 int TraceParse = 1;
-int TraceAnalyze = 1;
+int TraceAnalyze = 0;
 int TraceCode = 1;
 
 int Error = 0;
@@ -95,29 +95,33 @@ int main( int argc, char * argv[] ) {
   }
 
   // Print Annotated AST if there are no errors
-  // if(! Error)
-  // {
-  //   if (TraceAnalyze) {
-  //     fprintf(listing, "\nAnnotated Syntax tree:\n");
-  //     printAnnotatedTree(syntaxTree);
-  //   }
-  // }
+  if(! Error)
+  {
+    if (TraceAnalyze) {
+      fprintf(listing, "\nAnnotated Syntax tree:\n");
+      printAnnotatedTree(syntaxTree);
+    }
+  }
   
   #if !NO_CODE
   if (! Error)
   { 
     char * codefile;
     int fnlen = strcspn(fname,".");
-    fname[fnlen] = '_';
-    codefile = (char *) calloc(strlen(fname)+4, sizeof(char));
-    strcpy(codefile,fname);
-    for(int i = 0; i < strlen(codefile); i++)
+    if(fname[fnlen+1] == 'j')
     {
-      if(codefile[i] == '-')
-      {
-        codefile[i] = '_';
-      }
+      codefile = (char *) calloc(fnlen+4+1, sizeof(char));
+      strncpy(codefile,fname,fnlen+2);
+      codefile[fnlen] = '_';
     }
+    else
+    {
+      codefile = (char *) calloc(fnlen+4+3, sizeof(char));
+      strncpy(codefile,fname,fnlen+4);
+      codefile[fnlen] = '_';
+    }
+
+    strncpy(codefile,fname,fnlen);
     strcat(codefile,".wat");
     code = fopen(codefile,"w");
     if (code == NULL)

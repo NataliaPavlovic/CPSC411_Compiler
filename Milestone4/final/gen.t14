@@ -1,0 +1,18 @@
+main() {
+	int i;
+	int delta;
+	
+	i = 0;
+	delta = 1000000;
+
+	while (i > i-delta)
+		i = i + delta;
+	i = i - delta;
+
+	while (i > i-1)
+		i = i + 1;
+
+	prints("minint is ");
+	printi(i);
+	prints("\n");
+}

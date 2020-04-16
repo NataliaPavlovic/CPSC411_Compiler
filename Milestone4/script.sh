@@ -11,50 +11,67 @@ gcc -c -I"." lex.yy.c -lfl -o scanner -Wall
 bison -d parser.y
 make
 
-printf "\nNoMainDeclaration.t1 *******************************************\n"
-./parser "MyTestFiles/NoMainDeclaration.t1"
+printf "\nPlace folder containing test files in current directory.\nEnter the directory name:\n"
+read input
 
-printf "\nMultipleMainDeclarations.t2 ************************************\n"
-./parser "MyTestFiles/MultipleMainDeclarations.t2"
+printf "\nTest File Outputs ***************************************\n"
 
-printf "\nLocalDeclarationNotInOuterMostBlock.t3 *************************\n"
-./parser "MyTestFiles/LocalDeclarationNotInOuterMostBlock.t3"
+printf "\ngen.t1 *******************************************\n"
+./parser "$input"/gen.t1
 
-printf "\nNumberArgumentsDoesNotMatch.t4 *********************************\n"
-./parser "MyTestFiles/NumberArgumentsDoesNotMatch.t4"
+printf "\ngen.t5 ************************************\n"
+./parser "$input"/gen.t5
 
-printf "\nTypeArgumentsDoesNotMatch.t5 ***********************************\n"
-./parser "MyTestFiles/TypeArgumentsDoesNotMatch.t5"
+printf "\ngen.t10 *************************\n"
+./parser "$input"/gen.t10
 
-printf "\nMainDeclarationWithParameters.t6 *******************************\n"
-./parser "MyTestFiles/MainDeclarationWithParameters.t6"
+printf "\ngen.t11 *********************************\n"
+./parser "$input"/gen.t11
 
-printf "\nMainDeclarationCalled.t7 ***************************************\n"
-./parser "MyTestFiles/MainDeclarationCalled.t7"
+printf "\ngen.t12 ***********************************\n"
+./parser "$input"/gen.t12
 
-printf "\nBreakStatementNotInWhile.t8 ************************************\n"
-./parser "MyTestFiles/BreakStatementNotInWhile.t8"
+printf "\ngen.t13 *******************************\n"
+./parser "$input"/gen.t13
 
-printf "\nReturnValueVoid.t9 *********************************************\n"
-./parser "MyTestFiles/ReturnValueVoid.t9"
+printf "\ngen.t14 ***************************************\n"
+./parser "$input"/gen.t14
 
-printf "\nTypeMismatchOperators.t10 **************************************\n"
-./parser "MyTestFiles/TypeMismatchOperators.t10"
+printf "\ngen.t15 ************************************\n"
+./parser "$input"/gen.t15
 
-printf "\nNoReturnValueNonVoid.t11 ***************************************\n"
-./parser "MyTestFiles/NoReturnValueNonVoid.t11"
+printf "\ngen.t18 *********************************************\n"
+./parser "$input"/gen.t18
 
-printf "\nWrongTypeReturned.t12 ******************************************\n"
-./parser "MyTestFiles/WrongTypeReturned.t12"
+printf "\ngen.t22 **************************************\n"
+./parser "$input"/gen.t22
 
-printf "\nIfWhileBooleanCondition.t13 ************************************\n"
-./parser "MyTestFiles/IfWhileBooleanCondition.t13"
+printf "\ngen.t26 ***************************************\n"
+./parser "$input"/gen.t26
 
-printf "\nRedefinedIdentifier.t14 ****************************************\n"
-./parser "MyTestFiles/RedefinedIdentifier.t14"
+printf "\ngen.t29 ******************************************\n"
+./parser "$input"/gen.t29
 
-printf "\nUndeclaredIdentifierUsed.t15 ***********************************\n"
-./parser "MyTestFiles/UndeclaredIdentifierUsed.t15"
+printf "\ngen.t30 ************************************\n"
+./parser "$input"/gen.t30
 
-printf "\nWorkingCase.t16 ************************************************\n"
-./parser "MyTestFiles/WorkingCase.t16"
+printf "\ngen.t31 ****************************************\n"
+./parser "$input"/gen.t31
+
+printf "\ngen.t32 ***********************************\n"
+./parser "$input"/gen.t32
+
+printf "\ngen.t33 ************************************************\n"
+./parser "$input"/gen.t33
+
+printf "\ngen.t34 ************************************************\n"
+./parser "$input"/gen.t34
+
+printf "\nart-life.j-- ************************************************\n"
+./parser "$input"/art-life.j--
+
+printf "\nart-select.j-- ************************************************\n"
+./parser "$input"/art-select.j--
+
+printf "\nart-sieve.j-- ************************************************\n"
+./parser "$input"/art-sieve.j--
