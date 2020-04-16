@@ -76,7 +76,7 @@ static void genDec( TreeNode * tree, int output)
       {
         if(tree->scope == 0)
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+37);
+          char * s = (char *) malloc(strlen(tree->attr.name)+36);
           strcpy(s, "(global $G");
           strcat(s, tree->attr.name);
           strcat(s, " (mut i32) (i32.const 0))");
@@ -84,7 +84,7 @@ static void genDec( TreeNode * tree, int output)
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+14);
+          char * s = (char *) malloc(strlen(tree->attr.name)+15);
           strcpy(s, "(local $I");
           strcat(s, tree->attr.name);
           strcat(s," i32)");
@@ -97,7 +97,7 @@ static void genDec( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(strlen(tree->attr.name)+15);
+        char * s = (char *) malloc(strlen(tree->attr.name)+16);
         strcpy(s," (param $I");
         strcat(s, tree->attr.name);
         strcat(s, " i32)");
@@ -190,13 +190,13 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
         tree->if_block_counter = block_counter;
         block_counter++;
-        char * l = (char *) malloc(8);
+        char * l = (char *) malloc(9);
         strcpy(l,"(loop $L");
         emitNumberedLabel(l, indentation, loop_counter, NULL, 1);
         indentation+=4;
@@ -234,7 +234,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -259,7 +259,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -322,7 +322,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if(output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;;
@@ -383,7 +383,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;;
@@ -446,7 +446,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -590,7 +590,7 @@ static void genExp( TreeNode * tree, int output)
         {
           if (output)
           {
-            char * s = (char *) malloc(9);
+            char * s = (char *) malloc(10);
             strcpy(s,"(block $B");
             emitNumberedLabel(s, indentation, block_counter, NULL, 1);
             indentation+=4;
@@ -621,7 +621,7 @@ static void genExp( TreeNode * tree, int output)
         {
           if (output)
           {
-            char * s = (char *) malloc(9);
+            char * s = (char *) malloc(10);
             strcpy(s,"(block $B");
             emitNumberedLabel(s, indentation, block_counter, NULL, 1);
             indentation+=4;
@@ -690,14 +690,14 @@ static void genExp( TreeNode * tree, int output)
       {
         if(tree->scope == 0)
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+13);
+          char * s = (char *) malloc(strlen(tree->attr.name)+14);
           strcpy(s,"global.get $G");
           strcat(s, tree->attr.name);
           emitInstruction(s, indentation, NULL, 1);
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+12);
+          char * s = (char *) malloc(strlen(tree->attr.name)+13);
           strcpy(s,"local.get $I");
           strcat(s, tree->attr.name);
           emitInstruction(s, indentation, NULL, 1);
@@ -743,7 +743,7 @@ static void genExp( TreeNode * tree, int output)
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.val)+2);
+          char * s = (char *) malloc(strlen(tree->attr.val)+3);
           strcpy(s, "\"");
           strcat(s, tree->attr.val);
           strcat(s, "\"");
@@ -767,7 +767,7 @@ static void genExp( TreeNode * tree, int output)
         } 
         else if(tree->child[0] != NULL && tree->child[0]->nodekind == ExpK && tree->child[0]->kind.exp == AssignK )
         {
-          char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
+          char * s2 = (char *) malloc(strlen(tree->attr.name)+14);
           if(tree->child[0]->scope == 0)
           {
             strcpy(s2,"global.get $G");       
@@ -788,7 +788,7 @@ static void genExp( TreeNode * tree, int output)
           emitInstruction(s, indentation, NULL, 1);
           if(tree->output_return_value == 1)
           {
-            char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
+            char * s2 = (char *) malloc(strlen(tree->attr.name)+14);
             strcpy(s2,"global.get $G");
             strcat(s2, tree->attr.name);
             emitInstruction(s2, indentation, NULL, 1);          
@@ -1157,7 +1157,7 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
    // Call main
   if(main_replacement_counter == 1 && count_main == 0)
   {
-    char * s = (char *) malloc(strlen(functionDeclarations[main_replacement_index].function_name)+9);
+    char * s = (char *) malloc(strlen(functionDeclarations[main_replacement_index].function_name)+10);
     strcpy(s,"(start $");
     strcat(s, functionDeclarations[main_replacement_index].function_name);
     strcat(s, ")");
