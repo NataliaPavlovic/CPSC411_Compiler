@@ -1,10 +1,10 @@
 // Natalia Pavlovic
 // CPSC 411
-// Milestone 3
-// March 2020
+// Milestone 4
+// April 2020
 // Code modified from EX Compiler from tutorial
 
-// Semantic analyzer for EX Compiler
+// Semantic analyzer
 
 #include "globals.h"
 #include "symtab.h"
@@ -14,11 +14,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Global scope
 static int scope_a = 0;
 
-/* counter for variable memory locations */
+// counter for variable memory locations
 static int location[MAX_SCOPE] = {0,0,0};
 
+// Current scope
 static int No_change = 0; 
 
 // Counter for number of current nested while loops
@@ -36,6 +38,7 @@ static int return_type = -1;
 // Total number of functions in array
 int totalFuncs = 0;
 
+// Set to 1 if a runtime function is redefined
 int getchar_redefined = 0;
 int halt_redefined = 0;
 int printb_redefined = 0;
@@ -43,6 +46,7 @@ int printc_redefined = 0;
 int printi_redefined = 0;
 int prints_redefined = 0;
 
+// If there is no main function, but there is a a void function with no parameters
 int main_replacement_index;
 int main_replacement_counter;
 
@@ -468,6 +472,7 @@ static void insertNode( TreeNode * t)
           {
             count_main++;
           }
+          // Set to 1 if runtime function is redefined
           if(!strcmp(t->attr.name, "getchar"))
           {
             getchar_redefined = 1;
@@ -936,18 +941,7 @@ static void checkNode(TreeNode * t)
         }
         case ReturnK:
         {
-          func_return_counter++;
-          // if (t->child[0] != NULL) {
-          //   if (t->child[0]->type != t->type)
-          //     if(t->type == Void)
-          //     {
-          //       typeError(t->child[0], "void function can't return a value");
-          //     }
-          //     else
-          //     {
-          //       typeError(t->child[0],"type of return value doesn't match function declaration");
-          //     }
-          // }  
+          func_return_counter++; 
           if (t->child[0] != NULL) {
             if (t->child[0]->type != t->type)
             {

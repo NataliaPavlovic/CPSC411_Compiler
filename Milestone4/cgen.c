@@ -4,8 +4,6 @@
 // April 2020
 // Code modified from EX Compiler from tutorial
 
-// Code generator
-
 #include "globals.h"
 #include "symtab.h"
 #include "code.h"
@@ -25,6 +23,7 @@ static int getValue=1;
 /* prototype for internal recursive code generator */
 static void cGen (TreeNode * tree, int output);
 
+// prototype for function that is run before cGen to output global variables first
 static void cGen_globalvars (TreeNode * tree, int output);
 
 static int tmp;
@@ -35,12 +34,19 @@ static int tmp;
  */
 static int isRecursive = 1;
 
+// String dataSize index
 static int dataSize = 11;
+
+// Memory size required for all strings
 static int memorySize = 1;
 
+// WAT code indentation
 static int indentation = 4;
+// Counter for $B block labels
 static int block_counter = 0;
+// Counter for $L loop labels
 static int loop_counter = 0;
+// Counter for $L loop labels used for nested loops
 static int current_loop_counter = 0;
 
 /* stack used for call */
@@ -76,6 +82,7 @@ static void genDec( TreeNode * tree, int output)
       {
         if(tree->scope == 0)
         {
+
           char * s = (char *) malloc(strlen(tree->attr.name)+37);
           strcpy(s, "(global $G");
           strcat(s, tree->attr.name);
@@ -84,7 +91,7 @@ static void genDec( TreeNode * tree, int output)
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+14);
+          char * s = (char *) malloc(strlen(tree->attr.name)+15);
           strcpy(s, "(local $I");
           strcat(s, tree->attr.name);
           strcat(s," i32)");
@@ -190,13 +197,13 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
         tree->if_block_counter = block_counter;
         block_counter++;
-        char * l = (char *) malloc(8);
+        char * l = (char *) malloc(9);
         strcpy(l,"(loop $L");
         emitNumberedLabel(l, indentation, loop_counter, NULL, 1);
         indentation+=4;
@@ -234,7 +241,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -259,7 +266,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -322,7 +329,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if(output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;;
@@ -383,7 +390,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;;
@@ -446,7 +453,7 @@ static void genStmt( TreeNode * tree, int output)
     {
       if (output)
       {
-        char * s = (char *) malloc(9);
+        char * s = (char *) malloc(10);
         strcpy(s,"(block $B");
         emitNumberedLabel(s, indentation, block_counter, NULL, 1);
         indentation+=4;
@@ -590,7 +597,7 @@ static void genExp( TreeNode * tree, int output)
         {
           if (output)
           {
-            char * s = (char *) malloc(9);
+            char * s = (char *) malloc(10);
             strcpy(s,"(block $B");
             emitNumberedLabel(s, indentation, block_counter, NULL, 1);
             indentation+=4;
@@ -621,7 +628,7 @@ static void genExp( TreeNode * tree, int output)
         {
           if (output)
           {
-            char * s = (char *) malloc(9);
+            char * s = (char *) malloc(10);
             strcpy(s,"(block $B");
             emitNumberedLabel(s, indentation, block_counter, NULL, 1);
             indentation+=4;
@@ -690,14 +697,14 @@ static void genExp( TreeNode * tree, int output)
       {
         if(tree->scope == 0)
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+13);
+          char * s = (char *) malloc(strlen(tree->attr.name)+14);
           strcpy(s,"global.get $G");
           strcat(s, tree->attr.name);
           emitInstruction(s, indentation, NULL, 1);
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.name)+12);
+          char * s = (char *) malloc(strlen(tree->attr.name)+13);
           strcpy(s,"local.get $I");
           strcat(s, tree->attr.name);
           emitInstruction(s, indentation, NULL, 1);
@@ -743,7 +750,7 @@ static void genExp( TreeNode * tree, int output)
         }
         else
         {
-          char * s = (char *) malloc(strlen(tree->attr.val)+2);
+          char * s = (char *) malloc(strlen(tree->attr.val)+3);
           strcpy(s, "\"");
           strcat(s, tree->attr.val);
           strcat(s, "\"");
@@ -767,7 +774,7 @@ static void genExp( TreeNode * tree, int output)
         } 
         else if(tree->child[0] != NULL && tree->child[0]->nodekind == ExpK && tree->child[0]->kind.exp == AssignK )
         {
-          char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
+          char * s2 = (char *) malloc(strlen(tree->attr.name)+14);
           if(tree->child[0]->scope == 0)
           {
             strcpy(s2,"global.get $G");       
@@ -788,7 +795,7 @@ static void genExp( TreeNode * tree, int output)
           emitInstruction(s, indentation, NULL, 1);
           if(tree->output_return_value == 1)
           {
-            char * s2 = (char *) malloc(strlen(tree->attr.name)+13);
+            char * s2 = (char *) malloc(strlen(tree->attr.name)+14);
             strcpy(s2,"global.get $G");
             strcat(s2, tree->attr.name);
             emitInstruction(s2, indentation, NULL, 1);          
@@ -894,6 +901,7 @@ static void cGen( TreeNode * tree, int output)
   }
 }
 
+// Is run before cGen to output global variables first
 static void cGen_globalvars( TreeNode * tree, int output)
 { 
   if (tree != NULL)
@@ -944,6 +952,7 @@ static void outputStringData( TreeNode * tree, int output)
   }
 }
 
+// Finds original string size for pre-formatted strings
 int originalStringLength(char * c)
 {
    int len = strlen(c);
@@ -1149,12 +1158,11 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
 
    emitComment("End of standard prelude.", 0);
 
-   //  /* generate code for program */
+   // generate code for program
     cGen_globalvars(syntaxTree, 1);
     cGen(syntaxTree, 1);
-   //  /* finish */
 
-   // Call main
+   // Call main or main replacement
   if(main_replacement_counter == 1 && count_main == 0)
   {
     char * s = (char *) malloc(strlen(functionDeclarations[main_replacement_index].function_name)+9);
@@ -1168,7 +1176,7 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
     emitInstruction("(start $main)", 4, NULL, 1);
   }
 
-  // Output string data
+  // output strings
   char * trueString = "\"true\"";
   emitData(trueString, 0, NULL);
 
@@ -1176,8 +1184,8 @@ void codeGen(TreeNode * syntaxTree, char * codefile)
   emitData(falseString, 5, NULL);
 
   outputStringData(syntaxTree, 0);
-
-  // Output memory required
+  
+  // Output required memory
   memorySize += dataSize / 65536;
    
   emitMemory(memorySize, NULL);

@@ -11,3 +11,5 @@ Run:
 
 How to run script.sh:
 ./script.sh
+
+To run the script, the folder called "final" must be in the same directory as the script and the project.

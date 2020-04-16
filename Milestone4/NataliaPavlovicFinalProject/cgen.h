@@ -1,9 +1,10 @@
-/****************************************************/
-/* File: cgen.h                                     */
-/* The code generator interface to the C- compiler  */
-/*                                                  */
-/*                                                  */
-/****************************************************/
+// Natalia Pavlovic
+// CPSC 411
+// Milestone 4
+// April 2020
+// Code modified from EX Compiler from tutorial
+
+// Code generator interface
 
 #ifndef _CGEN_H_
 #define _CGEN_H_
