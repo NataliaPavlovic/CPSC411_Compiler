@@ -15,6 +15,7 @@ int baz(int a) {
 	return a;
 }
 
+
 mane() {
 	d = 10;
 	printi(foo(1, bar(2, baz(3), 4), bar(5, baz(6), 7), baz(8)));
