@@ -328,6 +328,7 @@
     (global $GINTERNALX (mut i32) (i32.const 0))
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii i32)
         (local $Ij i32)
         (local $Ix i32)
@@ -2068,13 +2069,23 @@
                                                         br_if $B140
                                                         (block $B141
                                                             (block $B142
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                                (block $B143
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B143
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
                                                                 br_if $B142
                                                                 i32.const 1
@@ -2086,16 +2097,16 @@
                                                         )
                                                         br $B139
                                                     )
-                                                    (block $B143
-                                                        (block $B144
+                                                    (block $B144
+                                                        (block $B145
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B144
+                                                            br_if $B145
                                                             i32.const 1
                                                             global.set $GT_0_0
-                                                            br $B143
+                                                            br $B144
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_0
@@ -2103,55 +2114,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B145
+                                            (block $B146
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B145
+                                                br_if $B146
                                                 i32.const 0
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B146
-                                                    (block $B147
+                                                (block $B147
+                                                    (block $B148
                                                         global.get $GA_0_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B147
-                                                        (block $B148
-                                                            (block $B149
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B148
+                                                        (block $B149
+                                                            (block $B150
+                                                                (block $B151
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B151
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B149
+                                                                br_if $B150
                                                                 i32.const 1
                                                                 global.set $GT_0_1
-                                                                br $B148
+                                                                br $B149
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_1
                                                         )
-                                                        br $B146
+                                                        br $B147
                                                     )
-                                                    (block $B150
-                                                        (block $B151
+                                                    (block $B152
+                                                        (block $B153
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B151
+                                                            br_if $B153
                                                             i32.const 1
                                                             global.set $GT_0_1
-                                                            br $B150
+                                                            br $B152
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_1
@@ -2159,55 +2180,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B152
+                                            (block $B154
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B152
+                                                br_if $B154
                                                 i32.const 0
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B153
-                                                    (block $B154
+                                                (block $B155
+                                                    (block $B156
                                                         global.get $GA_0_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B154
-                                                        (block $B155
-                                                            (block $B156
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B156
+                                                        (block $B157
+                                                            (block $B158
+                                                                (block $B159
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B159
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B156
+                                                                br_if $B158
                                                                 i32.const 1
                                                                 global.set $GT_0_2
-                                                                br $B155
+                                                                br $B157
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_2
                                                         )
-                                                        br $B153
+                                                        br $B155
                                                     )
-                                                    (block $B157
-                                                        (block $B158
+                                                    (block $B160
+                                                        (block $B161
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B158
+                                                            br_if $B161
                                                             i32.const 1
                                                             global.set $GT_0_2
-                                                            br $B157
+                                                            br $B160
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_2
@@ -2215,55 +2246,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B159
+                                            (block $B162
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B159
+                                                br_if $B162
                                                 i32.const 0
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B160
-                                                    (block $B161
+                                                (block $B163
+                                                    (block $B164
                                                         global.get $GA_0_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B161
-                                                        (block $B162
-                                                            (block $B163
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B164
+                                                        (block $B165
+                                                            (block $B166
+                                                                (block $B167
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B167
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B163
+                                                                br_if $B166
                                                                 i32.const 1
                                                                 global.set $GT_0_3
-                                                                br $B162
+                                                                br $B165
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_3
                                                         )
-                                                        br $B160
+                                                        br $B163
                                                     )
-                                                    (block $B164
-                                                        (block $B165
+                                                    (block $B168
+                                                        (block $B169
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B165
+                                                            br_if $B169
                                                             i32.const 1
                                                             global.set $GT_0_3
-                                                            br $B164
+                                                            br $B168
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_3
@@ -2271,55 +2312,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B166
+                                            (block $B170
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B166
+                                                br_if $B170
                                                 i32.const 0
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B167
-                                                    (block $B168
+                                                (block $B171
+                                                    (block $B172
                                                         global.get $GA_0_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B168
-                                                        (block $B169
-                                                            (block $B170
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B172
+                                                        (block $B173
+                                                            (block $B174
+                                                                (block $B175
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B175
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B170
+                                                                br_if $B174
                                                                 i32.const 1
                                                                 global.set $GT_0_4
-                                                                br $B169
+                                                                br $B173
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_4
                                                         )
-                                                        br $B167
+                                                        br $B171
                                                     )
-                                                    (block $B171
-                                                        (block $B172
+                                                    (block $B176
+                                                        (block $B177
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B172
+                                                            br_if $B177
                                                             i32.const 1
                                                             global.set $GT_0_4
-                                                            br $B171
+                                                            br $B176
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_4
@@ -2327,55 +2378,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B173
+                                            (block $B178
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B173
+                                                br_if $B178
                                                 i32.const 0
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B174
-                                                    (block $B175
+                                                (block $B179
+                                                    (block $B180
                                                         global.get $GA_0_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B175
-                                                        (block $B176
-                                                            (block $B177
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B180
+                                                        (block $B181
+                                                            (block $B182
+                                                                (block $B183
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B183
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B177
+                                                                br_if $B182
                                                                 i32.const 1
                                                                 global.set $GT_0_5
-                                                                br $B176
+                                                                br $B181
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_5
                                                         )
-                                                        br $B174
+                                                        br $B179
                                                     )
-                                                    (block $B178
-                                                        (block $B179
+                                                    (block $B184
+                                                        (block $B185
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B179
+                                                            br_if $B185
                                                             i32.const 1
                                                             global.set $GT_0_5
-                                                            br $B178
+                                                            br $B184
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_5
@@ -2383,100 +2444,54 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B180
+                                            (block $B186
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B180
+                                                br_if $B186
                                                 i32.const 0
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B181
-                                                    (block $B182
+                                                (block $B187
+                                                    (block $B188
                                                         global.get $GA_0_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B182
-                                                        (block $B183
-                                                            (block $B184
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B188
+                                                        (block $B189
+                                                            (block $B190
+                                                                (block $B191
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B191
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B184
+                                                                br_if $B190
                                                                 i32.const 1
                                                                 global.set $GT_0_6
-                                                                br $B183
+                                                                br $B189
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_6
                                                         )
-                                                        br $B181
-                                                    )
-                                                    (block $B185
-                                                        (block $B186
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B186
-                                                            i32.const 1
-                                                            global.set $GT_0_6
-                                                            br $B185
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_0_6
-                                                    )
-                                                )
-                                                br $B137
-                                            )
-                                            (block $B187
-                                                local.get $Ij
-                                                i32.const 7
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B187
-                                                i32.const 0
-                                                i32.const 7
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B188
-                                                    (block $B189
-                                                        global.get $GA_0_7
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B189
-                                                        (block $B190
-                                                            (block $B191
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B191
-                                                                i32.const 1
-                                                                global.set $GT_0_7
-                                                                br $B190
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_0_7
-                                                        )
-                                                        br $B188
+                                                        br $B187
                                                     )
                                                     (block $B192
                                                         (block $B193
@@ -2486,8 +2501,74 @@
                                                             i32.eqz
                                                             br_if $B193
                                                             i32.const 1
-                                                            global.set $GT_0_7
+                                                            global.set $GT_0_6
                                                             br $B192
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_0_6
+                                                    )
+                                                )
+                                                br $B137
+                                            )
+                                            (block $B194
+                                                local.get $Ij
+                                                i32.const 7
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B194
+                                                i32.const 0
+                                                i32.const 7
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B195
+                                                    (block $B196
+                                                        global.get $GA_0_7
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B196
+                                                        (block $B197
+                                                            (block $B198
+                                                                (block $B199
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B199
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B198
+                                                                i32.const 1
+                                                                global.set $GT_0_7
+                                                                br $B197
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_0_7
+                                                        )
+                                                        br $B195
+                                                    )
+                                                    (block $B200
+                                                        (block $B201
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B201
+                                                            i32.const 1
+                                                            global.set $GT_0_7
+                                                            br $B200
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_7
@@ -2495,55 +2576,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B194
+                                            (block $B202
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B194
+                                                br_if $B202
                                                 i32.const 0
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B195
-                                                    (block $B196
+                                                (block $B203
+                                                    (block $B204
                                                         global.get $GA_0_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B196
-                                                        (block $B197
-                                                            (block $B198
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B204
+                                                        (block $B205
+                                                            (block $B206
+                                                                (block $B207
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B207
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B198
+                                                                br_if $B206
                                                                 i32.const 1
                                                                 global.set $GT_0_8
-                                                                br $B197
+                                                                br $B205
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_8
                                                         )
-                                                        br $B195
+                                                        br $B203
                                                     )
-                                                    (block $B199
-                                                        (block $B200
+                                                    (block $B208
+                                                        (block $B209
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B200
+                                                            br_if $B209
                                                             i32.const 1
                                                             global.set $GT_0_8
-                                                            br $B199
+                                                            br $B208
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_8
@@ -2551,55 +2642,65 @@
                                                 )
                                                 br $B137
                                             )
-                                            (block $B201
+                                            (block $B210
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B201
+                                                br_if $B210
                                                 i32.const 0
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B202
-                                                    (block $B203
+                                                (block $B211
+                                                    (block $B212
                                                         global.get $GA_0_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B203
-                                                        (block $B204
-                                                            (block $B205
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B212
+                                                        (block $B213
+                                                            (block $B214
+                                                                (block $B215
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B215
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B205
+                                                                br_if $B214
                                                                 i32.const 1
                                                                 global.set $GT_0_9
-                                                                br $B204
+                                                                br $B213
                                                             )
                                                             i32.const 0
                                                             global.set $GT_0_9
                                                         )
-                                                        br $B202
+                                                        br $B211
                                                     )
-                                                    (block $B206
-                                                        (block $B207
+                                                    (block $B216
+                                                        (block $B217
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B207
+                                                            br_if $B217
                                                             i32.const 1
                                                             global.set $GT_0_9
-                                                            br $B206
+                                                            br $B216
                                                         )
                                                         i32.const 0
                                                         global.set $GT_0_9
@@ -2617,340 +2718,268 @@
                                 )
                                 br $B134
                             )
-                            (block $B208
+                            (block $B218
                                 local.get $Ii
                                 i32.const 1
                                 i32.eq
                                 i32.eqz
-                                br_if $B208
+                                br_if $B218
                                 i32.const 0
                                 local.set $Ij
-                                (block $B209
+                                (block $B219
                                     (loop $L14
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B209
-                                        (block $B210
-                                            (block $B211
+                                        br_if $B219
+                                        (block $B220
+                                            (block $B221
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B211
+                                                br_if $B221
                                                 i32.const 1
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B212
-                                                    (block $B213
+                                                (block $B222
+                                                    (block $B223
                                                         global.get $GA_1_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B213
-                                                        (block $B214
-                                                            (block $B215
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B223
+                                                        (block $B224
+                                                            (block $B225
+                                                                (block $B226
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B226
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B215
+                                                                br_if $B225
                                                                 i32.const 1
                                                                 global.set $GT_1_0
-                                                                br $B214
+                                                                br $B224
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_0
                                                         )
-                                                        br $B212
+                                                        br $B222
                                                     )
-                                                    (block $B216
-                                                        (block $B217
+                                                    (block $B227
+                                                        (block $B228
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B217
+                                                            br_if $B228
                                                             i32.const 1
                                                             global.set $GT_1_0
-                                                            br $B216
+                                                            br $B227
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_0
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B218
+                                            (block $B229
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B218
+                                                br_if $B229
                                                 i32.const 1
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B219
-                                                    (block $B220
+                                                (block $B230
+                                                    (block $B231
                                                         global.get $GA_1_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B220
-                                                        (block $B221
-                                                            (block $B222
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B231
+                                                        (block $B232
+                                                            (block $B233
+                                                                (block $B234
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B234
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B222
+                                                                br_if $B233
                                                                 i32.const 1
                                                                 global.set $GT_1_1
-                                                                br $B221
+                                                                br $B232
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_1
                                                         )
-                                                        br $B219
+                                                        br $B230
                                                     )
-                                                    (block $B223
-                                                        (block $B224
+                                                    (block $B235
+                                                        (block $B236
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B224
+                                                            br_if $B236
                                                             i32.const 1
                                                             global.set $GT_1_1
-                                                            br $B223
+                                                            br $B235
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_1
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B225
+                                            (block $B237
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B225
+                                                br_if $B237
                                                 i32.const 1
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B226
-                                                    (block $B227
+                                                (block $B238
+                                                    (block $B239
                                                         global.get $GA_1_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B227
-                                                        (block $B228
-                                                            (block $B229
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B239
+                                                        (block $B240
+                                                            (block $B241
+                                                                (block $B242
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B242
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B229
+                                                                br_if $B241
                                                                 i32.const 1
                                                                 global.set $GT_1_2
-                                                                br $B228
+                                                                br $B240
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_2
                                                         )
-                                                        br $B226
+                                                        br $B238
                                                     )
-                                                    (block $B230
-                                                        (block $B231
+                                                    (block $B243
+                                                        (block $B244
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B231
+                                                            br_if $B244
                                                             i32.const 1
                                                             global.set $GT_1_2
-                                                            br $B230
+                                                            br $B243
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_2
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B232
+                                            (block $B245
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B232
+                                                br_if $B245
                                                 i32.const 1
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B233
-                                                    (block $B234
+                                                (block $B246
+                                                    (block $B247
                                                         global.get $GA_1_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B234
-                                                        (block $B235
-                                                            (block $B236
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B247
+                                                        (block $B248
+                                                            (block $B249
+                                                                (block $B250
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B250
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B236
+                                                                br_if $B249
                                                                 i32.const 1
                                                                 global.set $GT_1_3
-                                                                br $B235
+                                                                br $B248
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_3
                                                         )
-                                                        br $B233
-                                                    )
-                                                    (block $B237
-                                                        (block $B238
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B238
-                                                            i32.const 1
-                                                            global.set $GT_1_3
-                                                            br $B237
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_1_3
-                                                    )
-                                                )
-                                                br $B210
-                                            )
-                                            (block $B239
-                                                local.get $Ij
-                                                i32.const 4
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B239
-                                                i32.const 1
-                                                i32.const 4
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B240
-                                                    (block $B241
-                                                        global.get $GA_1_4
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B241
-                                                        (block $B242
-                                                            (block $B243
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B243
-                                                                i32.const 1
-                                                                global.set $GT_1_4
-                                                                br $B242
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_1_4
-                                                        )
-                                                        br $B240
-                                                    )
-                                                    (block $B244
-                                                        (block $B245
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B245
-                                                            i32.const 1
-                                                            global.set $GT_1_4
-                                                            br $B244
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_1_4
-                                                    )
-                                                )
-                                                br $B210
-                                            )
-                                            (block $B246
-                                                local.get $Ij
-                                                i32.const 5
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B246
-                                                i32.const 1
-                                                i32.const 5
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B247
-                                                    (block $B248
-                                                        global.get $GA_1_5
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B248
-                                                        (block $B249
-                                                            (block $B250
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B250
-                                                                i32.const 1
-                                                                global.set $GT_1_5
-                                                                br $B249
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_1_5
-                                                        )
-                                                        br $B247
+                                                        br $B246
                                                     )
                                                     (block $B251
                                                         (block $B252
@@ -2960,238 +2989,410 @@
                                                             i32.eqz
                                                             br_if $B252
                                                             i32.const 1
-                                                            global.set $GT_1_5
+                                                            global.set $GT_1_3
                                                             br $B251
                                                         )
                                                         i32.const 0
-                                                        global.set $GT_1_5
+                                                        global.set $GT_1_3
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
                                             (block $B253
                                                 local.get $Ij
-                                                i32.const 6
+                                                i32.const 4
                                                 i32.eq
                                                 i32.eqz
                                                 br_if $B253
                                                 i32.const 1
-                                                i32.const 6
+                                                i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
                                                 (block $B254
                                                     (block $B255
-                                                        global.get $GA_1_6
+                                                        global.get $GA_1_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
                                                         br_if $B255
                                                         (block $B256
                                                             (block $B257
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                                (block $B258
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B258
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
                                                                 br_if $B257
                                                                 i32.const 1
-                                                                global.set $GT_1_6
+                                                                global.set $GT_1_4
                                                                 br $B256
                                                             )
                                                             i32.const 0
-                                                            global.set $GT_1_6
+                                                            global.set $GT_1_4
                                                         )
                                                         br $B254
                                                     )
-                                                    (block $B258
-                                                        (block $B259
+                                                    (block $B259
+                                                        (block $B260
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B259
+                                                            br_if $B260
+                                                            i32.const 1
+                                                            global.set $GT_1_4
+                                                            br $B259
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_1_4
+                                                    )
+                                                )
+                                                br $B220
+                                            )
+                                            (block $B261
+                                                local.get $Ij
+                                                i32.const 5
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B261
+                                                i32.const 1
+                                                i32.const 5
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B262
+                                                    (block $B263
+                                                        global.get $GA_1_5
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B263
+                                                        (block $B264
+                                                            (block $B265
+                                                                (block $B266
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B266
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B265
+                                                                i32.const 1
+                                                                global.set $GT_1_5
+                                                                br $B264
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_1_5
+                                                        )
+                                                        br $B262
+                                                    )
+                                                    (block $B267
+                                                        (block $B268
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B268
+                                                            i32.const 1
+                                                            global.set $GT_1_5
+                                                            br $B267
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_1_5
+                                                    )
+                                                )
+                                                br $B220
+                                            )
+                                            (block $B269
+                                                local.get $Ij
+                                                i32.const 6
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B269
+                                                i32.const 1
+                                                i32.const 6
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B270
+                                                    (block $B271
+                                                        global.get $GA_1_6
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B271
+                                                        (block $B272
+                                                            (block $B273
+                                                                (block $B274
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B274
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B273
+                                                                i32.const 1
+                                                                global.set $GT_1_6
+                                                                br $B272
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_1_6
+                                                        )
+                                                        br $B270
+                                                    )
+                                                    (block $B275
+                                                        (block $B276
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B276
                                                             i32.const 1
                                                             global.set $GT_1_6
-                                                            br $B258
+                                                            br $B275
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_6
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B260
+                                            (block $B277
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B260
+                                                br_if $B277
                                                 i32.const 1
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B261
-                                                    (block $B262
+                                                (block $B278
+                                                    (block $B279
                                                         global.get $GA_1_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B262
-                                                        (block $B263
-                                                            (block $B264
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B279
+                                                        (block $B280
+                                                            (block $B281
+                                                                (block $B282
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B282
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B264
+                                                                br_if $B281
                                                                 i32.const 1
                                                                 global.set $GT_1_7
-                                                                br $B263
+                                                                br $B280
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_7
                                                         )
-                                                        br $B261
+                                                        br $B278
                                                     )
-                                                    (block $B265
-                                                        (block $B266
+                                                    (block $B283
+                                                        (block $B284
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B266
+                                                            br_if $B284
                                                             i32.const 1
                                                             global.set $GT_1_7
-                                                            br $B265
+                                                            br $B283
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_7
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B267
+                                            (block $B285
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B267
+                                                br_if $B285
                                                 i32.const 1
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B268
-                                                    (block $B269
+                                                (block $B286
+                                                    (block $B287
                                                         global.get $GA_1_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B269
-                                                        (block $B270
-                                                            (block $B271
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B287
+                                                        (block $B288
+                                                            (block $B289
+                                                                (block $B290
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B290
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B271
+                                                                br_if $B289
                                                                 i32.const 1
                                                                 global.set $GT_1_8
-                                                                br $B270
+                                                                br $B288
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_8
                                                         )
-                                                        br $B268
+                                                        br $B286
                                                     )
-                                                    (block $B272
-                                                        (block $B273
+                                                    (block $B291
+                                                        (block $B292
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B273
+                                                            br_if $B292
                                                             i32.const 1
                                                             global.set $GT_1_8
-                                                            br $B272
+                                                            br $B291
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_8
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
-                                            (block $B274
+                                            (block $B293
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B274
+                                                br_if $B293
                                                 i32.const 1
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B275
-                                                    (block $B276
+                                                (block $B294
+                                                    (block $B295
                                                         global.get $GA_1_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B276
-                                                        (block $B277
-                                                            (block $B278
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B295
+                                                        (block $B296
+                                                            (block $B297
+                                                                (block $B298
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B298
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B278
+                                                                br_if $B297
                                                                 i32.const 1
                                                                 global.set $GT_1_9
-                                                                br $B277
+                                                                br $B296
                                                             )
                                                             i32.const 0
                                                             global.set $GT_1_9
                                                         )
-                                                        br $B275
+                                                        br $B294
                                                     )
-                                                    (block $B279
-                                                        (block $B280
+                                                    (block $B299
+                                                        (block $B300
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B280
+                                                            br_if $B300
                                                             i32.const 1
                                                             global.set $GT_1_9
-                                                            br $B279
+                                                            br $B299
                                                         )
                                                         i32.const 0
                                                         global.set $GT_1_9
                                                     )
                                                 )
-                                                br $B210
+                                                br $B220
                                             )
                                         )
                                         local.get $Ij
@@ -3203,228 +3404,70 @@
                                 )
                                 br $B134
                             )
-                            (block $B281
+                            (block $B301
                                 local.get $Ii
                                 i32.const 2
                                 i32.eq
                                 i32.eqz
-                                br_if $B281
+                                br_if $B301
                                 i32.const 0
                                 local.set $Ij
-                                (block $B282
+                                (block $B302
                                     (loop $L15
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B282
-                                        (block $B283
-                                            (block $B284
+                                        br_if $B302
+                                        (block $B303
+                                            (block $B304
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B284
+                                                br_if $B304
                                                 i32.const 2
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B285
-                                                    (block $B286
+                                                (block $B305
+                                                    (block $B306
                                                         global.get $GA_2_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B286
-                                                        (block $B287
-                                                            (block $B288
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B306
+                                                        (block $B307
+                                                            (block $B308
+                                                                (block $B309
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B309
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B288
+                                                                br_if $B308
                                                                 i32.const 1
                                                                 global.set $GT_2_0
-                                                                br $B287
+                                                                br $B307
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_0
                                                         )
-                                                        br $B285
-                                                    )
-                                                    (block $B289
-                                                        (block $B290
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B290
-                                                            i32.const 1
-                                                            global.set $GT_2_0
-                                                            br $B289
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_2_0
-                                                    )
-                                                )
-                                                br $B283
-                                            )
-                                            (block $B291
-                                                local.get $Ij
-                                                i32.const 1
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B291
-                                                i32.const 2
-                                                i32.const 1
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B292
-                                                    (block $B293
-                                                        global.get $GA_2_1
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B293
-                                                        (block $B294
-                                                            (block $B295
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B295
-                                                                i32.const 1
-                                                                global.set $GT_2_1
-                                                                br $B294
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_2_1
-                                                        )
-                                                        br $B292
-                                                    )
-                                                    (block $B296
-                                                        (block $B297
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B297
-                                                            i32.const 1
-                                                            global.set $GT_2_1
-                                                            br $B296
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_2_1
-                                                    )
-                                                )
-                                                br $B283
-                                            )
-                                            (block $B298
-                                                local.get $Ij
-                                                i32.const 2
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B298
-                                                i32.const 2
-                                                i32.const 2
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B299
-                                                    (block $B300
-                                                        global.get $GA_2_2
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B300
-                                                        (block $B301
-                                                            (block $B302
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B302
-                                                                i32.const 1
-                                                                global.set $GT_2_2
-                                                                br $B301
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_2_2
-                                                        )
-                                                        br $B299
-                                                    )
-                                                    (block $B303
-                                                        (block $B304
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B304
-                                                            i32.const 1
-                                                            global.set $GT_2_2
-                                                            br $B303
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_2_2
-                                                    )
-                                                )
-                                                br $B283
-                                            )
-                                            (block $B305
-                                                local.get $Ij
-                                                i32.const 3
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B305
-                                                i32.const 2
-                                                i32.const 3
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B306
-                                                    (block $B307
-                                                        global.get $GA_2_3
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B307
-                                                        (block $B308
-                                                            (block $B309
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B309
-                                                                i32.const 1
-                                                                global.set $GT_2_3
-                                                                br $B308
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_2_3
-                                                        )
-                                                        br $B306
+                                                        br $B305
                                                     )
                                                     (block $B310
                                                         (block $B311
@@ -3434,350 +3477,608 @@
                                                             i32.eqz
                                                             br_if $B311
                                                             i32.const 1
-                                                            global.set $GT_2_3
+                                                            global.set $GT_2_0
                                                             br $B310
                                                         )
                                                         i32.const 0
-                                                        global.set $GT_2_3
+                                                        global.set $GT_2_0
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
                                             (block $B312
                                                 local.get $Ij
-                                                i32.const 4
+                                                i32.const 1
                                                 i32.eq
                                                 i32.eqz
                                                 br_if $B312
                                                 i32.const 2
-                                                i32.const 4
+                                                i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
                                                 (block $B313
                                                     (block $B314
-                                                        global.get $GA_2_4
+                                                        global.get $GA_2_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
                                                         br_if $B314
                                                         (block $B315
                                                             (block $B316
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                                (block $B317
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B317
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
                                                                 br_if $B316
                                                                 i32.const 1
-                                                                global.set $GT_2_4
+                                                                global.set $GT_2_1
                                                                 br $B315
                                                             )
                                                             i32.const 0
-                                                            global.set $GT_2_4
+                                                            global.set $GT_2_1
                                                         )
                                                         br $B313
                                                     )
-                                                    (block $B317
-                                                        (block $B318
+                                                    (block $B318
+                                                        (block $B319
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B318
+                                                            br_if $B319
+                                                            i32.const 1
+                                                            global.set $GT_2_1
+                                                            br $B318
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_2_1
+                                                    )
+                                                )
+                                                br $B303
+                                            )
+                                            (block $B320
+                                                local.get $Ij
+                                                i32.const 2
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B320
+                                                i32.const 2
+                                                i32.const 2
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B321
+                                                    (block $B322
+                                                        global.get $GA_2_2
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B322
+                                                        (block $B323
+                                                            (block $B324
+                                                                (block $B325
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B325
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B324
+                                                                i32.const 1
+                                                                global.set $GT_2_2
+                                                                br $B323
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_2_2
+                                                        )
+                                                        br $B321
+                                                    )
+                                                    (block $B326
+                                                        (block $B327
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B327
+                                                            i32.const 1
+                                                            global.set $GT_2_2
+                                                            br $B326
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_2_2
+                                                    )
+                                                )
+                                                br $B303
+                                            )
+                                            (block $B328
+                                                local.get $Ij
+                                                i32.const 3
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B328
+                                                i32.const 2
+                                                i32.const 3
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B329
+                                                    (block $B330
+                                                        global.get $GA_2_3
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B330
+                                                        (block $B331
+                                                            (block $B332
+                                                                (block $B333
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B333
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B332
+                                                                i32.const 1
+                                                                global.set $GT_2_3
+                                                                br $B331
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_2_3
+                                                        )
+                                                        br $B329
+                                                    )
+                                                    (block $B334
+                                                        (block $B335
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B335
+                                                            i32.const 1
+                                                            global.set $GT_2_3
+                                                            br $B334
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_2_3
+                                                    )
+                                                )
+                                                br $B303
+                                            )
+                                            (block $B336
+                                                local.get $Ij
+                                                i32.const 4
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B336
+                                                i32.const 2
+                                                i32.const 4
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B337
+                                                    (block $B338
+                                                        global.get $GA_2_4
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B338
+                                                        (block $B339
+                                                            (block $B340
+                                                                (block $B341
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B341
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B340
+                                                                i32.const 1
+                                                                global.set $GT_2_4
+                                                                br $B339
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_2_4
+                                                        )
+                                                        br $B337
+                                                    )
+                                                    (block $B342
+                                                        (block $B343
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B343
                                                             i32.const 1
                                                             global.set $GT_2_4
-                                                            br $B317
+                                                            br $B342
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_4
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
-                                            (block $B319
+                                            (block $B344
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B319
+                                                br_if $B344
                                                 i32.const 2
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B320
-                                                    (block $B321
+                                                (block $B345
+                                                    (block $B346
                                                         global.get $GA_2_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B321
-                                                        (block $B322
-                                                            (block $B323
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B346
+                                                        (block $B347
+                                                            (block $B348
+                                                                (block $B349
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B349
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B323
+                                                                br_if $B348
                                                                 i32.const 1
                                                                 global.set $GT_2_5
-                                                                br $B322
+                                                                br $B347
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_5
                                                         )
-                                                        br $B320
+                                                        br $B345
                                                     )
-                                                    (block $B324
-                                                        (block $B325
+                                                    (block $B350
+                                                        (block $B351
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B325
+                                                            br_if $B351
                                                             i32.const 1
                                                             global.set $GT_2_5
-                                                            br $B324
+                                                            br $B350
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_5
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
-                                            (block $B326
+                                            (block $B352
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B326
+                                                br_if $B352
                                                 i32.const 2
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B327
-                                                    (block $B328
+                                                (block $B353
+                                                    (block $B354
                                                         global.get $GA_2_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B328
-                                                        (block $B329
-                                                            (block $B330
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B354
+                                                        (block $B355
+                                                            (block $B356
+                                                                (block $B357
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B357
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B330
+                                                                br_if $B356
                                                                 i32.const 1
                                                                 global.set $GT_2_6
-                                                                br $B329
+                                                                br $B355
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_6
                                                         )
-                                                        br $B327
+                                                        br $B353
                                                     )
-                                                    (block $B331
-                                                        (block $B332
+                                                    (block $B358
+                                                        (block $B359
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B332
+                                                            br_if $B359
                                                             i32.const 1
                                                             global.set $GT_2_6
-                                                            br $B331
+                                                            br $B358
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_6
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
-                                            (block $B333
+                                            (block $B360
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B333
+                                                br_if $B360
                                                 i32.const 2
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B334
-                                                    (block $B335
+                                                (block $B361
+                                                    (block $B362
                                                         global.get $GA_2_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B335
-                                                        (block $B336
-                                                            (block $B337
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B362
+                                                        (block $B363
+                                                            (block $B364
+                                                                (block $B365
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B365
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B337
+                                                                br_if $B364
                                                                 i32.const 1
                                                                 global.set $GT_2_7
-                                                                br $B336
+                                                                br $B363
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_7
                                                         )
-                                                        br $B334
+                                                        br $B361
                                                     )
-                                                    (block $B338
-                                                        (block $B339
+                                                    (block $B366
+                                                        (block $B367
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B339
+                                                            br_if $B367
                                                             i32.const 1
                                                             global.set $GT_2_7
-                                                            br $B338
+                                                            br $B366
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_7
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
-                                            (block $B340
+                                            (block $B368
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B340
+                                                br_if $B368
                                                 i32.const 2
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B341
-                                                    (block $B342
+                                                (block $B369
+                                                    (block $B370
                                                         global.get $GA_2_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B342
-                                                        (block $B343
-                                                            (block $B344
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B370
+                                                        (block $B371
+                                                            (block $B372
+                                                                (block $B373
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B373
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B344
+                                                                br_if $B372
                                                                 i32.const 1
                                                                 global.set $GT_2_8
-                                                                br $B343
+                                                                br $B371
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_8
                                                         )
-                                                        br $B341
+                                                        br $B369
                                                     )
-                                                    (block $B345
-                                                        (block $B346
+                                                    (block $B374
+                                                        (block $B375
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B346
+                                                            br_if $B375
                                                             i32.const 1
                                                             global.set $GT_2_8
-                                                            br $B345
+                                                            br $B374
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_8
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
-                                            (block $B347
+                                            (block $B376
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B347
+                                                br_if $B376
                                                 i32.const 2
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B348
-                                                    (block $B349
+                                                (block $B377
+                                                    (block $B378
                                                         global.get $GA_2_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B349
-                                                        (block $B350
-                                                            (block $B351
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B378
+                                                        (block $B379
+                                                            (block $B380
+                                                                (block $B381
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B381
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B351
+                                                                br_if $B380
                                                                 i32.const 1
                                                                 global.set $GT_2_9
-                                                                br $B350
+                                                                br $B379
                                                             )
                                                             i32.const 0
                                                             global.set $GT_2_9
                                                         )
-                                                        br $B348
+                                                        br $B377
                                                     )
-                                                    (block $B352
-                                                        (block $B353
+                                                    (block $B382
+                                                        (block $B383
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B353
+                                                            br_if $B383
                                                             i32.const 1
                                                             global.set $GT_2_9
-                                                            br $B352
+                                                            br $B382
                                                         )
                                                         i32.const 0
                                                         global.set $GT_2_9
                                                     )
                                                 )
-                                                br $B283
+                                                br $B303
                                             )
                                         )
                                         local.get $Ij
@@ -3789,564 +4090,334 @@
                                 )
                                 br $B134
                             )
-                            (block $B354
+                            (block $B384
                                 local.get $Ii
                                 i32.const 3
                                 i32.eq
                                 i32.eqz
-                                br_if $B354
+                                br_if $B384
                                 i32.const 0
                                 local.set $Ij
-                                (block $B355
+                                (block $B385
                                     (loop $L16
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B355
-                                        (block $B356
-                                            (block $B357
+                                        br_if $B385
+                                        (block $B386
+                                            (block $B387
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B357
+                                                br_if $B387
                                                 i32.const 3
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B358
-                                                    (block $B359
+                                                (block $B388
+                                                    (block $B389
                                                         global.get $GA_3_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B359
-                                                        (block $B360
-                                                            (block $B361
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B389
+                                                        (block $B390
+                                                            (block $B391
+                                                                (block $B392
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B392
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B361
+                                                                br_if $B391
                                                                 i32.const 1
                                                                 global.set $GT_3_0
-                                                                br $B360
+                                                                br $B390
                                                             )
                                                             i32.const 0
                                                             global.set $GT_3_0
                                                         )
-                                                        br $B358
+                                                        br $B388
                                                     )
-                                                    (block $B362
-                                                        (block $B363
+                                                    (block $B393
+                                                        (block $B394
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B363
+                                                            br_if $B394
                                                             i32.const 1
                                                             global.set $GT_3_0
-                                                            br $B362
+                                                            br $B393
                                                         )
                                                         i32.const 0
                                                         global.set $GT_3_0
                                                     )
                                                 )
-                                                br $B356
+                                                br $B386
                                             )
-                                            (block $B364
+                                            (block $B395
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B364
+                                                br_if $B395
                                                 i32.const 3
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B365
-                                                    (block $B366
+                                                (block $B396
+                                                    (block $B397
                                                         global.get $GA_3_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B366
-                                                        (block $B367
-                                                            (block $B368
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B397
+                                                        (block $B398
+                                                            (block $B399
+                                                                (block $B400
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B400
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B368
+                                                                br_if $B399
                                                                 i32.const 1
                                                                 global.set $GT_3_1
-                                                                br $B367
+                                                                br $B398
                                                             )
                                                             i32.const 0
                                                             global.set $GT_3_1
                                                         )
-                                                        br $B365
+                                                        br $B396
                                                     )
-                                                    (block $B369
-                                                        (block $B370
+                                                    (block $B401
+                                                        (block $B402
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B370
+                                                            br_if $B402
                                                             i32.const 1
                                                             global.set $GT_3_1
-                                                            br $B369
+                                                            br $B401
                                                         )
                                                         i32.const 0
                                                         global.set $GT_3_1
                                                     )
                                                 )
-                                                br $B356
+                                                br $B386
                                             )
-                                            (block $B371
+                                            (block $B403
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B371
+                                                br_if $B403
                                                 i32.const 3
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B372
-                                                    (block $B373
+                                                (block $B404
+                                                    (block $B405
                                                         global.get $GA_3_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B373
-                                                        (block $B374
-                                                            (block $B375
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B405
+                                                        (block $B406
+                                                            (block $B407
+                                                                (block $B408
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B408
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B375
+                                                                br_if $B407
                                                                 i32.const 1
                                                                 global.set $GT_3_2
-                                                                br $B374
+                                                                br $B406
                                                             )
                                                             i32.const 0
                                                             global.set $GT_3_2
                                                         )
-                                                        br $B372
+                                                        br $B404
                                                     )
-                                                    (block $B376
-                                                        (block $B377
+                                                    (block $B409
+                                                        (block $B410
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B377
+                                                            br_if $B410
                                                             i32.const 1
                                                             global.set $GT_3_2
-                                                            br $B376
+                                                            br $B409
                                                         )
                                                         i32.const 0
                                                         global.set $GT_3_2
                                                     )
                                                 )
-                                                br $B356
+                                                br $B386
                                             )
-                                            (block $B378
+                                            (block $B411
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B378
+                                                br_if $B411
                                                 i32.const 3
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B379
-                                                    (block $B380
+                                                (block $B412
+                                                    (block $B413
                                                         global.get $GA_3_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B380
-                                                        (block $B381
-                                                            (block $B382
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B413
+                                                        (block $B414
+                                                            (block $B415
+                                                                (block $B416
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B416
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B382
+                                                                br_if $B415
                                                                 i32.const 1
                                                                 global.set $GT_3_3
-                                                                br $B381
+                                                                br $B414
                                                             )
                                                             i32.const 0
                                                             global.set $GT_3_3
                                                         )
-                                                        br $B379
+                                                        br $B412
                                                     )
-                                                    (block $B383
-                                                        (block $B384
+                                                    (block $B417
+                                                        (block $B418
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B384
+                                                            br_if $B418
                                                             i32.const 1
                                                             global.set $GT_3_3
-                                                            br $B383
+                                                            br $B417
                                                         )
                                                         i32.const 0
                                                         global.set $GT_3_3
                                                     )
                                                 )
-                                                br $B356
+                                                br $B386
                                             )
-                                            (block $B385
+                                            (block $B419
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B385
+                                                br_if $B419
                                                 i32.const 3
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B386
-                                                    (block $B387
+                                                (block $B420
+                                                    (block $B421
                                                         global.get $GA_3_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B387
-                                                        (block $B388
-                                                            (block $B389
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B421
+                                                        (block $B422
+                                                            (block $B423
+                                                                (block $B424
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B424
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B389
+                                                                br_if $B423
                                                                 i32.const 1
                                                                 global.set $GT_3_4
-                                                                br $B388
+                                                                br $B422
                                                             )
                                                             i32.const 0
                                                             global.set $GT_3_4
                                                         )
-                                                        br $B386
-                                                    )
-                                                    (block $B390
-                                                        (block $B391
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B391
-                                                            i32.const 1
-                                                            global.set $GT_3_4
-                                                            br $B390
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_3_4
-                                                    )
-                                                )
-                                                br $B356
-                                            )
-                                            (block $B392
-                                                local.get $Ij
-                                                i32.const 5
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B392
-                                                i32.const 3
-                                                i32.const 5
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B393
-                                                    (block $B394
-                                                        global.get $GA_3_5
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B394
-                                                        (block $B395
-                                                            (block $B396
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B396
-                                                                i32.const 1
-                                                                global.set $GT_3_5
-                                                                br $B395
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_3_5
-                                                        )
-                                                        br $B393
-                                                    )
-                                                    (block $B397
-                                                        (block $B398
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B398
-                                                            i32.const 1
-                                                            global.set $GT_3_5
-                                                            br $B397
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_3_5
-                                                    )
-                                                )
-                                                br $B356
-                                            )
-                                            (block $B399
-                                                local.get $Ij
-                                                i32.const 6
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B399
-                                                i32.const 3
-                                                i32.const 6
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B400
-                                                    (block $B401
-                                                        global.get $GA_3_6
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B401
-                                                        (block $B402
-                                                            (block $B403
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B403
-                                                                i32.const 1
-                                                                global.set $GT_3_6
-                                                                br $B402
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_3_6
-                                                        )
-                                                        br $B400
-                                                    )
-                                                    (block $B404
-                                                        (block $B405
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B405
-                                                            i32.const 1
-                                                            global.set $GT_3_6
-                                                            br $B404
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_3_6
-                                                    )
-                                                )
-                                                br $B356
-                                            )
-                                            (block $B406
-                                                local.get $Ij
-                                                i32.const 7
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B406
-                                                i32.const 3
-                                                i32.const 7
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B407
-                                                    (block $B408
-                                                        global.get $GA_3_7
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B408
-                                                        (block $B409
-                                                            (block $B410
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B410
-                                                                i32.const 1
-                                                                global.set $GT_3_7
-                                                                br $B409
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_3_7
-                                                        )
-                                                        br $B407
-                                                    )
-                                                    (block $B411
-                                                        (block $B412
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B412
-                                                            i32.const 1
-                                                            global.set $GT_3_7
-                                                            br $B411
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_3_7
-                                                    )
-                                                )
-                                                br $B356
-                                            )
-                                            (block $B413
-                                                local.get $Ij
-                                                i32.const 8
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B413
-                                                i32.const 3
-                                                i32.const 8
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B414
-                                                    (block $B415
-                                                        global.get $GA_3_8
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B415
-                                                        (block $B416
-                                                            (block $B417
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B417
-                                                                i32.const 1
-                                                                global.set $GT_3_8
-                                                                br $B416
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_3_8
-                                                        )
-                                                        br $B414
-                                                    )
-                                                    (block $B418
-                                                        (block $B419
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B419
-                                                            i32.const 1
-                                                            global.set $GT_3_8
-                                                            br $B418
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_3_8
-                                                    )
-                                                )
-                                                br $B356
-                                            )
-                                            (block $B420
-                                                local.get $Ij
-                                                i32.const 9
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B420
-                                                i32.const 3
-                                                i32.const 9
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B421
-                                                    (block $B422
-                                                        global.get $GA_3_9
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B422
-                                                        (block $B423
-                                                            (block $B424
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B424
-                                                                i32.const 1
-                                                                global.set $GT_3_9
-                                                                br $B423
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_3_9
-                                                        )
-                                                        br $B421
+                                                        br $B420
                                                     )
                                                     (block $B425
                                                         (block $B426
@@ -4356,14 +4427,344 @@
                                                             i32.eqz
                                                             br_if $B426
                                                             i32.const 1
-                                                            global.set $GT_3_9
+                                                            global.set $GT_3_4
                                                             br $B425
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_3_4
+                                                    )
+                                                )
+                                                br $B386
+                                            )
+                                            (block $B427
+                                                local.get $Ij
+                                                i32.const 5
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B427
+                                                i32.const 3
+                                                i32.const 5
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B428
+                                                    (block $B429
+                                                        global.get $GA_3_5
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B429
+                                                        (block $B430
+                                                            (block $B431
+                                                                (block $B432
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B432
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B431
+                                                                i32.const 1
+                                                                global.set $GT_3_5
+                                                                br $B430
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_3_5
+                                                        )
+                                                        br $B428
+                                                    )
+                                                    (block $B433
+                                                        (block $B434
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B434
+                                                            i32.const 1
+                                                            global.set $GT_3_5
+                                                            br $B433
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_3_5
+                                                    )
+                                                )
+                                                br $B386
+                                            )
+                                            (block $B435
+                                                local.get $Ij
+                                                i32.const 6
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B435
+                                                i32.const 3
+                                                i32.const 6
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B436
+                                                    (block $B437
+                                                        global.get $GA_3_6
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B437
+                                                        (block $B438
+                                                            (block $B439
+                                                                (block $B440
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B440
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B439
+                                                                i32.const 1
+                                                                global.set $GT_3_6
+                                                                br $B438
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_3_6
+                                                        )
+                                                        br $B436
+                                                    )
+                                                    (block $B441
+                                                        (block $B442
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B442
+                                                            i32.const 1
+                                                            global.set $GT_3_6
+                                                            br $B441
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_3_6
+                                                    )
+                                                )
+                                                br $B386
+                                            )
+                                            (block $B443
+                                                local.get $Ij
+                                                i32.const 7
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B443
+                                                i32.const 3
+                                                i32.const 7
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B444
+                                                    (block $B445
+                                                        global.get $GA_3_7
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B445
+                                                        (block $B446
+                                                            (block $B447
+                                                                (block $B448
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B448
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B447
+                                                                i32.const 1
+                                                                global.set $GT_3_7
+                                                                br $B446
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_3_7
+                                                        )
+                                                        br $B444
+                                                    )
+                                                    (block $B449
+                                                        (block $B450
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B450
+                                                            i32.const 1
+                                                            global.set $GT_3_7
+                                                            br $B449
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_3_7
+                                                    )
+                                                )
+                                                br $B386
+                                            )
+                                            (block $B451
+                                                local.get $Ij
+                                                i32.const 8
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B451
+                                                i32.const 3
+                                                i32.const 8
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B452
+                                                    (block $B453
+                                                        global.get $GA_3_8
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B453
+                                                        (block $B454
+                                                            (block $B455
+                                                                (block $B456
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B456
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B455
+                                                                i32.const 1
+                                                                global.set $GT_3_8
+                                                                br $B454
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_3_8
+                                                        )
+                                                        br $B452
+                                                    )
+                                                    (block $B457
+                                                        (block $B458
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B458
+                                                            i32.const 1
+                                                            global.set $GT_3_8
+                                                            br $B457
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_3_8
+                                                    )
+                                                )
+                                                br $B386
+                                            )
+                                            (block $B459
+                                                local.get $Ij
+                                                i32.const 9
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B459
+                                                i32.const 3
+                                                i32.const 9
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B460
+                                                    (block $B461
+                                                        global.get $GA_3_9
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B461
+                                                        (block $B462
+                                                            (block $B463
+                                                                (block $B464
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B464
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B463
+                                                                i32.const 1
+                                                                global.set $GT_3_9
+                                                                br $B462
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_3_9
+                                                        )
+                                                        br $B460
+                                                    )
+                                                    (block $B465
+                                                        (block $B466
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B466
+                                                            i32.const 1
+                                                            global.set $GT_3_9
+                                                            br $B465
                                                         )
                                                         i32.const 0
                                                         global.set $GT_3_9
                                                     )
                                                 )
-                                                br $B356
+                                                br $B386
                                             )
                                         )
                                         local.get $Ij
@@ -4375,452 +4776,136 @@
                                 )
                                 br $B134
                             )
-                            (block $B427
+                            (block $B467
                                 local.get $Ii
                                 i32.const 4
                                 i32.eq
                                 i32.eqz
-                                br_if $B427
+                                br_if $B467
                                 i32.const 0
                                 local.set $Ij
-                                (block $B428
+                                (block $B468
                                     (loop $L17
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B428
-                                        (block $B429
-                                            (block $B430
+                                        br_if $B468
+                                        (block $B469
+                                            (block $B470
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B430
+                                                br_if $B470
                                                 i32.const 4
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B431
-                                                    (block $B432
+                                                (block $B471
+                                                    (block $B472
                                                         global.get $GA_4_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B432
-                                                        (block $B433
-                                                            (block $B434
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B472
+                                                        (block $B473
+                                                            (block $B474
+                                                                (block $B475
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B475
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B434
+                                                                br_if $B474
                                                                 i32.const 1
                                                                 global.set $GT_4_0
-                                                                br $B433
+                                                                br $B473
                                                             )
                                                             i32.const 0
                                                             global.set $GT_4_0
                                                         )
-                                                        br $B431
+                                                        br $B471
                                                     )
-                                                    (block $B435
-                                                        (block $B436
+                                                    (block $B476
+                                                        (block $B477
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B436
+                                                            br_if $B477
                                                             i32.const 1
                                                             global.set $GT_4_0
-                                                            br $B435
+                                                            br $B476
                                                         )
                                                         i32.const 0
                                                         global.set $GT_4_0
                                                     )
                                                 )
-                                                br $B429
+                                                br $B469
                                             )
-                                            (block $B437
+                                            (block $B478
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B437
+                                                br_if $B478
                                                 i32.const 4
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B438
-                                                    (block $B439
+                                                (block $B479
+                                                    (block $B480
                                                         global.get $GA_4_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B439
-                                                        (block $B440
-                                                            (block $B441
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B480
+                                                        (block $B481
+                                                            (block $B482
+                                                                (block $B483
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B483
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B441
+                                                                br_if $B482
                                                                 i32.const 1
                                                                 global.set $GT_4_1
-                                                                br $B440
+                                                                br $B481
                                                             )
                                                             i32.const 0
                                                             global.set $GT_4_1
                                                         )
-                                                        br $B438
-                                                    )
-                                                    (block $B442
-                                                        (block $B443
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B443
-                                                            i32.const 1
-                                                            global.set $GT_4_1
-                                                            br $B442
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_1
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B444
-                                                local.get $Ij
-                                                i32.const 2
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B444
-                                                i32.const 4
-                                                i32.const 2
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B445
-                                                    (block $B446
-                                                        global.get $GA_4_2
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B446
-                                                        (block $B447
-                                                            (block $B448
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B448
-                                                                i32.const 1
-                                                                global.set $GT_4_2
-                                                                br $B447
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_2
-                                                        )
-                                                        br $B445
-                                                    )
-                                                    (block $B449
-                                                        (block $B450
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B450
-                                                            i32.const 1
-                                                            global.set $GT_4_2
-                                                            br $B449
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_2
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B451
-                                                local.get $Ij
-                                                i32.const 3
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B451
-                                                i32.const 4
-                                                i32.const 3
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B452
-                                                    (block $B453
-                                                        global.get $GA_4_3
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B453
-                                                        (block $B454
-                                                            (block $B455
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B455
-                                                                i32.const 1
-                                                                global.set $GT_4_3
-                                                                br $B454
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_3
-                                                        )
-                                                        br $B452
-                                                    )
-                                                    (block $B456
-                                                        (block $B457
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B457
-                                                            i32.const 1
-                                                            global.set $GT_4_3
-                                                            br $B456
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_3
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B458
-                                                local.get $Ij
-                                                i32.const 4
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B458
-                                                i32.const 4
-                                                i32.const 4
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B459
-                                                    (block $B460
-                                                        global.get $GA_4_4
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B460
-                                                        (block $B461
-                                                            (block $B462
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B462
-                                                                i32.const 1
-                                                                global.set $GT_4_4
-                                                                br $B461
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_4
-                                                        )
-                                                        br $B459
-                                                    )
-                                                    (block $B463
-                                                        (block $B464
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B464
-                                                            i32.const 1
-                                                            global.set $GT_4_4
-                                                            br $B463
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_4
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B465
-                                                local.get $Ij
-                                                i32.const 5
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B465
-                                                i32.const 4
-                                                i32.const 5
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B466
-                                                    (block $B467
-                                                        global.get $GA_4_5
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B467
-                                                        (block $B468
-                                                            (block $B469
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B469
-                                                                i32.const 1
-                                                                global.set $GT_4_5
-                                                                br $B468
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_5
-                                                        )
-                                                        br $B466
-                                                    )
-                                                    (block $B470
-                                                        (block $B471
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B471
-                                                            i32.const 1
-                                                            global.set $GT_4_5
-                                                            br $B470
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_5
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B472
-                                                local.get $Ij
-                                                i32.const 6
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B472
-                                                i32.const 4
-                                                i32.const 6
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B473
-                                                    (block $B474
-                                                        global.get $GA_4_6
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B474
-                                                        (block $B475
-                                                            (block $B476
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B476
-                                                                i32.const 1
-                                                                global.set $GT_4_6
-                                                                br $B475
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_6
-                                                        )
-                                                        br $B473
-                                                    )
-                                                    (block $B477
-                                                        (block $B478
-                                                            local.get $In
-                                                            i32.const 3
-                                                            i32.eq
-                                                            i32.eqz
-                                                            br_if $B478
-                                                            i32.const 1
-                                                            global.set $GT_4_6
-                                                            br $B477
-                                                        )
-                                                        i32.const 0
-                                                        global.set $GT_4_6
-                                                    )
-                                                )
-                                                br $B429
-                                            )
-                                            (block $B479
-                                                local.get $Ij
-                                                i32.const 7
-                                                i32.eq
-                                                i32.eqz
-                                                br_if $B479
-                                                i32.const 4
-                                                i32.const 7
-                                                call $neighbours
-                                                local.set $T0
-                                                local.get $T0
-                                                local.set $In
-                                                (block $B480
-                                                    (block $B481
-                                                        global.get $GA_4_7
-                                                        i32.const 1
-                                                        i32.eq
-                                                        i32.eqz
-                                                        br_if $B481
-                                                        (block $B482
-                                                            (block $B483
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
-                                                                i32.eqz
-                                                                br_if $B483
-                                                                i32.const 1
-                                                                global.set $GT_4_7
-                                                                br $B482
-                                                            )
-                                                            i32.const 0
-                                                            global.set $GT_4_7
-                                                        )
-                                                        br $B480
+                                                        br $B479
                                                     )
                                                     (block $B484
                                                         (block $B485
@@ -4830,126 +4915,542 @@
                                                             i32.eqz
                                                             br_if $B485
                                                             i32.const 1
-                                                            global.set $GT_4_7
+                                                            global.set $GT_4_1
                                                             br $B484
                                                         )
                                                         i32.const 0
-                                                        global.set $GT_4_7
+                                                        global.set $GT_4_1
                                                     )
                                                 )
-                                                br $B429
+                                                br $B469
                                             )
                                             (block $B486
                                                 local.get $Ij
-                                                i32.const 8
+                                                i32.const 2
                                                 i32.eq
                                                 i32.eqz
                                                 br_if $B486
                                                 i32.const 4
-                                                i32.const 8
+                                                i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
                                                 (block $B487
                                                     (block $B488
-                                                        global.get $GA_4_8
+                                                        global.get $GA_4_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
                                                         br_if $B488
                                                         (block $B489
                                                             (block $B490
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                                (block $B491
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B491
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
                                                                 br_if $B490
                                                                 i32.const 1
-                                                                global.set $GT_4_8
+                                                                global.set $GT_4_2
                                                                 br $B489
                                                             )
                                                             i32.const 0
-                                                            global.set $GT_4_8
+                                                            global.set $GT_4_2
                                                         )
                                                         br $B487
                                                     )
-                                                    (block $B491
-                                                        (block $B492
+                                                    (block $B492
+                                                        (block $B493
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B492
+                                                            br_if $B493
+                                                            i32.const 1
+                                                            global.set $GT_4_2
+                                                            br $B492
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_2
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B494
+                                                local.get $Ij
+                                                i32.const 3
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B494
+                                                i32.const 4
+                                                i32.const 3
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B495
+                                                    (block $B496
+                                                        global.get $GA_4_3
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B496
+                                                        (block $B497
+                                                            (block $B498
+                                                                (block $B499
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B499
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B498
+                                                                i32.const 1
+                                                                global.set $GT_4_3
+                                                                br $B497
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_3
+                                                        )
+                                                        br $B495
+                                                    )
+                                                    (block $B500
+                                                        (block $B501
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B501
+                                                            i32.const 1
+                                                            global.set $GT_4_3
+                                                            br $B500
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_3
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B502
+                                                local.get $Ij
+                                                i32.const 4
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B502
+                                                i32.const 4
+                                                i32.const 4
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B503
+                                                    (block $B504
+                                                        global.get $GA_4_4
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B504
+                                                        (block $B505
+                                                            (block $B506
+                                                                (block $B507
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B507
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B506
+                                                                i32.const 1
+                                                                global.set $GT_4_4
+                                                                br $B505
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_4
+                                                        )
+                                                        br $B503
+                                                    )
+                                                    (block $B508
+                                                        (block $B509
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B509
+                                                            i32.const 1
+                                                            global.set $GT_4_4
+                                                            br $B508
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_4
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B510
+                                                local.get $Ij
+                                                i32.const 5
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B510
+                                                i32.const 4
+                                                i32.const 5
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B511
+                                                    (block $B512
+                                                        global.get $GA_4_5
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B512
+                                                        (block $B513
+                                                            (block $B514
+                                                                (block $B515
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B515
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B514
+                                                                i32.const 1
+                                                                global.set $GT_4_5
+                                                                br $B513
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_5
+                                                        )
+                                                        br $B511
+                                                    )
+                                                    (block $B516
+                                                        (block $B517
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B517
+                                                            i32.const 1
+                                                            global.set $GT_4_5
+                                                            br $B516
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_5
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B518
+                                                local.get $Ij
+                                                i32.const 6
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B518
+                                                i32.const 4
+                                                i32.const 6
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B519
+                                                    (block $B520
+                                                        global.get $GA_4_6
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B520
+                                                        (block $B521
+                                                            (block $B522
+                                                                (block $B523
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B523
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B522
+                                                                i32.const 1
+                                                                global.set $GT_4_6
+                                                                br $B521
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_6
+                                                        )
+                                                        br $B519
+                                                    )
+                                                    (block $B524
+                                                        (block $B525
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B525
+                                                            i32.const 1
+                                                            global.set $GT_4_6
+                                                            br $B524
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_6
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B526
+                                                local.get $Ij
+                                                i32.const 7
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B526
+                                                i32.const 4
+                                                i32.const 7
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B527
+                                                    (block $B528
+                                                        global.get $GA_4_7
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B528
+                                                        (block $B529
+                                                            (block $B530
+                                                                (block $B531
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B531
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B530
+                                                                i32.const 1
+                                                                global.set $GT_4_7
+                                                                br $B529
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_7
+                                                        )
+                                                        br $B527
+                                                    )
+                                                    (block $B532
+                                                        (block $B533
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B533
+                                                            i32.const 1
+                                                            global.set $GT_4_7
+                                                            br $B532
+                                                        )
+                                                        i32.const 0
+                                                        global.set $GT_4_7
+                                                    )
+                                                )
+                                                br $B469
+                                            )
+                                            (block $B534
+                                                local.get $Ij
+                                                i32.const 8
+                                                i32.eq
+                                                i32.eqz
+                                                br_if $B534
+                                                i32.const 4
+                                                i32.const 8
+                                                call $neighbours
+                                                local.set $T0
+                                                local.get $T0
+                                                local.set $In
+                                                (block $B535
+                                                    (block $B536
+                                                        global.get $GA_4_8
+                                                        i32.const 1
+                                                        i32.eq
+                                                        i32.eqz
+                                                        br_if $B536
+                                                        (block $B537
+                                                            (block $B538
+                                                                (block $B539
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B539
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
+                                                                i32.eqz
+                                                                br_if $B538
+                                                                i32.const 1
+                                                                global.set $GT_4_8
+                                                                br $B537
+                                                            )
+                                                            i32.const 0
+                                                            global.set $GT_4_8
+                                                        )
+                                                        br $B535
+                                                    )
+                                                    (block $B540
+                                                        (block $B541
+                                                            local.get $In
+                                                            i32.const 3
+                                                            i32.eq
+                                                            i32.eqz
+                                                            br_if $B541
                                                             i32.const 1
                                                             global.set $GT_4_8
-                                                            br $B491
+                                                            br $B540
                                                         )
                                                         i32.const 0
                                                         global.set $GT_4_8
                                                     )
                                                 )
-                                                br $B429
+                                                br $B469
                                             )
-                                            (block $B493
+                                            (block $B542
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B493
+                                                br_if $B542
                                                 i32.const 4
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B494
-                                                    (block $B495
+                                                (block $B543
+                                                    (block $B544
                                                         global.get $GA_4_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B495
-                                                        (block $B496
-                                                            (block $B497
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B544
+                                                        (block $B545
+                                                            (block $B546
+                                                                (block $B547
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B547
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B497
+                                                                br_if $B546
                                                                 i32.const 1
                                                                 global.set $GT_4_9
-                                                                br $B496
+                                                                br $B545
                                                             )
                                                             i32.const 0
                                                             global.set $GT_4_9
                                                         )
-                                                        br $B494
+                                                        br $B543
                                                     )
-                                                    (block $B498
-                                                        (block $B499
+                                                    (block $B548
+                                                        (block $B549
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B499
+                                                            br_if $B549
                                                             i32.const 1
                                                             global.set $GT_4_9
-                                                            br $B498
+                                                            br $B548
                                                         )
                                                         i32.const 0
                                                         global.set $GT_4_9
                                                     )
                                                 )
-                                                br $B429
+                                                br $B469
                                             )
                                         )
                                         local.get $Ij
@@ -4961,581 +5462,681 @@
                                 )
                                 br $B134
                             )
-                            (block $B500
+                            (block $B550
                                 local.get $Ii
                                 i32.const 5
                                 i32.eq
                                 i32.eqz
-                                br_if $B500
+                                br_if $B550
                                 i32.const 0
                                 local.set $Ij
-                                (block $B501
+                                (block $B551
                                     (loop $L18
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B501
-                                        (block $B502
-                                            (block $B503
+                                        br_if $B551
+                                        (block $B552
+                                            (block $B553
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B503
+                                                br_if $B553
                                                 i32.const 5
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B504
-                                                    (block $B505
+                                                (block $B554
+                                                    (block $B555
                                                         global.get $GA_5_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B505
-                                                        (block $B506
-                                                            (block $B507
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B555
+                                                        (block $B556
+                                                            (block $B557
+                                                                (block $B558
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B558
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B507
+                                                                br_if $B557
                                                                 i32.const 1
                                                                 global.set $GT_5_0
-                                                                br $B506
+                                                                br $B556
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_0
                                                         )
-                                                        br $B504
+                                                        br $B554
                                                     )
-                                                    (block $B508
-                                                        (block $B509
+                                                    (block $B559
+                                                        (block $B560
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B509
+                                                            br_if $B560
                                                             i32.const 1
                                                             global.set $GT_5_0
-                                                            br $B508
+                                                            br $B559
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_0
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B510
+                                            (block $B561
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B510
+                                                br_if $B561
                                                 i32.const 5
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B511
-                                                    (block $B512
+                                                (block $B562
+                                                    (block $B563
                                                         global.get $GA_5_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B512
-                                                        (block $B513
-                                                            (block $B514
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B563
+                                                        (block $B564
+                                                            (block $B565
+                                                                (block $B566
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B566
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B514
+                                                                br_if $B565
                                                                 i32.const 1
                                                                 global.set $GT_5_1
-                                                                br $B513
+                                                                br $B564
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_1
                                                         )
-                                                        br $B511
+                                                        br $B562
                                                     )
-                                                    (block $B515
-                                                        (block $B516
+                                                    (block $B567
+                                                        (block $B568
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B516
+                                                            br_if $B568
                                                             i32.const 1
                                                             global.set $GT_5_1
-                                                            br $B515
+                                                            br $B567
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_1
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B517
+                                            (block $B569
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B517
+                                                br_if $B569
                                                 i32.const 5
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B518
-                                                    (block $B519
+                                                (block $B570
+                                                    (block $B571
                                                         global.get $GA_5_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B519
-                                                        (block $B520
-                                                            (block $B521
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B571
+                                                        (block $B572
+                                                            (block $B573
+                                                                (block $B574
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B574
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B521
+                                                                br_if $B573
                                                                 i32.const 1
                                                                 global.set $GT_5_2
-                                                                br $B520
+                                                                br $B572
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_2
                                                         )
-                                                        br $B518
+                                                        br $B570
                                                     )
-                                                    (block $B522
-                                                        (block $B523
+                                                    (block $B575
+                                                        (block $B576
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B523
+                                                            br_if $B576
                                                             i32.const 1
                                                             global.set $GT_5_2
-                                                            br $B522
+                                                            br $B575
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_2
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B524
+                                            (block $B577
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B524
+                                                br_if $B577
                                                 i32.const 5
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B525
-                                                    (block $B526
+                                                (block $B578
+                                                    (block $B579
                                                         global.get $GA_5_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B526
-                                                        (block $B527
-                                                            (block $B528
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B579
+                                                        (block $B580
+                                                            (block $B581
+                                                                (block $B582
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B582
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B528
+                                                                br_if $B581
                                                                 i32.const 1
                                                                 global.set $GT_5_3
-                                                                br $B527
+                                                                br $B580
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_3
                                                         )
-                                                        br $B525
+                                                        br $B578
                                                     )
-                                                    (block $B529
-                                                        (block $B530
+                                                    (block $B583
+                                                        (block $B584
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B530
+                                                            br_if $B584
                                                             i32.const 1
                                                             global.set $GT_5_3
-                                                            br $B529
+                                                            br $B583
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_3
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B531
+                                            (block $B585
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B531
+                                                br_if $B585
                                                 i32.const 5
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B532
-                                                    (block $B533
+                                                (block $B586
+                                                    (block $B587
                                                         global.get $GA_5_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B533
-                                                        (block $B534
-                                                            (block $B535
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B587
+                                                        (block $B588
+                                                            (block $B589
+                                                                (block $B590
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B590
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B535
+                                                                br_if $B589
                                                                 i32.const 1
                                                                 global.set $GT_5_4
-                                                                br $B534
+                                                                br $B588
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_4
                                                         )
-                                                        br $B532
+                                                        br $B586
                                                     )
-                                                    (block $B536
-                                                        (block $B537
+                                                    (block $B591
+                                                        (block $B592
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B537
+                                                            br_if $B592
                                                             i32.const 1
                                                             global.set $GT_5_4
-                                                            br $B536
+                                                            br $B591
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_4
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B538
+                                            (block $B593
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B538
+                                                br_if $B593
                                                 i32.const 5
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B539
-                                                    (block $B540
+                                                (block $B594
+                                                    (block $B595
                                                         global.get $GA_5_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B540
-                                                        (block $B541
-                                                            (block $B542
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B595
+                                                        (block $B596
+                                                            (block $B597
+                                                                (block $B598
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B598
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B542
+                                                                br_if $B597
                                                                 i32.const 1
                                                                 global.set $GT_5_5
-                                                                br $B541
+                                                                br $B596
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_5
                                                         )
-                                                        br $B539
+                                                        br $B594
                                                     )
-                                                    (block $B543
-                                                        (block $B544
+                                                    (block $B599
+                                                        (block $B600
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B544
+                                                            br_if $B600
                                                             i32.const 1
                                                             global.set $GT_5_5
-                                                            br $B543
+                                                            br $B599
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_5
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B545
+                                            (block $B601
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B545
+                                                br_if $B601
                                                 i32.const 5
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B546
-                                                    (block $B547
+                                                (block $B602
+                                                    (block $B603
                                                         global.get $GA_5_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B547
-                                                        (block $B548
-                                                            (block $B549
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B603
+                                                        (block $B604
+                                                            (block $B605
+                                                                (block $B606
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B606
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B549
+                                                                br_if $B605
                                                                 i32.const 1
                                                                 global.set $GT_5_6
-                                                                br $B548
+                                                                br $B604
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_6
                                                         )
-                                                        br $B546
+                                                        br $B602
                                                     )
-                                                    (block $B550
-                                                        (block $B551
+                                                    (block $B607
+                                                        (block $B608
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B551
+                                                            br_if $B608
                                                             i32.const 1
                                                             global.set $GT_5_6
-                                                            br $B550
+                                                            br $B607
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_6
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B552
+                                            (block $B609
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B552
+                                                br_if $B609
                                                 i32.const 5
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B553
-                                                    (block $B554
+                                                (block $B610
+                                                    (block $B611
                                                         global.get $GA_5_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B554
-                                                        (block $B555
-                                                            (block $B556
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B611
+                                                        (block $B612
+                                                            (block $B613
+                                                                (block $B614
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B614
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B556
+                                                                br_if $B613
                                                                 i32.const 1
                                                                 global.set $GT_5_7
-                                                                br $B555
+                                                                br $B612
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_7
                                                         )
-                                                        br $B553
+                                                        br $B610
                                                     )
-                                                    (block $B557
-                                                        (block $B558
+                                                    (block $B615
+                                                        (block $B616
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B558
+                                                            br_if $B616
                                                             i32.const 1
                                                             global.set $GT_5_7
-                                                            br $B557
+                                                            br $B615
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_7
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B559
+                                            (block $B617
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B559
+                                                br_if $B617
                                                 i32.const 5
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B560
-                                                    (block $B561
+                                                (block $B618
+                                                    (block $B619
                                                         global.get $GA_5_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B561
-                                                        (block $B562
-                                                            (block $B563
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B619
+                                                        (block $B620
+                                                            (block $B621
+                                                                (block $B622
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B622
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B563
+                                                                br_if $B621
                                                                 i32.const 1
                                                                 global.set $GT_5_8
-                                                                br $B562
+                                                                br $B620
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_8
                                                         )
-                                                        br $B560
+                                                        br $B618
                                                     )
-                                                    (block $B564
-                                                        (block $B565
+                                                    (block $B623
+                                                        (block $B624
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B565
+                                                            br_if $B624
                                                             i32.const 1
                                                             global.set $GT_5_8
-                                                            br $B564
+                                                            br $B623
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_8
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
-                                            (block $B566
+                                            (block $B625
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B566
+                                                br_if $B625
                                                 i32.const 5
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B567
-                                                    (block $B568
+                                                (block $B626
+                                                    (block $B627
                                                         global.get $GA_5_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B568
-                                                        (block $B569
-                                                            (block $B570
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B627
+                                                        (block $B628
+                                                            (block $B629
+                                                                (block $B630
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B630
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B570
+                                                                br_if $B629
                                                                 i32.const 1
                                                                 global.set $GT_5_9
-                                                                br $B569
+                                                                br $B628
                                                             )
                                                             i32.const 0
                                                             global.set $GT_5_9
                                                         )
-                                                        br $B567
+                                                        br $B626
                                                     )
-                                                    (block $B571
-                                                        (block $B572
+                                                    (block $B631
+                                                        (block $B632
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B572
+                                                            br_if $B632
                                                             i32.const 1
                                                             global.set $GT_5_9
-                                                            br $B571
+                                                            br $B631
                                                         )
                                                         i32.const 0
                                                         global.set $GT_5_9
                                                     )
                                                 )
-                                                br $B502
+                                                br $B552
                                             )
                                         )
                                         local.get $Ij
@@ -5547,581 +6148,681 @@
                                 )
                                 br $B134
                             )
-                            (block $B573
+                            (block $B633
                                 local.get $Ii
                                 i32.const 6
                                 i32.eq
                                 i32.eqz
-                                br_if $B573
+                                br_if $B633
                                 i32.const 0
                                 local.set $Ij
-                                (block $B574
+                                (block $B634
                                     (loop $L19
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B574
-                                        (block $B575
-                                            (block $B576
+                                        br_if $B634
+                                        (block $B635
+                                            (block $B636
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B576
+                                                br_if $B636
                                                 i32.const 6
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B577
-                                                    (block $B578
+                                                (block $B637
+                                                    (block $B638
                                                         global.get $GA_6_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B578
-                                                        (block $B579
-                                                            (block $B580
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B638
+                                                        (block $B639
+                                                            (block $B640
+                                                                (block $B641
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B641
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B580
+                                                                br_if $B640
                                                                 i32.const 1
                                                                 global.set $GT_6_0
-                                                                br $B579
+                                                                br $B639
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_0
                                                         )
-                                                        br $B577
+                                                        br $B637
                                                     )
-                                                    (block $B581
-                                                        (block $B582
+                                                    (block $B642
+                                                        (block $B643
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B582
+                                                            br_if $B643
                                                             i32.const 1
                                                             global.set $GT_6_0
-                                                            br $B581
+                                                            br $B642
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_0
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B583
+                                            (block $B644
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B583
+                                                br_if $B644
                                                 i32.const 6
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B584
-                                                    (block $B585
+                                                (block $B645
+                                                    (block $B646
                                                         global.get $GA_6_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B585
-                                                        (block $B586
-                                                            (block $B587
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B646
+                                                        (block $B647
+                                                            (block $B648
+                                                                (block $B649
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B649
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B587
+                                                                br_if $B648
                                                                 i32.const 1
                                                                 global.set $GT_6_1
-                                                                br $B586
+                                                                br $B647
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_1
                                                         )
-                                                        br $B584
+                                                        br $B645
                                                     )
-                                                    (block $B588
-                                                        (block $B589
+                                                    (block $B650
+                                                        (block $B651
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B589
+                                                            br_if $B651
                                                             i32.const 1
                                                             global.set $GT_6_1
-                                                            br $B588
+                                                            br $B650
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_1
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B590
+                                            (block $B652
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B590
+                                                br_if $B652
                                                 i32.const 6
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B591
-                                                    (block $B592
+                                                (block $B653
+                                                    (block $B654
                                                         global.get $GA_6_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B592
-                                                        (block $B593
-                                                            (block $B594
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B654
+                                                        (block $B655
+                                                            (block $B656
+                                                                (block $B657
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B657
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B594
+                                                                br_if $B656
                                                                 i32.const 1
                                                                 global.set $GT_6_2
-                                                                br $B593
+                                                                br $B655
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_2
                                                         )
-                                                        br $B591
+                                                        br $B653
                                                     )
-                                                    (block $B595
-                                                        (block $B596
+                                                    (block $B658
+                                                        (block $B659
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B596
+                                                            br_if $B659
                                                             i32.const 1
                                                             global.set $GT_6_2
-                                                            br $B595
+                                                            br $B658
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_2
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B597
+                                            (block $B660
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B597
+                                                br_if $B660
                                                 i32.const 6
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B598
-                                                    (block $B599
+                                                (block $B661
+                                                    (block $B662
                                                         global.get $GA_6_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B599
-                                                        (block $B600
-                                                            (block $B601
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B662
+                                                        (block $B663
+                                                            (block $B664
+                                                                (block $B665
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B665
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B601
+                                                                br_if $B664
                                                                 i32.const 1
                                                                 global.set $GT_6_3
-                                                                br $B600
+                                                                br $B663
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_3
                                                         )
-                                                        br $B598
+                                                        br $B661
                                                     )
-                                                    (block $B602
-                                                        (block $B603
+                                                    (block $B666
+                                                        (block $B667
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B603
+                                                            br_if $B667
                                                             i32.const 1
                                                             global.set $GT_6_3
-                                                            br $B602
+                                                            br $B666
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_3
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B604
+                                            (block $B668
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B604
+                                                br_if $B668
                                                 i32.const 6
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B605
-                                                    (block $B606
+                                                (block $B669
+                                                    (block $B670
                                                         global.get $GA_6_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B606
-                                                        (block $B607
-                                                            (block $B608
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B670
+                                                        (block $B671
+                                                            (block $B672
+                                                                (block $B673
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B673
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B608
+                                                                br_if $B672
                                                                 i32.const 1
                                                                 global.set $GT_6_4
-                                                                br $B607
+                                                                br $B671
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_4
                                                         )
-                                                        br $B605
+                                                        br $B669
                                                     )
-                                                    (block $B609
-                                                        (block $B610
+                                                    (block $B674
+                                                        (block $B675
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B610
+                                                            br_if $B675
                                                             i32.const 1
                                                             global.set $GT_6_4
-                                                            br $B609
+                                                            br $B674
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_4
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B611
+                                            (block $B676
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B611
+                                                br_if $B676
                                                 i32.const 6
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B612
-                                                    (block $B613
+                                                (block $B677
+                                                    (block $B678
                                                         global.get $GA_6_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B613
-                                                        (block $B614
-                                                            (block $B615
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B678
+                                                        (block $B679
+                                                            (block $B680
+                                                                (block $B681
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B681
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B615
+                                                                br_if $B680
                                                                 i32.const 1
                                                                 global.set $GT_6_5
-                                                                br $B614
+                                                                br $B679
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_5
                                                         )
-                                                        br $B612
+                                                        br $B677
                                                     )
-                                                    (block $B616
-                                                        (block $B617
+                                                    (block $B682
+                                                        (block $B683
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B617
+                                                            br_if $B683
                                                             i32.const 1
                                                             global.set $GT_6_5
-                                                            br $B616
+                                                            br $B682
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_5
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B618
+                                            (block $B684
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B618
+                                                br_if $B684
                                                 i32.const 6
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B619
-                                                    (block $B620
+                                                (block $B685
+                                                    (block $B686
                                                         global.get $GA_6_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B620
-                                                        (block $B621
-                                                            (block $B622
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B686
+                                                        (block $B687
+                                                            (block $B688
+                                                                (block $B689
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B689
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B622
+                                                                br_if $B688
                                                                 i32.const 1
                                                                 global.set $GT_6_6
-                                                                br $B621
+                                                                br $B687
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_6
                                                         )
-                                                        br $B619
+                                                        br $B685
                                                     )
-                                                    (block $B623
-                                                        (block $B624
+                                                    (block $B690
+                                                        (block $B691
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B624
+                                                            br_if $B691
                                                             i32.const 1
                                                             global.set $GT_6_6
-                                                            br $B623
+                                                            br $B690
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_6
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B625
+                                            (block $B692
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B625
+                                                br_if $B692
                                                 i32.const 6
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B626
-                                                    (block $B627
+                                                (block $B693
+                                                    (block $B694
                                                         global.get $GA_6_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B627
-                                                        (block $B628
-                                                            (block $B629
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B694
+                                                        (block $B695
+                                                            (block $B696
+                                                                (block $B697
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B697
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B629
+                                                                br_if $B696
                                                                 i32.const 1
                                                                 global.set $GT_6_7
-                                                                br $B628
+                                                                br $B695
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_7
                                                         )
-                                                        br $B626
+                                                        br $B693
                                                     )
-                                                    (block $B630
-                                                        (block $B631
+                                                    (block $B698
+                                                        (block $B699
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B631
+                                                            br_if $B699
                                                             i32.const 1
                                                             global.set $GT_6_7
-                                                            br $B630
+                                                            br $B698
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_7
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B632
+                                            (block $B700
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B632
+                                                br_if $B700
                                                 i32.const 6
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B633
-                                                    (block $B634
+                                                (block $B701
+                                                    (block $B702
                                                         global.get $GA_6_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B634
-                                                        (block $B635
-                                                            (block $B636
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B702
+                                                        (block $B703
+                                                            (block $B704
+                                                                (block $B705
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B705
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B636
+                                                                br_if $B704
                                                                 i32.const 1
                                                                 global.set $GT_6_8
-                                                                br $B635
+                                                                br $B703
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_8
                                                         )
-                                                        br $B633
+                                                        br $B701
                                                     )
-                                                    (block $B637
-                                                        (block $B638
+                                                    (block $B706
+                                                        (block $B707
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B638
+                                                            br_if $B707
                                                             i32.const 1
                                                             global.set $GT_6_8
-                                                            br $B637
+                                                            br $B706
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_8
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
-                                            (block $B639
+                                            (block $B708
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B639
+                                                br_if $B708
                                                 i32.const 6
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B640
-                                                    (block $B641
+                                                (block $B709
+                                                    (block $B710
                                                         global.get $GA_6_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B641
-                                                        (block $B642
-                                                            (block $B643
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B710
+                                                        (block $B711
+                                                            (block $B712
+                                                                (block $B713
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B713
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B643
+                                                                br_if $B712
                                                                 i32.const 1
                                                                 global.set $GT_6_9
-                                                                br $B642
+                                                                br $B711
                                                             )
                                                             i32.const 0
                                                             global.set $GT_6_9
                                                         )
-                                                        br $B640
+                                                        br $B709
                                                     )
-                                                    (block $B644
-                                                        (block $B645
+                                                    (block $B714
+                                                        (block $B715
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B645
+                                                            br_if $B715
                                                             i32.const 1
                                                             global.set $GT_6_9
-                                                            br $B644
+                                                            br $B714
                                                         )
                                                         i32.const 0
                                                         global.set $GT_6_9
                                                     )
                                                 )
-                                                br $B575
+                                                br $B635
                                             )
                                         )
                                         local.get $Ij
@@ -6133,581 +6834,681 @@
                                 )
                                 br $B134
                             )
-                            (block $B646
+                            (block $B716
                                 local.get $Ii
                                 i32.const 7
                                 i32.eq
                                 i32.eqz
-                                br_if $B646
+                                br_if $B716
                                 i32.const 0
                                 local.set $Ij
-                                (block $B647
+                                (block $B717
                                     (loop $L20
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B647
-                                        (block $B648
-                                            (block $B649
+                                        br_if $B717
+                                        (block $B718
+                                            (block $B719
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B649
+                                                br_if $B719
                                                 i32.const 7
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B650
-                                                    (block $B651
+                                                (block $B720
+                                                    (block $B721
                                                         global.get $GA_7_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B651
-                                                        (block $B652
-                                                            (block $B653
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B721
+                                                        (block $B722
+                                                            (block $B723
+                                                                (block $B724
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B724
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B653
+                                                                br_if $B723
                                                                 i32.const 1
                                                                 global.set $GT_7_0
-                                                                br $B652
+                                                                br $B722
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_0
                                                         )
-                                                        br $B650
+                                                        br $B720
                                                     )
-                                                    (block $B654
-                                                        (block $B655
+                                                    (block $B725
+                                                        (block $B726
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B655
+                                                            br_if $B726
                                                             i32.const 1
                                                             global.set $GT_7_0
-                                                            br $B654
+                                                            br $B725
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_0
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B656
+                                            (block $B727
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B656
+                                                br_if $B727
                                                 i32.const 7
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B657
-                                                    (block $B658
+                                                (block $B728
+                                                    (block $B729
                                                         global.get $GA_7_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B658
-                                                        (block $B659
-                                                            (block $B660
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B729
+                                                        (block $B730
+                                                            (block $B731
+                                                                (block $B732
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B732
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B660
+                                                                br_if $B731
                                                                 i32.const 1
                                                                 global.set $GT_7_1
-                                                                br $B659
+                                                                br $B730
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_1
                                                         )
-                                                        br $B657
+                                                        br $B728
                                                     )
-                                                    (block $B661
-                                                        (block $B662
+                                                    (block $B733
+                                                        (block $B734
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B662
+                                                            br_if $B734
                                                             i32.const 1
                                                             global.set $GT_7_1
-                                                            br $B661
+                                                            br $B733
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_1
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B663
+                                            (block $B735
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B663
+                                                br_if $B735
                                                 i32.const 7
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B664
-                                                    (block $B665
+                                                (block $B736
+                                                    (block $B737
                                                         global.get $GA_7_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B665
-                                                        (block $B666
-                                                            (block $B667
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B737
+                                                        (block $B738
+                                                            (block $B739
+                                                                (block $B740
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B740
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B667
+                                                                br_if $B739
                                                                 i32.const 1
                                                                 global.set $GT_7_2
-                                                                br $B666
+                                                                br $B738
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_2
                                                         )
-                                                        br $B664
+                                                        br $B736
                                                     )
-                                                    (block $B668
-                                                        (block $B669
+                                                    (block $B741
+                                                        (block $B742
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B669
+                                                            br_if $B742
                                                             i32.const 1
                                                             global.set $GT_7_2
-                                                            br $B668
+                                                            br $B741
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_2
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B670
+                                            (block $B743
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B670
+                                                br_if $B743
                                                 i32.const 7
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B671
-                                                    (block $B672
+                                                (block $B744
+                                                    (block $B745
                                                         global.get $GA_7_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B672
-                                                        (block $B673
-                                                            (block $B674
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B745
+                                                        (block $B746
+                                                            (block $B747
+                                                                (block $B748
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B748
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B674
+                                                                br_if $B747
                                                                 i32.const 1
                                                                 global.set $GT_7_3
-                                                                br $B673
+                                                                br $B746
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_3
                                                         )
-                                                        br $B671
+                                                        br $B744
                                                     )
-                                                    (block $B675
-                                                        (block $B676
+                                                    (block $B749
+                                                        (block $B750
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B676
+                                                            br_if $B750
                                                             i32.const 1
                                                             global.set $GT_7_3
-                                                            br $B675
+                                                            br $B749
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_3
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B677
+                                            (block $B751
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B677
+                                                br_if $B751
                                                 i32.const 7
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B678
-                                                    (block $B679
+                                                (block $B752
+                                                    (block $B753
                                                         global.get $GA_7_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B679
-                                                        (block $B680
-                                                            (block $B681
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B753
+                                                        (block $B754
+                                                            (block $B755
+                                                                (block $B756
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B756
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B681
+                                                                br_if $B755
                                                                 i32.const 1
                                                                 global.set $GT_7_4
-                                                                br $B680
+                                                                br $B754
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_4
                                                         )
-                                                        br $B678
+                                                        br $B752
                                                     )
-                                                    (block $B682
-                                                        (block $B683
+                                                    (block $B757
+                                                        (block $B758
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B683
+                                                            br_if $B758
                                                             i32.const 1
                                                             global.set $GT_7_4
-                                                            br $B682
+                                                            br $B757
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_4
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B684
+                                            (block $B759
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B684
+                                                br_if $B759
                                                 i32.const 7
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B685
-                                                    (block $B686
+                                                (block $B760
+                                                    (block $B761
                                                         global.get $GA_7_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B686
-                                                        (block $B687
-                                                            (block $B688
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B761
+                                                        (block $B762
+                                                            (block $B763
+                                                                (block $B764
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B764
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B688
+                                                                br_if $B763
                                                                 i32.const 1
                                                                 global.set $GT_7_5
-                                                                br $B687
+                                                                br $B762
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_5
                                                         )
-                                                        br $B685
+                                                        br $B760
                                                     )
-                                                    (block $B689
-                                                        (block $B690
+                                                    (block $B765
+                                                        (block $B766
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B690
+                                                            br_if $B766
                                                             i32.const 1
                                                             global.set $GT_7_5
-                                                            br $B689
+                                                            br $B765
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_5
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B691
+                                            (block $B767
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B691
+                                                br_if $B767
                                                 i32.const 7
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B692
-                                                    (block $B693
+                                                (block $B768
+                                                    (block $B769
                                                         global.get $GA_7_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B693
-                                                        (block $B694
-                                                            (block $B695
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B769
+                                                        (block $B770
+                                                            (block $B771
+                                                                (block $B772
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B772
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B695
+                                                                br_if $B771
                                                                 i32.const 1
                                                                 global.set $GT_7_6
-                                                                br $B694
+                                                                br $B770
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_6
                                                         )
-                                                        br $B692
+                                                        br $B768
                                                     )
-                                                    (block $B696
-                                                        (block $B697
+                                                    (block $B773
+                                                        (block $B774
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B697
+                                                            br_if $B774
                                                             i32.const 1
                                                             global.set $GT_7_6
-                                                            br $B696
+                                                            br $B773
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_6
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B698
+                                            (block $B775
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B698
+                                                br_if $B775
                                                 i32.const 7
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B699
-                                                    (block $B700
+                                                (block $B776
+                                                    (block $B777
                                                         global.get $GA_7_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B700
-                                                        (block $B701
-                                                            (block $B702
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B777
+                                                        (block $B778
+                                                            (block $B779
+                                                                (block $B780
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B780
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B702
+                                                                br_if $B779
                                                                 i32.const 1
                                                                 global.set $GT_7_7
-                                                                br $B701
+                                                                br $B778
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_7
                                                         )
-                                                        br $B699
+                                                        br $B776
                                                     )
-                                                    (block $B703
-                                                        (block $B704
+                                                    (block $B781
+                                                        (block $B782
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B704
+                                                            br_if $B782
                                                             i32.const 1
                                                             global.set $GT_7_7
-                                                            br $B703
+                                                            br $B781
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_7
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B705
+                                            (block $B783
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B705
+                                                br_if $B783
                                                 i32.const 7
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B706
-                                                    (block $B707
+                                                (block $B784
+                                                    (block $B785
                                                         global.get $GA_7_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B707
-                                                        (block $B708
-                                                            (block $B709
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B785
+                                                        (block $B786
+                                                            (block $B787
+                                                                (block $B788
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B788
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B709
+                                                                br_if $B787
                                                                 i32.const 1
                                                                 global.set $GT_7_8
-                                                                br $B708
+                                                                br $B786
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_8
                                                         )
-                                                        br $B706
+                                                        br $B784
                                                     )
-                                                    (block $B710
-                                                        (block $B711
+                                                    (block $B789
+                                                        (block $B790
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B711
+                                                            br_if $B790
                                                             i32.const 1
                                                             global.set $GT_7_8
-                                                            br $B710
+                                                            br $B789
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_8
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
-                                            (block $B712
+                                            (block $B791
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B712
+                                                br_if $B791
                                                 i32.const 7
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B713
-                                                    (block $B714
+                                                (block $B792
+                                                    (block $B793
                                                         global.get $GA_7_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B714
-                                                        (block $B715
-                                                            (block $B716
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B793
+                                                        (block $B794
+                                                            (block $B795
+                                                                (block $B796
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B796
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B716
+                                                                br_if $B795
                                                                 i32.const 1
                                                                 global.set $GT_7_9
-                                                                br $B715
+                                                                br $B794
                                                             )
                                                             i32.const 0
                                                             global.set $GT_7_9
                                                         )
-                                                        br $B713
+                                                        br $B792
                                                     )
-                                                    (block $B717
-                                                        (block $B718
+                                                    (block $B797
+                                                        (block $B798
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B718
+                                                            br_if $B798
                                                             i32.const 1
                                                             global.set $GT_7_9
-                                                            br $B717
+                                                            br $B797
                                                         )
                                                         i32.const 0
                                                         global.set $GT_7_9
                                                     )
                                                 )
-                                                br $B648
+                                                br $B718
                                             )
                                         )
                                         local.get $Ij
@@ -6719,581 +7520,681 @@
                                 )
                                 br $B134
                             )
-                            (block $B719
+                            (block $B799
                                 local.get $Ii
                                 i32.const 8
                                 i32.eq
                                 i32.eqz
-                                br_if $B719
+                                br_if $B799
                                 i32.const 0
                                 local.set $Ij
-                                (block $B720
+                                (block $B800
                                     (loop $L21
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B720
-                                        (block $B721
-                                            (block $B722
+                                        br_if $B800
+                                        (block $B801
+                                            (block $B802
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B722
+                                                br_if $B802
                                                 i32.const 8
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B723
-                                                    (block $B724
+                                                (block $B803
+                                                    (block $B804
                                                         global.get $GA_8_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B724
-                                                        (block $B725
-                                                            (block $B726
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B804
+                                                        (block $B805
+                                                            (block $B806
+                                                                (block $B807
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B807
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B726
+                                                                br_if $B806
                                                                 i32.const 1
                                                                 global.set $GT_8_0
-                                                                br $B725
+                                                                br $B805
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_0
                                                         )
-                                                        br $B723
+                                                        br $B803
                                                     )
-                                                    (block $B727
-                                                        (block $B728
+                                                    (block $B808
+                                                        (block $B809
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B728
+                                                            br_if $B809
                                                             i32.const 1
                                                             global.set $GT_8_0
-                                                            br $B727
+                                                            br $B808
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_0
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B729
+                                            (block $B810
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B729
+                                                br_if $B810
                                                 i32.const 8
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B730
-                                                    (block $B731
+                                                (block $B811
+                                                    (block $B812
                                                         global.get $GA_8_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B731
-                                                        (block $B732
-                                                            (block $B733
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B812
+                                                        (block $B813
+                                                            (block $B814
+                                                                (block $B815
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B815
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B733
+                                                                br_if $B814
                                                                 i32.const 1
                                                                 global.set $GT_8_1
-                                                                br $B732
+                                                                br $B813
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_1
                                                         )
-                                                        br $B730
+                                                        br $B811
                                                     )
-                                                    (block $B734
-                                                        (block $B735
+                                                    (block $B816
+                                                        (block $B817
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B735
+                                                            br_if $B817
                                                             i32.const 1
                                                             global.set $GT_8_1
-                                                            br $B734
+                                                            br $B816
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_1
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B736
+                                            (block $B818
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B736
+                                                br_if $B818
                                                 i32.const 8
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B737
-                                                    (block $B738
+                                                (block $B819
+                                                    (block $B820
                                                         global.get $GA_8_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B738
-                                                        (block $B739
-                                                            (block $B740
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B820
+                                                        (block $B821
+                                                            (block $B822
+                                                                (block $B823
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B823
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B740
+                                                                br_if $B822
                                                                 i32.const 1
                                                                 global.set $GT_8_2
-                                                                br $B739
+                                                                br $B821
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_2
                                                         )
-                                                        br $B737
+                                                        br $B819
                                                     )
-                                                    (block $B741
-                                                        (block $B742
+                                                    (block $B824
+                                                        (block $B825
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B742
+                                                            br_if $B825
                                                             i32.const 1
                                                             global.set $GT_8_2
-                                                            br $B741
+                                                            br $B824
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_2
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B743
+                                            (block $B826
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B743
+                                                br_if $B826
                                                 i32.const 8
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B744
-                                                    (block $B745
+                                                (block $B827
+                                                    (block $B828
                                                         global.get $GA_8_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B745
-                                                        (block $B746
-                                                            (block $B747
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B828
+                                                        (block $B829
+                                                            (block $B830
+                                                                (block $B831
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B831
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B747
+                                                                br_if $B830
                                                                 i32.const 1
                                                                 global.set $GT_8_3
-                                                                br $B746
+                                                                br $B829
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_3
                                                         )
-                                                        br $B744
+                                                        br $B827
                                                     )
-                                                    (block $B748
-                                                        (block $B749
+                                                    (block $B832
+                                                        (block $B833
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B749
+                                                            br_if $B833
                                                             i32.const 1
                                                             global.set $GT_8_3
-                                                            br $B748
+                                                            br $B832
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_3
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B750
+                                            (block $B834
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B750
+                                                br_if $B834
                                                 i32.const 8
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B751
-                                                    (block $B752
+                                                (block $B835
+                                                    (block $B836
                                                         global.get $GA_8_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B752
-                                                        (block $B753
-                                                            (block $B754
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B836
+                                                        (block $B837
+                                                            (block $B838
+                                                                (block $B839
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B839
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B754
+                                                                br_if $B838
                                                                 i32.const 1
                                                                 global.set $GT_8_4
-                                                                br $B753
+                                                                br $B837
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_4
                                                         )
-                                                        br $B751
+                                                        br $B835
                                                     )
-                                                    (block $B755
-                                                        (block $B756
+                                                    (block $B840
+                                                        (block $B841
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B756
+                                                            br_if $B841
                                                             i32.const 1
                                                             global.set $GT_8_4
-                                                            br $B755
+                                                            br $B840
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_4
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B757
+                                            (block $B842
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B757
+                                                br_if $B842
                                                 i32.const 8
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B758
-                                                    (block $B759
+                                                (block $B843
+                                                    (block $B844
                                                         global.get $GA_8_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B759
-                                                        (block $B760
-                                                            (block $B761
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B844
+                                                        (block $B845
+                                                            (block $B846
+                                                                (block $B847
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B847
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B761
+                                                                br_if $B846
                                                                 i32.const 1
                                                                 global.set $GT_8_5
-                                                                br $B760
+                                                                br $B845
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_5
                                                         )
-                                                        br $B758
+                                                        br $B843
                                                     )
-                                                    (block $B762
-                                                        (block $B763
+                                                    (block $B848
+                                                        (block $B849
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B763
+                                                            br_if $B849
                                                             i32.const 1
                                                             global.set $GT_8_5
-                                                            br $B762
+                                                            br $B848
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_5
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B764
+                                            (block $B850
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B764
+                                                br_if $B850
                                                 i32.const 8
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B765
-                                                    (block $B766
+                                                (block $B851
+                                                    (block $B852
                                                         global.get $GA_8_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B766
-                                                        (block $B767
-                                                            (block $B768
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B852
+                                                        (block $B853
+                                                            (block $B854
+                                                                (block $B855
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B855
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B768
+                                                                br_if $B854
                                                                 i32.const 1
                                                                 global.set $GT_8_6
-                                                                br $B767
+                                                                br $B853
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_6
                                                         )
-                                                        br $B765
+                                                        br $B851
                                                     )
-                                                    (block $B769
-                                                        (block $B770
+                                                    (block $B856
+                                                        (block $B857
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B770
+                                                            br_if $B857
                                                             i32.const 1
                                                             global.set $GT_8_6
-                                                            br $B769
+                                                            br $B856
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_6
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B771
+                                            (block $B858
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B771
+                                                br_if $B858
                                                 i32.const 8
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B772
-                                                    (block $B773
+                                                (block $B859
+                                                    (block $B860
                                                         global.get $GA_8_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B773
-                                                        (block $B774
-                                                            (block $B775
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B860
+                                                        (block $B861
+                                                            (block $B862
+                                                                (block $B863
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B863
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B775
+                                                                br_if $B862
                                                                 i32.const 1
                                                                 global.set $GT_8_7
-                                                                br $B774
+                                                                br $B861
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_7
                                                         )
-                                                        br $B772
+                                                        br $B859
                                                     )
-                                                    (block $B776
-                                                        (block $B777
+                                                    (block $B864
+                                                        (block $B865
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B777
+                                                            br_if $B865
                                                             i32.const 1
                                                             global.set $GT_8_7
-                                                            br $B776
+                                                            br $B864
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_7
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B778
+                                            (block $B866
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B778
+                                                br_if $B866
                                                 i32.const 8
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B779
-                                                    (block $B780
+                                                (block $B867
+                                                    (block $B868
                                                         global.get $GA_8_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B780
-                                                        (block $B781
-                                                            (block $B782
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B868
+                                                        (block $B869
+                                                            (block $B870
+                                                                (block $B871
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B871
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B782
+                                                                br_if $B870
                                                                 i32.const 1
                                                                 global.set $GT_8_8
-                                                                br $B781
+                                                                br $B869
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_8
                                                         )
-                                                        br $B779
+                                                        br $B867
                                                     )
-                                                    (block $B783
-                                                        (block $B784
+                                                    (block $B872
+                                                        (block $B873
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B784
+                                                            br_if $B873
                                                             i32.const 1
                                                             global.set $GT_8_8
-                                                            br $B783
+                                                            br $B872
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_8
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
-                                            (block $B785
+                                            (block $B874
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B785
+                                                br_if $B874
                                                 i32.const 8
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B786
-                                                    (block $B787
+                                                (block $B875
+                                                    (block $B876
                                                         global.get $GA_8_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B787
-                                                        (block $B788
-                                                            (block $B789
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B876
+                                                        (block $B877
+                                                            (block $B878
+                                                                (block $B879
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B879
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B789
+                                                                br_if $B878
                                                                 i32.const 1
                                                                 global.set $GT_8_9
-                                                                br $B788
+                                                                br $B877
                                                             )
                                                             i32.const 0
                                                             global.set $GT_8_9
                                                         )
-                                                        br $B786
+                                                        br $B875
                                                     )
-                                                    (block $B790
-                                                        (block $B791
+                                                    (block $B880
+                                                        (block $B881
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B791
+                                                            br_if $B881
                                                             i32.const 1
                                                             global.set $GT_8_9
-                                                            br $B790
+                                                            br $B880
                                                         )
                                                         i32.const 0
                                                         global.set $GT_8_9
                                                     )
                                                 )
-                                                br $B721
+                                                br $B801
                                             )
                                         )
                                         local.get $Ij
@@ -7305,581 +8206,681 @@
                                 )
                                 br $B134
                             )
-                            (block $B792
+                            (block $B882
                                 local.get $Ii
                                 i32.const 9
                                 i32.eq
                                 i32.eqz
-                                br_if $B792
+                                br_if $B882
                                 i32.const 0
                                 local.set $Ij
-                                (block $B793
+                                (block $B883
                                     (loop $L22
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B793
-                                        (block $B794
-                                            (block $B795
+                                        br_if $B883
+                                        (block $B884
+                                            (block $B885
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B795
+                                                br_if $B885
                                                 i32.const 9
                                                 i32.const 0
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B796
-                                                    (block $B797
+                                                (block $B886
+                                                    (block $B887
                                                         global.get $GA_9_0
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B797
-                                                        (block $B798
-                                                            (block $B799
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B887
+                                                        (block $B888
+                                                            (block $B889
+                                                                (block $B890
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B890
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B799
+                                                                br_if $B889
                                                                 i32.const 1
                                                                 global.set $GT_9_0
-                                                                br $B798
+                                                                br $B888
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_0
                                                         )
-                                                        br $B796
+                                                        br $B886
                                                     )
-                                                    (block $B800
-                                                        (block $B801
+                                                    (block $B891
+                                                        (block $B892
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B801
+                                                            br_if $B892
                                                             i32.const 1
                                                             global.set $GT_9_0
-                                                            br $B800
+                                                            br $B891
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_0
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B802
+                                            (block $B893
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B802
+                                                br_if $B893
                                                 i32.const 9
                                                 i32.const 1
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B803
-                                                    (block $B804
+                                                (block $B894
+                                                    (block $B895
                                                         global.get $GA_9_1
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B804
-                                                        (block $B805
-                                                            (block $B806
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B895
+                                                        (block $B896
+                                                            (block $B897
+                                                                (block $B898
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B898
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B806
+                                                                br_if $B897
                                                                 i32.const 1
                                                                 global.set $GT_9_1
-                                                                br $B805
+                                                                br $B896
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_1
                                                         )
-                                                        br $B803
+                                                        br $B894
                                                     )
-                                                    (block $B807
-                                                        (block $B808
+                                                    (block $B899
+                                                        (block $B900
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B808
+                                                            br_if $B900
                                                             i32.const 1
                                                             global.set $GT_9_1
-                                                            br $B807
+                                                            br $B899
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_1
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B809
+                                            (block $B901
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B809
+                                                br_if $B901
                                                 i32.const 9
                                                 i32.const 2
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B810
-                                                    (block $B811
+                                                (block $B902
+                                                    (block $B903
                                                         global.get $GA_9_2
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B811
-                                                        (block $B812
-                                                            (block $B813
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B903
+                                                        (block $B904
+                                                            (block $B905
+                                                                (block $B906
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B906
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B813
+                                                                br_if $B905
                                                                 i32.const 1
                                                                 global.set $GT_9_2
-                                                                br $B812
+                                                                br $B904
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_2
                                                         )
-                                                        br $B810
+                                                        br $B902
                                                     )
-                                                    (block $B814
-                                                        (block $B815
+                                                    (block $B907
+                                                        (block $B908
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B815
+                                                            br_if $B908
                                                             i32.const 1
                                                             global.set $GT_9_2
-                                                            br $B814
+                                                            br $B907
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_2
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B816
+                                            (block $B909
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B816
+                                                br_if $B909
                                                 i32.const 9
                                                 i32.const 3
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B817
-                                                    (block $B818
+                                                (block $B910
+                                                    (block $B911
                                                         global.get $GA_9_3
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B818
-                                                        (block $B819
-                                                            (block $B820
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B911
+                                                        (block $B912
+                                                            (block $B913
+                                                                (block $B914
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B914
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B820
+                                                                br_if $B913
                                                                 i32.const 1
                                                                 global.set $GT_9_3
-                                                                br $B819
+                                                                br $B912
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_3
                                                         )
-                                                        br $B817
+                                                        br $B910
                                                     )
-                                                    (block $B821
-                                                        (block $B822
+                                                    (block $B915
+                                                        (block $B916
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B822
+                                                            br_if $B916
                                                             i32.const 1
                                                             global.set $GT_9_3
-                                                            br $B821
+                                                            br $B915
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_3
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B823
+                                            (block $B917
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B823
+                                                br_if $B917
                                                 i32.const 9
                                                 i32.const 4
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B824
-                                                    (block $B825
+                                                (block $B918
+                                                    (block $B919
                                                         global.get $GA_9_4
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B825
-                                                        (block $B826
-                                                            (block $B827
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B919
+                                                        (block $B920
+                                                            (block $B921
+                                                                (block $B922
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B922
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B827
+                                                                br_if $B921
                                                                 i32.const 1
                                                                 global.set $GT_9_4
-                                                                br $B826
+                                                                br $B920
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_4
                                                         )
-                                                        br $B824
+                                                        br $B918
                                                     )
-                                                    (block $B828
-                                                        (block $B829
+                                                    (block $B923
+                                                        (block $B924
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B829
+                                                            br_if $B924
                                                             i32.const 1
                                                             global.set $GT_9_4
-                                                            br $B828
+                                                            br $B923
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_4
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B830
+                                            (block $B925
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B830
+                                                br_if $B925
                                                 i32.const 9
                                                 i32.const 5
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B831
-                                                    (block $B832
+                                                (block $B926
+                                                    (block $B927
                                                         global.get $GA_9_5
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B832
-                                                        (block $B833
-                                                            (block $B834
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B927
+                                                        (block $B928
+                                                            (block $B929
+                                                                (block $B930
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B930
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B834
+                                                                br_if $B929
                                                                 i32.const 1
                                                                 global.set $GT_9_5
-                                                                br $B833
+                                                                br $B928
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_5
                                                         )
-                                                        br $B831
+                                                        br $B926
                                                     )
-                                                    (block $B835
-                                                        (block $B836
+                                                    (block $B931
+                                                        (block $B932
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B836
+                                                            br_if $B932
                                                             i32.const 1
                                                             global.set $GT_9_5
-                                                            br $B835
+                                                            br $B931
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_5
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B837
+                                            (block $B933
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B837
+                                                br_if $B933
                                                 i32.const 9
                                                 i32.const 6
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B838
-                                                    (block $B839
+                                                (block $B934
+                                                    (block $B935
                                                         global.get $GA_9_6
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B839
-                                                        (block $B840
-                                                            (block $B841
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B935
+                                                        (block $B936
+                                                            (block $B937
+                                                                (block $B938
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B938
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B841
+                                                                br_if $B937
                                                                 i32.const 1
                                                                 global.set $GT_9_6
-                                                                br $B840
+                                                                br $B936
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_6
                                                         )
-                                                        br $B838
+                                                        br $B934
                                                     )
-                                                    (block $B842
-                                                        (block $B843
+                                                    (block $B939
+                                                        (block $B940
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B843
+                                                            br_if $B940
                                                             i32.const 1
                                                             global.set $GT_9_6
-                                                            br $B842
+                                                            br $B939
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_6
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B844
+                                            (block $B941
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B844
+                                                br_if $B941
                                                 i32.const 9
                                                 i32.const 7
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B845
-                                                    (block $B846
+                                                (block $B942
+                                                    (block $B943
                                                         global.get $GA_9_7
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B846
-                                                        (block $B847
-                                                            (block $B848
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B943
+                                                        (block $B944
+                                                            (block $B945
+                                                                (block $B946
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B946
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B848
+                                                                br_if $B945
                                                                 i32.const 1
                                                                 global.set $GT_9_7
-                                                                br $B847
+                                                                br $B944
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_7
                                                         )
-                                                        br $B845
+                                                        br $B942
                                                     )
-                                                    (block $B849
-                                                        (block $B850
+                                                    (block $B947
+                                                        (block $B948
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B850
+                                                            br_if $B948
                                                             i32.const 1
                                                             global.set $GT_9_7
-                                                            br $B849
+                                                            br $B947
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_7
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B851
+                                            (block $B949
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B851
+                                                br_if $B949
                                                 i32.const 9
                                                 i32.const 8
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B852
-                                                    (block $B853
+                                                (block $B950
+                                                    (block $B951
                                                         global.get $GA_9_8
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B853
-                                                        (block $B854
-                                                            (block $B855
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B951
+                                                        (block $B952
+                                                            (block $B953
+                                                                (block $B954
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B954
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B855
+                                                                br_if $B953
                                                                 i32.const 1
                                                                 global.set $GT_9_8
-                                                                br $B854
+                                                                br $B952
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_8
                                                         )
-                                                        br $B852
+                                                        br $B950
                                                     )
-                                                    (block $B856
-                                                        (block $B857
+                                                    (block $B955
+                                                        (block $B956
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B857
+                                                            br_if $B956
                                                             i32.const 1
                                                             global.set $GT_9_8
-                                                            br $B856
+                                                            br $B955
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_8
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
-                                            (block $B858
+                                            (block $B957
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B858
+                                                br_if $B957
                                                 i32.const 9
                                                 i32.const 9
                                                 call $neighbours
                                                 local.set $T0
                                                 local.get $T0
                                                 local.set $In
-                                                (block $B859
-                                                    (block $B860
+                                                (block $B958
+                                                    (block $B959
                                                         global.get $GA_9_9
                                                         i32.const 1
                                                         i32.eq
                                                         i32.eqz
-                                                        br_if $B860
-                                                        (block $B861
-                                                            (block $B862
-                                                                local.get $In
-                                                                i32.const 2
-                                                                i32.eq
-                                                                local.get $In
-                                                                i32.const 3
-                                                                i32.eq
-                                                                i32.or
+                                                        br_if $B959
+                                                        (block $B960
+                                                            (block $B961
+                                                                (block $B962
+                                                                    local.get $In
+                                                                    i32.const 2
+                                                                    i32.eq
+                                                                    local.set $T1
+                                                                    local.get $T1
+                                                                    i32.const 1
+                                                                    i32.eq
+                                                                    br_if $B962
+                                                                    local.get $T1
+                                                                    local.get $In
+                                                                    i32.const 3
+                                                                    i32.eq
+                                                                    i32.or
+                                                                    local.set $T1
+                                                                )
+                                                                local.get $T1
                                                                 i32.eqz
-                                                                br_if $B862
+                                                                br_if $B961
                                                                 i32.const 1
                                                                 global.set $GT_9_9
-                                                                br $B861
+                                                                br $B960
                                                             )
                                                             i32.const 0
                                                             global.set $GT_9_9
                                                         )
-                                                        br $B859
+                                                        br $B958
                                                     )
-                                                    (block $B863
-                                                        (block $B864
+                                                    (block $B963
+                                                        (block $B964
                                                             local.get $In
                                                             i32.const 3
                                                             i32.eq
                                                             i32.eqz
-                                                            br_if $B864
+                                                            br_if $B964
                                                             i32.const 1
                                                             global.set $GT_9_9
-                                                            br $B863
+                                                            br $B963
                                                         )
                                                         i32.const 0
                                                         global.set $GT_9_9
                                                     )
                                                 )
-                                                br $B794
+                                                br $B884
                                             )
                                         )
                                         local.get $Ij
@@ -7901,129 +8902,129 @@
                 )
                 i32.const 0
                 local.set $Ii
-                (block $B865
+                (block $B965
                     (loop $L23
                         local.get $Ii
                         i32.const 9
                         i32.le_s
                         i32.eqz
-                        br_if $B865
-                        (block $B866
-                            (block $B867
+                        br_if $B965
+                        (block $B966
+                            (block $B967
                                 local.get $Ii
                                 i32.const 0
                                 i32.eq
                                 i32.eqz
-                                br_if $B867
+                                br_if $B967
                                 i32.const 0
                                 local.set $Ij
-                                (block $B868
+                                (block $B968
                                     (loop $L24
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B868
-                                        (block $B869
-                                            (block $B870
+                                        br_if $B968
+                                        (block $B969
+                                            (block $B970
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B870
+                                                br_if $B970
                                                 global.get $GT_0_0
                                                 global.set $GA_0_0
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B871
+                                            (block $B971
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B871
+                                                br_if $B971
                                                 global.get $GT_0_1
                                                 global.set $GA_0_1
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B872
+                                            (block $B972
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B872
+                                                br_if $B972
                                                 global.get $GT_0_2
                                                 global.set $GA_0_2
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B873
+                                            (block $B973
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B873
+                                                br_if $B973
                                                 global.get $GT_0_3
                                                 global.set $GA_0_3
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B874
+                                            (block $B974
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B874
+                                                br_if $B974
                                                 global.get $GT_0_4
                                                 global.set $GA_0_4
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B875
+                                            (block $B975
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B875
+                                                br_if $B975
                                                 global.get $GT_0_5
                                                 global.set $GA_0_5
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B876
+                                            (block $B976
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B876
+                                                br_if $B976
                                                 global.get $GT_0_6
                                                 global.set $GA_0_6
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B877
+                                            (block $B977
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B877
+                                                br_if $B977
                                                 global.get $GT_0_7
                                                 global.set $GA_0_7
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B878
+                                            (block $B978
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B878
+                                                br_if $B978
                                                 global.get $GT_0_8
                                                 global.set $GA_0_8
-                                                br $B869
+                                                br $B969
                                             )
-                                            (block $B879
+                                            (block $B979
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B879
+                                                br_if $B979
                                                 global.get $GT_0_9
                                                 global.set $GA_0_9
-                                                br $B869
+                                                br $B969
                                             )
                                         )
                                         local.get $Ij
@@ -8033,123 +9034,123 @@
                                         br $L24
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B880
+                            (block $B980
                                 local.get $Ii
                                 i32.const 1
                                 i32.eq
                                 i32.eqz
-                                br_if $B880
+                                br_if $B980
                                 i32.const 0
                                 local.set $Ij
-                                (block $B881
+                                (block $B981
                                     (loop $L25
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B881
-                                        (block $B882
-                                            (block $B883
+                                        br_if $B981
+                                        (block $B982
+                                            (block $B983
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B883
+                                                br_if $B983
                                                 global.get $GT_1_0
                                                 global.set $GA_1_0
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B884
+                                            (block $B984
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B884
+                                                br_if $B984
                                                 global.get $GT_1_1
                                                 global.set $GA_1_1
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B885
+                                            (block $B985
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B885
+                                                br_if $B985
                                                 global.get $GT_1_2
                                                 global.set $GA_1_2
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B886
+                                            (block $B986
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B886
+                                                br_if $B986
                                                 global.get $GT_1_3
                                                 global.set $GA_1_3
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B887
+                                            (block $B987
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B887
+                                                br_if $B987
                                                 global.get $GT_1_4
                                                 global.set $GA_1_4
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B888
+                                            (block $B988
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B888
+                                                br_if $B988
                                                 global.get $GT_1_5
                                                 global.set $GA_1_5
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B889
+                                            (block $B989
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B889
+                                                br_if $B989
                                                 global.get $GT_1_6
                                                 global.set $GA_1_6
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B890
+                                            (block $B990
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B890
+                                                br_if $B990
                                                 global.get $GT_1_7
                                                 global.set $GA_1_7
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B891
+                                            (block $B991
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B891
+                                                br_if $B991
                                                 global.get $GT_1_8
                                                 global.set $GA_1_8
-                                                br $B882
+                                                br $B982
                                             )
-                                            (block $B892
+                                            (block $B992
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B892
+                                                br_if $B992
                                                 global.get $GT_1_9
                                                 global.set $GA_1_9
-                                                br $B882
+                                                br $B982
                                             )
                                         )
                                         local.get $Ij
@@ -8159,123 +9160,123 @@
                                         br $L25
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B893
+                            (block $B993
                                 local.get $Ii
                                 i32.const 2
                                 i32.eq
                                 i32.eqz
-                                br_if $B893
+                                br_if $B993
                                 i32.const 0
                                 local.set $Ij
-                                (block $B894
+                                (block $B994
                                     (loop $L26
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B894
-                                        (block $B895
-                                            (block $B896
+                                        br_if $B994
+                                        (block $B995
+                                            (block $B996
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B896
+                                                br_if $B996
                                                 global.get $GT_2_0
                                                 global.set $GA_2_0
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B897
+                                            (block $B997
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B897
+                                                br_if $B997
                                                 global.get $GT_2_1
                                                 global.set $GA_2_1
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B898
+                                            (block $B998
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B898
+                                                br_if $B998
                                                 global.get $GT_2_2
                                                 global.set $GA_2_2
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B899
+                                            (block $B999
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B899
+                                                br_if $B999
                                                 global.get $GT_2_3
                                                 global.set $GA_2_3
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B900
+                                            (block $B1000
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B900
+                                                br_if $B1000
                                                 global.get $GT_2_4
                                                 global.set $GA_2_4
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B901
+                                            (block $B1001
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B901
+                                                br_if $B1001
                                                 global.get $GT_2_5
                                                 global.set $GA_2_5
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B902
+                                            (block $B1002
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B902
+                                                br_if $B1002
                                                 global.get $GT_2_6
                                                 global.set $GA_2_6
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B903
+                                            (block $B1003
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B903
+                                                br_if $B1003
                                                 global.get $GT_2_7
                                                 global.set $GA_2_7
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B904
+                                            (block $B1004
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B904
+                                                br_if $B1004
                                                 global.get $GT_2_8
                                                 global.set $GA_2_8
-                                                br $B895
+                                                br $B995
                                             )
-                                            (block $B905
+                                            (block $B1005
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B905
+                                                br_if $B1005
                                                 global.get $GT_2_9
                                                 global.set $GA_2_9
-                                                br $B895
+                                                br $B995
                                             )
                                         )
                                         local.get $Ij
@@ -8285,123 +9286,123 @@
                                         br $L26
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B906
+                            (block $B1006
                                 local.get $Ii
                                 i32.const 3
                                 i32.eq
                                 i32.eqz
-                                br_if $B906
+                                br_if $B1006
                                 i32.const 0
                                 local.set $Ij
-                                (block $B907
+                                (block $B1007
                                     (loop $L27
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B907
-                                        (block $B908
-                                            (block $B909
+                                        br_if $B1007
+                                        (block $B1008
+                                            (block $B1009
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B909
+                                                br_if $B1009
                                                 global.get $GT_3_0
                                                 global.set $GA_3_0
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B910
+                                            (block $B1010
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B910
+                                                br_if $B1010
                                                 global.get $GT_3_1
                                                 global.set $GA_3_1
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B911
+                                            (block $B1011
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B911
+                                                br_if $B1011
                                                 global.get $GT_3_2
                                                 global.set $GA_3_2
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B912
+                                            (block $B1012
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B912
+                                                br_if $B1012
                                                 global.get $GT_3_3
                                                 global.set $GA_3_3
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B913
+                                            (block $B1013
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B913
+                                                br_if $B1013
                                                 global.get $GT_3_4
                                                 global.set $GA_3_4
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B914
+                                            (block $B1014
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B914
+                                                br_if $B1014
                                                 global.get $GT_3_5
                                                 global.set $GA_3_5
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B915
+                                            (block $B1015
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B915
+                                                br_if $B1015
                                                 global.get $GT_3_6
                                                 global.set $GA_3_6
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B916
+                                            (block $B1016
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B916
+                                                br_if $B1016
                                                 global.get $GT_3_7
                                                 global.set $GA_3_7
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B917
+                                            (block $B1017
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B917
+                                                br_if $B1017
                                                 global.get $GT_3_8
                                                 global.set $GA_3_8
-                                                br $B908
+                                                br $B1008
                                             )
-                                            (block $B918
+                                            (block $B1018
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B918
+                                                br_if $B1018
                                                 global.get $GT_3_9
                                                 global.set $GA_3_9
-                                                br $B908
+                                                br $B1008
                                             )
                                         )
                                         local.get $Ij
@@ -8411,123 +9412,123 @@
                                         br $L27
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B919
+                            (block $B1019
                                 local.get $Ii
                                 i32.const 4
                                 i32.eq
                                 i32.eqz
-                                br_if $B919
+                                br_if $B1019
                                 i32.const 0
                                 local.set $Ij
-                                (block $B920
+                                (block $B1020
                                     (loop $L28
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B920
-                                        (block $B921
-                                            (block $B922
+                                        br_if $B1020
+                                        (block $B1021
+                                            (block $B1022
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B922
+                                                br_if $B1022
                                                 global.get $GT_4_0
                                                 global.set $GA_4_0
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B923
+                                            (block $B1023
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B923
+                                                br_if $B1023
                                                 global.get $GT_4_1
                                                 global.set $GA_4_1
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B924
+                                            (block $B1024
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B924
+                                                br_if $B1024
                                                 global.get $GT_4_2
                                                 global.set $GA_4_2
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B925
+                                            (block $B1025
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B925
+                                                br_if $B1025
                                                 global.get $GT_4_3
                                                 global.set $GA_4_3
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B926
+                                            (block $B1026
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B926
+                                                br_if $B1026
                                                 global.get $GT_4_4
                                                 global.set $GA_4_4
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B927
+                                            (block $B1027
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B927
+                                                br_if $B1027
                                                 global.get $GT_4_5
                                                 global.set $GA_4_5
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B928
+                                            (block $B1028
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B928
+                                                br_if $B1028
                                                 global.get $GT_4_6
                                                 global.set $GA_4_6
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B929
+                                            (block $B1029
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B929
+                                                br_if $B1029
                                                 global.get $GT_4_7
                                                 global.set $GA_4_7
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B930
+                                            (block $B1030
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B930
+                                                br_if $B1030
                                                 global.get $GT_4_8
                                                 global.set $GA_4_8
-                                                br $B921
+                                                br $B1021
                                             )
-                                            (block $B931
+                                            (block $B1031
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B931
+                                                br_if $B1031
                                                 global.get $GT_4_9
                                                 global.set $GA_4_9
-                                                br $B921
+                                                br $B1021
                                             )
                                         )
                                         local.get $Ij
@@ -8537,123 +9538,123 @@
                                         br $L28
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B932
+                            (block $B1032
                                 local.get $Ii
                                 i32.const 5
                                 i32.eq
                                 i32.eqz
-                                br_if $B932
+                                br_if $B1032
                                 i32.const 0
                                 local.set $Ij
-                                (block $B933
+                                (block $B1033
                                     (loop $L29
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B933
-                                        (block $B934
-                                            (block $B935
+                                        br_if $B1033
+                                        (block $B1034
+                                            (block $B1035
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B935
+                                                br_if $B1035
                                                 global.get $GT_5_0
                                                 global.set $GA_5_0
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B936
+                                            (block $B1036
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B936
+                                                br_if $B1036
                                                 global.get $GT_5_1
                                                 global.set $GA_5_1
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B937
+                                            (block $B1037
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B937
+                                                br_if $B1037
                                                 global.get $GT_5_2
                                                 global.set $GA_5_2
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B938
+                                            (block $B1038
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B938
+                                                br_if $B1038
                                                 global.get $GT_5_3
                                                 global.set $GA_5_3
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B939
+                                            (block $B1039
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B939
+                                                br_if $B1039
                                                 global.get $GT_5_4
                                                 global.set $GA_5_4
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B940
+                                            (block $B1040
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B940
+                                                br_if $B1040
                                                 global.get $GT_5_5
                                                 global.set $GA_5_5
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B941
+                                            (block $B1041
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B941
+                                                br_if $B1041
                                                 global.get $GT_5_6
                                                 global.set $GA_5_6
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B942
+                                            (block $B1042
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B942
+                                                br_if $B1042
                                                 global.get $GT_5_7
                                                 global.set $GA_5_7
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B943
+                                            (block $B1043
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B943
+                                                br_if $B1043
                                                 global.get $GT_5_8
                                                 global.set $GA_5_8
-                                                br $B934
+                                                br $B1034
                                             )
-                                            (block $B944
+                                            (block $B1044
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B944
+                                                br_if $B1044
                                                 global.get $GT_5_9
                                                 global.set $GA_5_9
-                                                br $B934
+                                                br $B1034
                                             )
                                         )
                                         local.get $Ij
@@ -8663,123 +9664,123 @@
                                         br $L29
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B945
+                            (block $B1045
                                 local.get $Ii
                                 i32.const 6
                                 i32.eq
                                 i32.eqz
-                                br_if $B945
+                                br_if $B1045
                                 i32.const 0
                                 local.set $Ij
-                                (block $B946
+                                (block $B1046
                                     (loop $L30
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B946
-                                        (block $B947
-                                            (block $B948
+                                        br_if $B1046
+                                        (block $B1047
+                                            (block $B1048
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B948
+                                                br_if $B1048
                                                 global.get $GT_6_0
                                                 global.set $GA_6_0
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B949
+                                            (block $B1049
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B949
+                                                br_if $B1049
                                                 global.get $GT_6_1
                                                 global.set $GA_6_1
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B950
+                                            (block $B1050
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B950
+                                                br_if $B1050
                                                 global.get $GT_6_2
                                                 global.set $GA_6_2
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B951
+                                            (block $B1051
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B951
+                                                br_if $B1051
                                                 global.get $GT_6_3
                                                 global.set $GA_6_3
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B952
+                                            (block $B1052
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B952
+                                                br_if $B1052
                                                 global.get $GT_6_4
                                                 global.set $GA_6_4
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B953
+                                            (block $B1053
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B953
+                                                br_if $B1053
                                                 global.get $GT_6_5
                                                 global.set $GA_6_5
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B954
+                                            (block $B1054
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B954
+                                                br_if $B1054
                                                 global.get $GT_6_6
                                                 global.set $GA_6_6
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B955
+                                            (block $B1055
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B955
+                                                br_if $B1055
                                                 global.get $GT_6_7
                                                 global.set $GA_6_7
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B956
+                                            (block $B1056
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B956
+                                                br_if $B1056
                                                 global.get $GT_6_8
                                                 global.set $GA_6_8
-                                                br $B947
+                                                br $B1047
                                             )
-                                            (block $B957
+                                            (block $B1057
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B957
+                                                br_if $B1057
                                                 global.get $GT_6_9
                                                 global.set $GA_6_9
-                                                br $B947
+                                                br $B1047
                                             )
                                         )
                                         local.get $Ij
@@ -8789,123 +9790,123 @@
                                         br $L30
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B958
+                            (block $B1058
                                 local.get $Ii
                                 i32.const 7
                                 i32.eq
                                 i32.eqz
-                                br_if $B958
+                                br_if $B1058
                                 i32.const 0
                                 local.set $Ij
-                                (block $B959
+                                (block $B1059
                                     (loop $L31
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B959
-                                        (block $B960
-                                            (block $B961
+                                        br_if $B1059
+                                        (block $B1060
+                                            (block $B1061
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B961
+                                                br_if $B1061
                                                 global.get $GT_7_0
                                                 global.set $GA_7_0
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B962
+                                            (block $B1062
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B962
+                                                br_if $B1062
                                                 global.get $GT_7_1
                                                 global.set $GA_7_1
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B963
+                                            (block $B1063
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B963
+                                                br_if $B1063
                                                 global.get $GT_7_2
                                                 global.set $GA_7_2
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B964
+                                            (block $B1064
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B964
+                                                br_if $B1064
                                                 global.get $GT_7_3
                                                 global.set $GA_7_3
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B965
+                                            (block $B1065
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B965
+                                                br_if $B1065
                                                 global.get $GT_7_4
                                                 global.set $GA_7_4
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B966
+                                            (block $B1066
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B966
+                                                br_if $B1066
                                                 global.get $GT_7_5
                                                 global.set $GA_7_5
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B967
+                                            (block $B1067
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B967
+                                                br_if $B1067
                                                 global.get $GT_7_6
                                                 global.set $GA_7_6
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B968
+                                            (block $B1068
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B968
+                                                br_if $B1068
                                                 global.get $GT_7_7
                                                 global.set $GA_7_7
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B969
+                                            (block $B1069
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B969
+                                                br_if $B1069
                                                 global.get $GT_7_8
                                                 global.set $GA_7_8
-                                                br $B960
+                                                br $B1060
                                             )
-                                            (block $B970
+                                            (block $B1070
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B970
+                                                br_if $B1070
                                                 global.get $GT_7_9
                                                 global.set $GA_7_9
-                                                br $B960
+                                                br $B1060
                                             )
                                         )
                                         local.get $Ij
@@ -8915,123 +9916,123 @@
                                         br $L31
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B971
+                            (block $B1071
                                 local.get $Ii
                                 i32.const 8
                                 i32.eq
                                 i32.eqz
-                                br_if $B971
+                                br_if $B1071
                                 i32.const 0
                                 local.set $Ij
-                                (block $B972
+                                (block $B1072
                                     (loop $L32
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B972
-                                        (block $B973
-                                            (block $B974
+                                        br_if $B1072
+                                        (block $B1073
+                                            (block $B1074
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B974
+                                                br_if $B1074
                                                 global.get $GT_8_0
                                                 global.set $GA_8_0
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B975
+                                            (block $B1075
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B975
+                                                br_if $B1075
                                                 global.get $GT_8_1
                                                 global.set $GA_8_1
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B976
+                                            (block $B1076
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B976
+                                                br_if $B1076
                                                 global.get $GT_8_2
                                                 global.set $GA_8_2
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B977
+                                            (block $B1077
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B977
+                                                br_if $B1077
                                                 global.get $GT_8_3
                                                 global.set $GA_8_3
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B978
+                                            (block $B1078
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B978
+                                                br_if $B1078
                                                 global.get $GT_8_4
                                                 global.set $GA_8_4
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B979
+                                            (block $B1079
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B979
+                                                br_if $B1079
                                                 global.get $GT_8_5
                                                 global.set $GA_8_5
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B980
+                                            (block $B1080
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B980
+                                                br_if $B1080
                                                 global.get $GT_8_6
                                                 global.set $GA_8_6
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B981
+                                            (block $B1081
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B981
+                                                br_if $B1081
                                                 global.get $GT_8_7
                                                 global.set $GA_8_7
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B982
+                                            (block $B1082
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B982
+                                                br_if $B1082
                                                 global.get $GT_8_8
                                                 global.set $GA_8_8
-                                                br $B973
+                                                br $B1073
                                             )
-                                            (block $B983
+                                            (block $B1083
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B983
+                                                br_if $B1083
                                                 global.get $GT_8_9
                                                 global.set $GA_8_9
-                                                br $B973
+                                                br $B1073
                                             )
                                         )
                                         local.get $Ij
@@ -9041,123 +10042,123 @@
                                         br $L32
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
-                            (block $B984
+                            (block $B1084
                                 local.get $Ii
                                 i32.const 9
                                 i32.eq
                                 i32.eqz
-                                br_if $B984
+                                br_if $B1084
                                 i32.const 0
                                 local.set $Ij
-                                (block $B985
+                                (block $B1085
                                     (loop $L33
                                         local.get $Ij
                                         i32.const 9
                                         i32.le_s
                                         i32.eqz
-                                        br_if $B985
-                                        (block $B986
-                                            (block $B987
+                                        br_if $B1085
+                                        (block $B1086
+                                            (block $B1087
                                                 local.get $Ij
                                                 i32.const 0
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B987
+                                                br_if $B1087
                                                 global.get $GT_9_0
                                                 global.set $GA_9_0
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B988
+                                            (block $B1088
                                                 local.get $Ij
                                                 i32.const 1
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B988
+                                                br_if $B1088
                                                 global.get $GT_9_1
                                                 global.set $GA_9_1
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B989
+                                            (block $B1089
                                                 local.get $Ij
                                                 i32.const 2
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B989
+                                                br_if $B1089
                                                 global.get $GT_9_2
                                                 global.set $GA_9_2
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B990
+                                            (block $B1090
                                                 local.get $Ij
                                                 i32.const 3
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B990
+                                                br_if $B1090
                                                 global.get $GT_9_3
                                                 global.set $GA_9_3
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B991
+                                            (block $B1091
                                                 local.get $Ij
                                                 i32.const 4
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B991
+                                                br_if $B1091
                                                 global.get $GT_9_4
                                                 global.set $GA_9_4
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B992
+                                            (block $B1092
                                                 local.get $Ij
                                                 i32.const 5
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B992
+                                                br_if $B1092
                                                 global.get $GT_9_5
                                                 global.set $GA_9_5
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B993
+                                            (block $B1093
                                                 local.get $Ij
                                                 i32.const 6
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B993
+                                                br_if $B1093
                                                 global.get $GT_9_6
                                                 global.set $GA_9_6
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B994
+                                            (block $B1094
                                                 local.get $Ij
                                                 i32.const 7
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B994
+                                                br_if $B1094
                                                 global.get $GT_9_7
                                                 global.set $GA_9_7
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B995
+                                            (block $B1095
                                                 local.get $Ij
                                                 i32.const 8
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B995
+                                                br_if $B1095
                                                 global.get $GT_9_8
                                                 global.set $GA_9_8
-                                                br $B986
+                                                br $B1086
                                             )
-                                            (block $B996
+                                            (block $B1096
                                                 local.get $Ij
                                                 i32.const 9
                                                 i32.eq
                                                 i32.eqz
-                                                br_if $B996
+                                                br_if $B1096
                                                 global.get $GT_9_9
                                                 global.set $GA_9_9
-                                                br $B986
+                                                br $B1086
                                             )
                                         )
                                         local.get $Ij
@@ -9167,7 +10168,7 @@
                                         br $L33
                                     )
                                 )
-                                br $B866
+                                br $B966
                             )
                         )
                         local.get $Ii
@@ -9189,6 +10190,7 @@
     )
     (func $neighbours  (param $Iy i32)  (param $Ix i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $In i32)
         i32.const 0
         local.set $In
@@ -18901,6 +19903,7 @@
     )
     (func $printboard  (param $Igen i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii i32)
         (local $Ij i32)
         i32.const 11
@@ -20495,6 +21498,7 @@
     )
     (func $morerandom (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         call $INTERNALrandom
         local.set $T0
         local.get $T0
@@ -20508,11 +21512,13 @@
     )
     (func $INTERNALseed  (param $Iseed i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Iseed
         global.set $GINTERNALX
     )
     (func $INTERNALrandom (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 17
         global.get $GINTERNALX
         i32.mul

@@ -127,6 +127,7 @@
     (global $Gd (mut i32) (i32.const 0))
     (func $foo  (param $Ia i32)  (param $Ib i32)  (param $Ic i32)  (param $Id i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Ia
         local.get $Ib
         i32.mul
@@ -140,6 +141,7 @@
     )
     (func $bar  (param $Ia i32)  (param $Ib i32)  (param $Ic i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Ia
         local.get $Ib
         local.get $Ic
@@ -155,6 +157,7 @@
     )
     (func $baz  (param $Ia i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         global.get $Gd
         i32.const 1
         i32.add
@@ -166,6 +169,7 @@
     )
     (func $mane        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 10
         global.set $Gd
         i32.const 1

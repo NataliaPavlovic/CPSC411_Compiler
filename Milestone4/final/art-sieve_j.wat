@@ -229,6 +229,7 @@
     (global $GINTERNALX (mut i32) (i32.const 0))
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii i32)
         (local $Ij i32)
         (local $In i32)
@@ -5056,11 +5057,13 @@
     )
     (func $INTERNALseed  (param $Iseed i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Iseed
         global.set $GINTERNALX
     )
     (func $INTERNALrandom (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 17
         global.get $GINTERNALX
         i32.mul

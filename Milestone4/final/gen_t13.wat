@@ -127,6 +127,7 @@
     (global $GNL (mut i32) (i32.const 0))
     (func $reverse        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ic i32)
         call $getchar
         local.set $T0
@@ -145,6 +146,7 @@
     )
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 10
         global.set $GNL
         call $reverse

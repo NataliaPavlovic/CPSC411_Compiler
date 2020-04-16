@@ -128,6 +128,7 @@
     (global $Gk (mut i32) (i32.const 0))
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ij i32)
         (local $INL i32)
         i32.const 123
@@ -138,7 +139,9 @@
         global.set $Gk
         i32.const 42
         global.set $Gk
+        global.get $Gk
         local.set $Ij
+        local.get $Ij
         global.set $Gi
         i32.const 10
         local.set $INL

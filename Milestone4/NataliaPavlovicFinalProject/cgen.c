@@ -632,6 +632,8 @@ static void genExp( TreeNode * tree, int output)
           cGen(tree->child[0], output);
           if (output)
           {
+            emitRM("local.set $T1", indentation, NULL, 1);
+            emitRM("local.get $T1", indentation, NULL, 1);       
             emitRM("i32.const 1", indentation, NULL, 1);
             emitRM("i32.eq", indentation, NULL, 1);   
             emitNumberedLabel("br_if $B", indentation, tree->logic_block, NULL, 1);                                         

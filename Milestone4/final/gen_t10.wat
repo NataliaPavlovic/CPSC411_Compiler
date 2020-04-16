@@ -126,6 +126,7 @@
 ;; End of standard prelude.
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii i32)
         i32.const 0
         local.set $Ii
@@ -162,6 +163,7 @@
     )
     (func $fib  (param $In i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             local.get $In
             i32.const 0

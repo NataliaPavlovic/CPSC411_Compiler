@@ -153,11 +153,13 @@
     (global $GASCII_NL (mut i32) (i32.const 0))
     (func $calculator        
         (local $T0 i32)
+        (local $T1 i32)
         call $init
         call $parser
     )
     (func $getc (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             global.get $G_havechar
             i32.eqz
@@ -176,6 +178,7 @@
     )
     (func $ungetc  (param $Ich i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             global.get $G_havechar
             i32.eqz
@@ -192,6 +195,7 @@
     )
     (func $peek (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             global.get $G_havetoken
             i32.eqz
@@ -212,6 +216,7 @@
     )
     (func $match  (param $Iexpect i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             call $peek
             local.set $T0
@@ -235,6 +240,7 @@
     )
     (func $scanner (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ich i32)
         (block $B0
             (loop $L0
@@ -369,36 +375,68 @@
     )
     (func $isdigit  (param $Ich i32) (result i32)        
         (local $T0 i32)
-        local.get $Ich
-        global.get $GASCII_0
-        i32.ge_s
-        local.get $Ich
-        global.get $GASCII_9
-        i32.le_s
-        i32.and
+        (local $T1 i32)
+        (block $B0
+            local.get $Ich
+            global.get $GASCII_0
+            i32.ge_s
+            local.set $T1
+            local.get $T1
+            i32.eqz
+            br_if $B0
+            local.get $T1
+            local.get $Ich
+            global.get $GASCII_9
+            i32.le_s
+            i32.and
+            local.set $T1
+        )
+        local.get $T1
         return
         i32.const -1
         return
     )
     (func $isspace  (param $Ich i32) (result i32)        
         (local $T0 i32)
-        local.get $Ich
-        global.get $GASCII_SPACE
-        i32.eq
-        local.get $Ich
-        global.get $GASCII_TAB
-        i32.eq
-        i32.or
-        local.get $Ich
-        global.get $GASCII_CR
-        i32.eq
-        i32.or
+        (local $T1 i32)
+        (block $B0
+            (block $B1
+                local.get $Ich
+                global.get $GASCII_SPACE
+                i32.eq
+                local.set $T1
+                local.get $T1
+                i32.const 1
+                i32.eq
+                br_if $B1
+                local.get $T1
+                local.get $Ich
+                global.get $GASCII_TAB
+                i32.eq
+                i32.or
+                local.set $T1
+            )
+            local.get $T1
+            local.set $T1
+            local.get $T1
+            i32.const 1
+            i32.eq
+            br_if $B0
+            local.get $T1
+            local.get $Ich
+            global.get $GASCII_CR
+            i32.eq
+            i32.or
+            local.set $T1
+        )
+        local.get $T1
         return
         i32.const -1
         return
     )
     (func $parser        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Iresult i32)
         (block $B0
             (loop $L0
@@ -429,6 +467,7 @@
     )
     (func $E (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Il i32)
         (local $Ir i32)
         (local $Itoken i32)
@@ -438,17 +477,27 @@
         local.set $Il
         (block $B0
             (loop $L0
-                call $peek
-                local.set $T0
-                local.get $T0
-                global.get $GTK_ADD
-                i32.eq
-                call $peek
-                local.set $T0
-                local.get $T0
-                global.get $GTK_SUB
-                i32.eq
-                i32.or
+                (block $B1
+                    call $peek
+                    local.set $T0
+                    local.get $T0
+                    global.get $GTK_ADD
+                    i32.eq
+                    local.set $T1
+                    local.get $T1
+                    i32.const 1
+                    i32.eq
+                    br_if $B1
+                    local.get $T1
+                    call $peek
+                    local.set $T0
+                    local.get $T0
+                    global.get $GTK_SUB
+                    i32.eq
+                    i32.or
+                    local.set $T1
+                )
+                local.get $T1
                 i32.eqz
                 br_if $B0
                 call $peek
@@ -461,18 +510,18 @@
                 local.set $T0
                 local.get $T0
                 local.set $Ir
-                (block $B1
-                    (block $B2
+                (block $B2
+                    (block $B3
                         local.get $Itoken
                         global.get $GTK_ADD
                         i32.eq
                         i32.eqz
-                        br_if $B2
+                        br_if $B3
                         local.get $Il
                         local.get $Ir
                         i32.add
                         local.set $Il
-                        br $B1
+                        br $B2
                     )
                     local.get $Il
                     local.get $Ir
@@ -489,6 +538,7 @@
     )
     (func $T (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Il i32)
         (local $Ir i32)
         (local $Itoken i32)
@@ -498,17 +548,27 @@
         local.set $Il
         (block $B0
             (loop $L0
-                call $peek
-                local.set $T0
-                local.get $T0
-                global.get $GTK_MUL
-                i32.eq
-                call $peek
-                local.set $T0
-                local.get $T0
-                global.get $GTK_DIV
-                i32.eq
-                i32.or
+                (block $B1
+                    call $peek
+                    local.set $T0
+                    local.get $T0
+                    global.get $GTK_MUL
+                    i32.eq
+                    local.set $T1
+                    local.get $T1
+                    i32.const 1
+                    i32.eq
+                    br_if $B1
+                    local.get $T1
+                    call $peek
+                    local.set $T0
+                    local.get $T0
+                    global.get $GTK_DIV
+                    i32.eq
+                    i32.or
+                    local.set $T1
+                )
+                local.get $T1
                 i32.eqz
                 br_if $B0
                 call $peek
@@ -521,18 +581,18 @@
                 local.set $T0
                 local.get $T0
                 local.set $Ir
-                (block $B1
-                    (block $B2
+                (block $B2
+                    (block $B3
                         local.get $Itoken
                         global.get $GTK_MUL
                         i32.eq
                         i32.eqz
-                        br_if $B2
+                        br_if $B3
                         local.get $Il
                         local.get $Ir
                         i32.mul
                         local.set $Il
-                        br $B1
+                        br $B2
                     )
                     local.get $Il
                     local.get $Ir
@@ -549,6 +609,7 @@
     )
     (func $F (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Iresult i32)
         (local $Itoken i32)
         call $peek
@@ -612,6 +673,7 @@
     )
     (func $init        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 0
         i32.const 1
         i32.sub

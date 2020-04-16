@@ -129,6 +129,7 @@
     (global $Gc (mut i32) (i32.const 0))
     (func $A (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 11
         i32.const 13
         call $prints
@@ -139,6 +140,7 @@
     )
     (func $B (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 28
         i32.const 13
         call $prints
@@ -149,6 +151,7 @@
     )
     (func $C (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 45
         i32.const 13
         call $prints
@@ -159,6 +162,7 @@
     )
     (func $eval  (param $Inewa i32)  (param $In00b i32)  (param $Inewc i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Inewa
         global.set $Ga
         local.get $In00b
@@ -185,17 +189,36 @@
         call $prints
         (block $B0
             (block $B1
-                call $A
-                local.set $T0
-                local.get $T0
-                call $B
-                local.set $T0
-                local.get $T0
-                i32.and
-                call $C
-                local.set $T0
-                local.get $T0
-                i32.or
+                (block $B2
+                    (block $B3
+                        call $A
+                        local.set $T0
+                        local.get $T0
+                        local.set $T1
+                        local.get $T1
+                        i32.eqz
+                        br_if $B3
+                        local.get $T1
+                        call $B
+                        local.set $T0
+                        local.get $T0
+                        i32.and
+                        local.set $T1
+                    )
+                    local.get $T1
+                    local.set $T1
+                    local.get $T1
+                    i32.const 1
+                    i32.eq
+                    br_if $B2
+                    local.get $T1
+                    call $C
+                    local.set $T0
+                    local.get $T0
+                    i32.or
+                    local.set $T1
+                )
+                local.get $T1
                 i32.eqz
                 br_if $B1
                 i32.const 130
@@ -210,6 +233,7 @@
     )
     (func $assign  (param $Inewa i32)  (param $Inewb i32)  (param $Inewc i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ix i32)
         local.get $Inewa
         global.set $Ga
@@ -235,19 +259,38 @@
         i32.const 221
         i32.const 2
         call $prints
-        call $A
-        local.set $T0
-        local.get $T0
-        call $B
-        local.set $T0
-        local.get $T0
-        i32.const 1
-        i32.xor
-        i32.and
-        call $C
-        local.set $T0
-        local.get $T0
-        i32.or
+        (block $B0
+            (block $B1
+                call $A
+                local.set $T0
+                local.get $T0
+                local.set $T1
+                local.get $T1
+                i32.eqz
+                br_if $B1
+                local.get $T1
+                call $B
+                local.set $T0
+                local.get $T0
+                i32.const 1
+                i32.xor
+                i32.and
+                local.set $T1
+            )
+            local.get $T1
+            local.set $T1
+            local.get $T1
+            i32.const 1
+            i32.eq
+            br_if $B0
+            local.get $T1
+            call $C
+            local.set $T0
+            local.get $T0
+            i32.or
+            local.set $T1
+        )
+        local.get $T1
         local.set $Ix
         i32.const 227
         i32.const 2
@@ -260,6 +303,7 @@
     )
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 0
         i32.const 0
         i32.const 0

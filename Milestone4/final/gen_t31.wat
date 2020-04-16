@@ -128,6 +128,7 @@
     (global $Gi (mut i32) (i32.const 0))
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 12
         global.set $Gj
         call $foo
@@ -140,6 +141,7 @@
     )
     (func $foo        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 2
         global.set $Gi
     )

@@ -126,6 +126,7 @@
 ;; End of standard prelude.
     (func $foo  (param $Ix i32) (result i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             local.get $Ix
             local.get $Ix
@@ -142,6 +143,7 @@
     )
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 0
         i32.const 1
         i32.sub

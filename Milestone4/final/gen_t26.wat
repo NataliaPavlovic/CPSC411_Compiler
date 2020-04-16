@@ -126,6 +126,7 @@
 ;; End of standard prelude.
     (func $convert  (param $In i32)  (param $Ibase i32)        
         (local $T0 i32)
+        (local $T1 i32)
         (block $B0
             local.get $In
             i32.const 0
@@ -148,6 +149,7 @@
     )
     (func $do  (param $Ii i32)        
         (local $T0 i32)
+        (local $T1 i32)
         local.get $Ii
         call $printi
         i32.const 11
@@ -183,6 +185,7 @@
     )
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 0
         call $do
         i32.const 17

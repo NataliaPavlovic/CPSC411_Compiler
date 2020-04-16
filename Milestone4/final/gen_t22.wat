@@ -126,6 +126,7 @@
 ;; End of standard prelude.
     (func $foo        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 11
         i32.const 4
         call $prints

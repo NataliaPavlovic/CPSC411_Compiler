@@ -128,6 +128,7 @@
     (global $Gb1 (mut i32) (i32.const 0))
     (func $foo        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii2 i32)
         (local $Ib2 i32)
         i32.const 11
@@ -156,6 +157,7 @@
     )
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         i32.const 138
         i32.const 26
         call $prints

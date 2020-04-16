@@ -126,6 +126,7 @@
 ;; End of standard prelude.
     (func $main        
         (local $T0 i32)
+        (local $T1 i32)
         (local $Ii i32)
         (block $B0
             (loop $L0
