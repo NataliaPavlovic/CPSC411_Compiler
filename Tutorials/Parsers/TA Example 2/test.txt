@@ -1,6 +1,0 @@
-int x;
-void y;
-int list[2];
-int new[6];
-int yeeeeboi[1];
-int no[1];

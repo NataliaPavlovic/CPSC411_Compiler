@@ -1,0 +1,28 @@
+int i1;
+boolean b1;
+
+void foo() {
+	int i2;
+	boolean b2;
+
+	prints("\n(it's ok if the following aren't 0/false)\n");
+
+	prints("\tlocal int default value: ");		printi(i2);
+	prints("\n");
+	prints("\tlocal boolean default value: ");	printb(b2);
+	prints("\n");
+
+	// mess up stack a bit
+	i2 = 123;
+	b2 = true;
+}
+
+main() {
+	prints("global int default value: ");		printi(i1);
+	prints("\n");
+	prints("global boolean default value: ");	printb(b1);
+	prints("\n");
+
+	foo();
+	foo();
+}
