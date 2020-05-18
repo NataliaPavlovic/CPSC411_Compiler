@@ -1,4 +1,4 @@
-Folder contains 4 milestones for my compiler. 
+#### Folder contains 4 milestones for my compiler. 
 
 Milestone 1: Scanner
 
