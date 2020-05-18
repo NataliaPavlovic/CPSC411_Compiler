@@ -20,7 +20,7 @@ All the generated WAT files can be found here: [WAT Files](https://github.com/Na
 <details><summary>gen.t1</summary>
 <p>
 
-This test case makes use of the prints run-time function, and outputs a string.
+This test case makes use of the `prints` run-time function, and outputs a string.
 
 Provided J-- File: [gen.t1](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t1)
 
@@ -33,13 +33,35 @@ Hello, world!
 </p>
 </details>
 
-```
-gen_t5.wasm output **************************************
-42
-42
-42
+<details><summary>gen.t5</summary>
+<p>
+	
+Add Description.
 
-gen_t10.wasm output **************************************
+Provided J-- File: [gen.t5](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t5)
+
+Generated WAT File: [gen_t5.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t5.wat)
+
+##### gen_t5.wasm output:
+```
+42
+42
+42
+```
+</p>
+</details>
+
+<details><summary>gen.t10</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t10](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t10)
+
+Generated WAT File: [gen_t10.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t10.wat)
+
+##### gen_t10.wasm output:
+```
 fib(0) = 0
 fib(1) = 1
 fib(2) = 1
@@ -76,8 +98,21 @@ fib(32) = 2178309
 fib(33) = 3524578
 fib(34) = 5702887
 ^C
+```
+</p>
+</details>
 
-gen_t11.wasm output **************************************
+<details><summary>gen.t11</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t11](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t11)
+
+Generated WAT File: [gen_t11.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t11.wat)
+
+##### gen_t11.wasm output:
+```
 global int default value: 0
 global boolean default value: false
 
@@ -88,8 +123,21 @@ global boolean default value: false
 (it's ok if the following aren't 0/false)
 	local int default value: 0
 	local boolean default value: false
+```
+</p>
+</details>
 
-gen_t12.wasm output **************************************
+<details><summary>gen.t12</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t12](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t12)
+
+Generated WAT File: [gen_t12.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t12.wat)
+
+##### gen_t12.wasm output:
+```
 fib(0) = 0
 fib(1) = 1
 fib(2) = 1
@@ -137,20 +185,73 @@ fib(43) = 433494437
 fib(44) = 701408733
 fib(45) = 1134903170
 fib(46) = 1836311903
+```
+</p>
+</details>
 
-gen_t13.wasm output **************************************
+<details><summary>gen.t13</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t13](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t13)
+
+Generated WAT File: [gen_t13.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t13.wat)
+
+##### gen_t13.wasm output:
+```
 123456789ABC
 CBA987654321
-gen_t14.wasm output **************************************
-minint is -2147483648
+```
+</p>
+</details>
 
-gen_t15.wasm output **************************************
+<details><summary>gen.t14</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t14](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t14)
+
+Generated WAT File: [gen_t14.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t14.wat)
+
+##### gen_t14.wasm output:
+```
+minint is -2147483648
+```
+</p>
+</details>
+
+<details><summary>gen.t15</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t15](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t15)
+
+Generated WAT File: [gen_t15.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t15.wat)
+
+##### gen_t15.wasm output:
+```
 -123
 -2147483648
 -2147483648
 -2147483648
+```
+</p>
+</details>
 
-gen_t18.wasm output **************************************
+<details><summary>gen.t18</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t18](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t18)
+
+Generated WAT File: [gen_t18.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t18.wat)
+
+##### gen_t18.wasm output:
+```
 1+2
  = 3
 12345*-98
@@ -161,12 +262,39 @@ gen_t18.wasm output **************************************
  = 2
 
 Error: expected factor.
+```
+</p>
+</details>
 
-gen_t22.wasm output **************************************
+<details><summary>gen.t22</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t22](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t22)
+
+Generated WAT File: [gen_t22.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t22.wat)
+
+##### gen_t22.wasm output:
+```
 asdf	
 
 "'\ asdf
-gen_t26.wasm output **************************************
+```
+</p>
+</details>
+
+<details><summary>gen.t26</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t26](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t26)
+
+Generated WAT File: [gen_t26.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t26.wat)
+
+##### gen_t26.wasm output:
+```
 0 = 
 	0 (base 2)
 	0 (base 8)
@@ -179,8 +307,21 @@ gen_t26.wasm output **************************************
 	0101010 (base 2)
 	052 (base 8)
 	042 (base 10)
+```
+</p>
+</details>
 
-gen_t29.wasm output **************************************
+<details><summary>gen.t29</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t29](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t29)
+
+Generated WAT File: [gen_t29.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t29.wat)
+
+##### gen_t29.wasm output:
+```
 if ((A && B) || C) {...} else {...}, with A=false B=false C=false
 evaluated A
 evaluated C
@@ -264,13 +405,49 @@ evaluated A
 evaluated B
 evaluated C
 x=true
+```
+</p>
+</details>
 
-gen_t30.wasm output **************************************
+<details><summary>gen.t30</summary>
+<p>
 
-gen_t31.wasm output **************************************
+Add Description.
+
+Provided J-- File: [gen.t30](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t30)
+
+Generated WAT File: [gen_t30.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t30.wat)
+
+</p>
+</details>
+
+<details><summary>gen.t31</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t31](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t31)
+
+Generated WAT File: [gen_t31.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t31.wat)
+
+##### gen_t31.wasm output:
+```
 error initialiazing module: integer divide by zero
+```
+</p>
+</details>
 
-gen_t32.wasm output **************************************
+<details><summary>gen.t32</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t32](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t32)
+
+Generated WAT File: [gen_t32.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t32.wat)
+
+##### gen_t32.wasm output:
+```
 0
 100
 101
@@ -313,8 +490,21 @@ gen_t32.wasm output **************************************
 103
 104
 105
+```
+</p>
+</details>
 
-gen_t33.wasm output **************************************
+<details><summary>gen.t33</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t33](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t33)
+
+Generated WAT File: [gen_t33.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t33.wat)
+
+##### gen_t33.wasm output:
+```
 Test String
 Test String
 12345
@@ -323,11 +513,37 @@ A
 A
 ()_OP:
 ()_OP:
+```
+</p>
+</details>
 
-gen_t34.wasm output **************************************
+<details><summary>gen.t34</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [gen.t34](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t34)
+
+Generated WAT File: [gen_t34.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t34.wat)
+
+##### gen_t34.wasm output:
+```
 2903040
+```
+</p>
+</details>
 
-art-life_j.wasm output **************************************
+<details><summary>art-life.j--</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [art-life.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-life.j--)
+
+Generated WAT File: [art-life_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/art-life_j.wat)
+
+##### art-life_j.wasm output:
+```
 Generation 1:
 0 1 1 1 0 1 0 0 0 0 
 0 0 0 0 0 0 1 0 0 0 
@@ -437,9 +653,22 @@ Generation 10:
 0 1 0 0 1 0 0 0 0 0 
 0 1 0 0 0 0 0 0 0 0 
 0 1 1 1 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0
+```
+</p>
+</details>
 
-art-select_j.wasm output **************************************
+<details><summary>art-select.j--</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [art-select.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-select.j--)
+
+Generated WAT File: [art-select_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/art-select_j.wat)
+
+##### art-select_j.wasm output:
+```
 30 23 4 9 86 63 48 61 98 39 8 73 18 35 0 
 0 23 4 9 86 63 48 61 98 39 8 73 18 35 30 
 0 4 23 9 86 63 48 61 98 39 8 73 18 35 30 
@@ -454,9 +683,22 @@ art-select_j.wasm output **************************************
 0 4 8 9 18 23 30 35 39 48 61 73 86 63 98 
 0 4 8 9 18 23 30 35 39 48 61 63 86 73 98 
 0 4 8 9 18 23 30 35 39 48 61 63 73 86 98 
-0 4 8 9 18 23 30 35 39 48 61 63 73 86 98 
+0 4 8 9 18 23 30 35 39 48 61 63 73 86 98
+```
+</p>
+</details>
 
-art-sieve_j.wasm output **************************************
+<details><summary>art-sieve.j--</summary>
+<p>
+
+Add Description.
+
+Provided J-- File: [art-sieve.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-sieve.j--)
+
+Generated WAT File: [art-sieve_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/art-sieve_j.wat)
+
+##### art-sieve_j.wasm output:
+```
 2
 3
 5
@@ -484,3 +726,5 @@ art-sieve_j.wasm output **************************************
 97
 25 prime numbers <= 100
 ```
+</p>
+</details>
