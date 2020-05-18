@@ -1,6 +1,8 @@
+# J-- Compiler
+
 This project is a J-- (subset of Java) compiler written in C, that compiles J-- into WebAssembly Text Format (WAT).
 
-There are 4 parts to the compiler:
+#### There are 4 parts to the compiler:
 1. Scanner (Flex)
 2. Parser (Bison)
 3. Semantic Checker
@@ -10,7 +12,7 @@ See the full J-- specification here: https://pages.cpsc.ucalgary.ca/~aycock/411/
 
 When the compiler is run, it generates WAT files from J-- files. WASM files are then generated from the WAT files, and then the WASM files are run.
 
-WASM file outputs:
+#### WASM file outputs:
 
 ```
 gen_t1.wasm output **************************************
