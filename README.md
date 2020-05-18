@@ -2,22 +2,34 @@
 
 This project is a J-- (subset of Java) compiler written in C, that compiles J-- into WebAssembly Text Format (WAT).
 
+See the full J-- specification here: https://pages.cpsc.ucalgary.ca/~aycock/411/spec.html
+
 #### There are 4 parts to the compiler:
 1. Scanner (Flex)
 2. Parser (Bison)
 3. Semantic Checker
 4. Code Generation
 
-See the full J-- specification here: https://pages.cpsc.ucalgary.ca/~aycock/411/spec.html
-
 When the compiler is run, it generates WAT files from J-- files. WASM files are then generated from the WAT files, and then the WASM files are run.
 
-#### WASM file outputs:
+#### Test Cases:
+<details><summary>gen.t1</summary>
+<p>
+
+This test case makes use of the prints run-time function, and outputs a string.
+
+Provided J-- File: [gen.t1](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t1)
+
+Generated WAT File: [gen_t1.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t1.wat)
+
+##### gen_t1.wasm output:
+```
+Hello, world!
+```
+</p>
+</details>
 
 ```
-gen_t1.wasm output **************************************
-Hello, world!
-
 gen_t5.wasm output **************************************
 42
 42
