@@ -12,6 +12,10 @@ See the full J-- specification here: https://pages.cpsc.ucalgary.ca/~aycock/411/
 
 When the compiler is run, it generates WAT files from J-- files. WASM files are then generated from the WAT files, and then the WASM files are run.
 
+All the provided J-- test cases can found here: [J-- Files](https://github.com/NataliaPavlovic/CPSC411_Compiler/tree/master/J--%20Test%20Files)
+
+All the generated WAT files can be found here: [WAT Files](https://github.com/NataliaPavlovic/CPSC411_Compiler/tree/master/Generated%20Files/WAT%20Files)
+
 #### Test Cases:
 <details><summary>gen.t1</summary>
 <p>
