@@ -540,7 +540,8 @@ Generated WAT File: [gen_t34.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 <details><summary>art-life.j--</summary>
 <p>
 
-Add Description.
+This test case generates a 10x10 pseudorandom binary matrix for the first generation. The other nine generations
+are determined based on the rules for Conway's Game of Life: https://www.geeksforgeeks.org/program-for-conways-game-of-life/
 
 Provided J-- File: [art-life.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-life.j--)
 
