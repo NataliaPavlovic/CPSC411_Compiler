@@ -665,7 +665,7 @@ Generation 10:
 <details><summary>art-select.j--</summary>
 <p>
 
-Add Description.
+This test case generates 15 pseudorandom numbers and then sorts the numbers from smallest to largest using a selection sort algorithm. The steps to sort the numbers are printed out.
 
 Provided J-- File: [art-select.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-select.j--)
 
