@@ -36,7 +36,7 @@ Hello, world!
 <details><summary>gen.t5</summary>
 <p>
 	
-Add Description.
+This test case assigns a value of 42 to 3 variables using `i = j = k = 42`. It then uses the `printi` and `printc` run-time functions to print these variables and a new line character (ASCII new line is 10 Dec).
 
 Provided J-- File: [gen.t5](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t5)
 
@@ -54,7 +54,9 @@ Generated WAT File: [gen_t5.wat](https://github.com/NataliaPavlovic/CPSC411_Comp
 <details><summary>gen.t10</summary>
 <p>
 
-Add Description.
+This test case uses the `prints` and `printi` run-time functions to output formatted versions of the first 46 Fibonacci numbers. The Fibonacci numbers are calculated recursively. 
+
+The test case was stopped before it could fully complete because it takes a very long time to calculate the larger numbers.
 
 Provided J-- File: [gen.t10](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t10)
 
@@ -105,7 +107,7 @@ fib(34) = 5702887
 <details><summary>gen.t11</summary>
 <p>
 
-Add Description.
+This test case outputs an both a local and a global uninitialized integer and boolean using the `printi` and `printb` run-time functions.
 
 Provided J-- File: [gen.t11](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t11)
 
@@ -130,7 +132,7 @@ global boolean default value: false
 <details><summary>gen.t12</summary>
 <p>
 
-Add Description.
+This test case uses the `prints` and `printi` run-time functions to output formatted versions of the first 46 Fibonacci numbers. The Fibonacci numbers are calculated in a loop.
 
 Provided J-- File: [gen.t12](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t12)
 
@@ -192,7 +194,7 @@ fib(46) = 1836311903
 <details><summary>gen.t13</summary>
 <p>
 
-Add Description.
+This test case uses the `getchar` run-time function to read in a character entered by the user. The function that makes the call to read a character is called recursively, and characters will continue to be read until a new line character is read. After that, the characters are printed using the `printc` run-time function, and will be printed in reverse order from how they were entered due.
 
 Provided J-- File: [gen.t13](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t13)
 
@@ -209,7 +211,7 @@ CBA987654321
 <details><summary>gen.t14</summary>
 <p>
 
-Add Description.
+This test case uses the `printi` run-time function to output the minimum value of a 32-bit signed integer.
 
 Provided J-- File: [gen.t14](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t14)
 
@@ -225,7 +227,7 @@ minint is -2147483648
 <details><summary>gen.t15</summary>
 <p>
 
-Add Description.
+This test case uses the `printi` run-time function to print the value of four negative numbers. Some of the numbers have multiple negative signs in front of them, which is just interpreted as a negative number in J--.
 
 Provided J-- File: [gen.t15](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t15)
 
@@ -244,7 +246,7 @@ Generated WAT File: [gen_t15.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 <details><summary>gen.t18</summary>
 <p>
 
-Add Description.
+This test case implements a recursive-descent calculator that includes a simple scanner and parser. When the code is running, the scanner detects the type of character that was entered and the parser matches various simple expressions, evaluates them and prints their result.
 
 Provided J-- File: [gen.t18](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t18)
 
@@ -269,7 +271,7 @@ Error: expected factor.
 <details><summary>gen.t22</summary>
 <p>
 
-Add Description.
+This test case uses the `prints` run-time function to output strings that includes escape characters and a NUL character.
 
 Provided J-- File: [gen.t22](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t22)
 
@@ -287,7 +289,7 @@ asdf
 <details><summary>gen.t26</summary>
 <p>
 
-Add Description.
+This test case uses the `prints` run-time function to output three base 10 numbers in base 2, base 8 and base 10.
 
 Provided J-- File: [gen.t26](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t26)
 
@@ -314,7 +316,7 @@ Generated WAT File: [gen_t26.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 <details><summary>gen.t29</summary>
 <p>
 
-Add Description.
+This test case evaluates boolean expressions and prints out which portion of the expression was evaluated. For example, if the boolean expression is `(A() && B()) || C()` and `A()` is false, then `B()` does not need to be evaluated because that portion of the expression is already known to be false. In this case, only `A()` and `C()` will need to be evaluated.
 
 Provided J-- File: [gen.t29](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t29)
 
@@ -412,7 +414,9 @@ x=true
 <details><summary>gen.t30</summary>
 <p>
 
-Add Description.
+This test case does not output anything, and it has no return statement outside the if statement even though the function is supposed to return an integer. 
+
+I assumed that all the test cases were supposed to work, so I added a return -1 to the end of the function and generated the code this way. This test case may have a mistake in it (missing return statement), or maybe an exception was supposed to be raised and code generation was not even supposed to happen because the code is incorrect.
 
 Provided J-- File: [gen.t30](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t30)
 
@@ -424,7 +428,7 @@ Generated WAT File: [gen_t30.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 <details><summary>gen.t31</summary>
 <p>
 
-Add Description.
+This test case tries to use the `printi` run-time function to output the result of division by zero. The error is detected and output.
 
 Provided J-- File: [gen.t31](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t31)
 
@@ -440,7 +444,7 @@ error initialiazing module: integer divide by zero
 <details><summary>gen.t32</summary>
 <p>
 
-Add Description.
+This test case uses two nested loops to output numbers between 0 to 5 in the outer loop and 100 to 105 in the inner loop.
 
 Provided J-- File: [gen.t32](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t32)
 
@@ -497,7 +501,7 @@ Generated WAT File: [gen_t32.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 <details><summary>gen.t33</summary>
 <p>
 
-Add Description.
+This test case uses the `getchar` run-time function to read in characters and the `printc` run-time function to output the entered characters until a character that is not recognized is entered.
 
 Provided J-- File: [gen.t33](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t33)
 
@@ -520,7 +524,7 @@ A
 <details><summary>gen.t34</summary>
 <p>
 
-Add Description.
+This test case uses the `printi` run-time function to output a number generated through a series of function calls. Some of the function calls are made in the arguments of other function calls.
 
 Provided J-- File: [gen.t34](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t34)
 
@@ -690,8 +694,8 @@ Generated WAT File: [art-select_j.wat](https://github.com/NataliaPavlovic/CPSC41
 
 <details><summary>art-sieve.j--</summary>
 <p>
-
-Add Description.
+	
+This test case calculates and outputs the all the prime numbers less than or equal to 100, as well as the number of prime numbers less than or equal to 100.
 
 Provided J-- File: [art-sieve.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/art-sieve.j--)
 
@@ -728,3 +732,6 @@ Generated WAT File: [art-sieve_j.wat](https://github.com/NataliaPavlovic/CPSC411
 ```
 </p>
 </details>
+
+#### Known Issues:
+* Allocated memory is never deallocated
