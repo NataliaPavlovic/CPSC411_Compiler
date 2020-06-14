@@ -14,7 +14,7 @@ When the compiler is run, it generates WAT files from J-- files. WASM files are 
 
 All the provided J-- test cases can found here: [J-- Files](https://github.com/NataliaPavlovic/CPSC411_Compiler/tree/master/J--TestFiles)
 
-All the generated WAT files can be found here: [WAT Files](https://github.com/NataliaPavlovic/CPSC411_Compiler/tree/master/Compiler/WAT_Files)
+All the generated WAT files can be found here: [WAT Files](https://github.com/NataliaPavlovic/CPSC411_Compiler/tree/master/GeneratedFiles/WAT_Files)
 
 #### Test Cases:
 <details><summary>gen.t1</summary>
@@ -24,7 +24,7 @@ This test case makes use of the `prints` run-time function, and outputs a string
 
 Provided J-- File: [gen.t1](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t1)
 
-Generated WAT File: [gen_t1.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t1.wat)
+Generated WAT File: [gen_t1.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t1.wat)
 
 ##### gen_t1.wasm output:
 ```
@@ -40,7 +40,7 @@ This test case assigns a value of 42 to 3 variables using `i = j = k = 42`. It t
 
 Provided J-- File: [gen.t5](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t5)
 
-Generated WAT File: [gen_t5.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t5.wat)
+Generated WAT File: [gen_t5.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t5.wat)
 
 ##### gen_t5.wasm output:
 ```
@@ -60,7 +60,7 @@ The test case was stopped before it could fully complete because it takes a very
 
 Provided J-- File: [gen.t10](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t10)
 
-Generated WAT File: [gen_t10.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t10.wat)
+Generated WAT File: [gen_t10.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t10.wat)
 
 ##### gen_t10.wasm output:
 ```
@@ -111,7 +111,7 @@ This test case outputs an both a local and a global uninitialized integer and bo
 
 Provided J-- File: [gen.t11](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t11)
 
-Generated WAT File: [gen_t11.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t11.wat)
+Generated WAT File: [gen_t11.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t11.wat)
 
 ##### gen_t11.wasm output:
 ```
@@ -136,7 +136,7 @@ This test case uses the `prints` and `printi` run-time functions to output forma
 
 Provided J-- File: [gen.t12](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t12)
 
-Generated WAT File: [gen_t12.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t12.wat)
+Generated WAT File: [gen_t12.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t12.wat)
 
 ##### gen_t12.wasm output:
 ```
@@ -198,7 +198,7 @@ This test case uses the `getchar` run-time function to read in a character enter
 
 Provided J-- File: [gen.t13](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t13)
 
-Generated WAT File: [gen_t13.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t13.wat)
+Generated WAT File: [gen_t13.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t13.wat)
 
 ##### gen_t13.wasm output:
 ```
@@ -215,7 +215,7 @@ This test case uses the `printi` run-time function to output the minimum value o
 
 Provided J-- File: [gen.t14](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t14)
 
-Generated WAT File: [gen_t14.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t14.wat)
+Generated WAT File: [gen_t14.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t14.wat)
 
 ##### gen_t14.wasm output:
 ```
@@ -231,7 +231,7 @@ This test case uses the `printi` run-time function to print the value of four ne
 
 Provided J-- File: [gen.t15](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t15)
 
-Generated WAT File: [gen_t15.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t15.wat)
+Generated WAT File: [gen_t15.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t15.wat)
 
 ##### gen_t15.wasm output:
 ```
@@ -252,7 +252,7 @@ The gen.t18 J-- file is missing a return statement on line 92. I assumed that al
 
 Provided J-- File: [gen.t18](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t18)
 
-Generated WAT File: [gen_t18.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t18.wat)
+Generated WAT File: [gen_t18.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t18.wat)
 
 ##### gen_t18.wasm output:
 ```
@@ -277,7 +277,7 @@ This test case uses the `prints` run-time function to output strings that includ
 
 Provided J-- File: [gen.t22](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t22)
 
-Generated WAT File: [gen_t22.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t22.wat)
+Generated WAT File: [gen_t22.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t22.wat)
 
 ##### gen_t22.wasm output:
 ```
@@ -295,7 +295,7 @@ This test case uses the `prints` run-time function to output three base 10 numbe
 
 Provided J-- File: [gen.t26](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t26)
 
-Generated WAT File: [gen_t26.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t26.wat)
+Generated WAT File: [gen_t26.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t26.wat)
 
 ##### gen_t26.wasm output:
 ```
@@ -322,7 +322,7 @@ This test case evaluates boolean expressions and prints out which portion of the
 
 Provided J-- File: [gen.t29](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t29)
 
-Generated WAT File: [gen_t29.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t29.wat)
+Generated WAT File: [gen_t29.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t29.wat)
 
 ##### gen_t29.wasm output:
 ```
@@ -422,7 +422,7 @@ I assumed that all the test cases were supposed to work, so I added a return -1 
 
 Provided J-- File: [gen.t30](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t30)
 
-Generated WAT File: [gen_t30.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t30.wat)
+Generated WAT File: [gen_t30.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t30.wat)
 
 </p>
 </details>
@@ -434,7 +434,7 @@ This test case tries to use the `printi` run-time function to output the result 
 
 Provided J-- File: [gen.t31](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t31)
 
-Generated WAT File: [gen_t31.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t31.wat)
+Generated WAT File: [gen_t31.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t31.wat)
 
 ##### gen_t31.wasm output:
 ```
@@ -450,7 +450,7 @@ This test case uses two nested loops to output numbers between 0 to 5 in the out
 
 Provided J-- File: [gen.t32](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t32)
 
-Generated WAT File: [gen_t32.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t32.wat)
+Generated WAT File: [gen_t32.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t32.wat)
 
 ##### gen_t32.wasm output:
 ```
@@ -507,7 +507,7 @@ This test case uses the `getchar` run-time function to read in characters and th
 
 Provided J-- File: [gen.t33](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t33)
 
-Generated WAT File: [gen_t33.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t33.wat)
+Generated WAT File: [gen_t33.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t33.wat)
 
 ##### gen_t33.wasm output:
 ```
@@ -530,7 +530,7 @@ This test case uses the `printi` run-time function to output a number generated 
 
 Provided J-- File: [gen.t34](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/gen.t34)
 
-Generated WAT File: [gen_t34.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/gen_t34.wat)
+Generated WAT File: [gen_t34.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/gen_t34.wat)
 
 ##### gen_t34.wasm output:
 ```
@@ -547,7 +547,7 @@ are determined based on the rules for Conway's Game of Life: https://www.geeksfo
 
 Provided J-- File: [art-life.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/art-life.j--)
 
-Generated WAT File: [art-life_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/art-life_j.wat)
+Generated WAT File: [art-life_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/art-life_j.wat)
 
 ##### art-life_j.wasm output:
 ```
@@ -672,7 +672,7 @@ This test case generates 15 pseudorandom numbers and then sorts the numbers from
 
 Provided J-- File: [art-select.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/art-select.j--)
 
-Generated WAT File: [art-select_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/art-select_j.wat)
+Generated WAT File: [art-select_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/art-select_j.wat)
 
 ##### art-select_j.wasm output:
 ```
@@ -702,7 +702,7 @@ This test case calculates and outputs the all the prime numbers less than or equ
 
 Provided J-- File: [art-sieve.j--](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--TestFiles/art-sieve.j--)
 
-Generated WAT File: [art-sieve_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Compiler/WAT_Files/art-sieve_j.wat)
+Generated WAT File: [art-sieve_j.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/GeneratedFiles/WAT_Files/art-sieve_j.wat)
 
 ##### art-sieve_j.wasm output:
 ```
