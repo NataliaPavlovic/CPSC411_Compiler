@@ -248,6 +248,8 @@ Generated WAT File: [gen_t15.wat](https://github.com/NataliaPavlovic/CPSC411_Com
 
 This test case implements a recursive-descent calculator that includes a simple scanner and parser. When the code is running, the scanner detects the type of character that was entered and the parser matches various simple expressions, evaluates them and prints their result.
 
+The gen.t18 J-- file is missing a return statement on line 92. I assumed that all the test cases were supposed to work, so I added a return -1 to the end of the function and generated the code this way. This test case may have a mistake in it, or maybe an exception was supposed to be raised and code generation was not even supposed to happen because the code is incorrect. Another possibility is that this case would have been allowed because the code halts and exits if it gets to line 92.
+
 Provided J-- File: [gen.t18](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/J--%20Test%20Files/gen.t18)
 
 Generated WAT File: [gen_t18.wat](https://github.com/NataliaPavlovic/CPSC411_Compiler/blob/master/Generated%20Files/WAT%20Files/gen_t18.wat)
